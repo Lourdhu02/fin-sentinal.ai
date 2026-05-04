@@ -1,4 +1,4 @@
-# FinSentinelAI 🏦🤖
+# FinSentinelAI
 
 <div align="center">
   <img src="https://img.shields.io/badge/Status-v1.0.0-success.svg" alt="Version 1.0.0">
@@ -12,7 +12,7 @@
 
 ---
 
-## ✨ Features (v1.0.0)
+## Features (v1.0.0)
 
 * **Top 1% Minimalist UI:** Ultra-premium, Apple-inspired React Single Page Application built with Vite and TailwindCSS v3.
 * **100% Local & Private:** No API calls to OpenAI or Anthropic. All documents, embeddings, and chat interactions stay completely on your machine.
@@ -23,21 +23,48 @@
 
 ---
 
-## 🏗️ Architecture Stack
+## Architecture Flow
 
-1. **Frontend:** React, Vite, TailwindCSS (Strict 3-Color iOS-inspired Minimal Palette), Lucide Icons, React Router.
-2. **Backend:** FastAPI, Uvicorn, Python-Multipart, PyJWT, Passlib (Bcrypt).
-3. **Database & Storage:**
-   * **Relational:** SQLite (for user accounts, audit logging, and document metadata tracking).
-   * **Vector DB:** ChromaDB (for semantic chunks and RAG context retrieval).
-4. **AI Pipeline:**
-   * Embeddings: HuggingFace Transformers (SentenceTransformers).
-   * Generation: Ollama (Llama 3 / Mistral via local API).
-   * Universal Extractor: EasyOCR, PyMuPDF, Pandas.
+Below is the high-level system architecture of FinSentinelAI:
+
+```mermaid
+graph TD
+    subgraph Frontend ["Frontend (React + TailwindCSS)"]
+        UI[User Interface]
+        AuthUI[Auth & Session]
+    end
+    
+    subgraph Backend ["Backend (FastAPI)"]
+        API[REST API Router]
+        Auth[JWT Authentication]
+        Pipeline[RAG Pipeline Core]
+        Ingestion[Universal Extractor]
+    end
+    
+    subgraph Storage ["Data Layer"]
+        SQL[(SQLite User/Meta DB)]
+        VDB[(ChromaDB Vector Store)]
+    end
+    
+    subgraph AI ["Local AI Engine"]
+        Emb[SentenceTransformers]
+        LLM[Ollama Local LLM]
+    end
+
+    UI <-->|HTTP/JSON| API
+    AuthUI --> Auth
+    API --> Auth
+    API --> Pipeline
+    Pipeline --> Ingestion
+    Pipeline <--> SQL
+    Pipeline <--> VDB
+    Pipeline <--> Emb
+    Pipeline <--> LLM
+```
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 * Python 3.10+
@@ -87,7 +114,7 @@ npm run dev
 
 ---
 
-## 🔒 Security & Privacy
+## Security & Privacy
 FinSentinelAI enforces strict security boundaries.
 * Passwords are irreversibly hashed using `bcrypt`.
 * Sessions are stateless and validated via JWT access tokens.
@@ -95,5 +122,5 @@ FinSentinelAI enforces strict security boundaries.
 
 ---
 
-## 📜 License
+## License
 MIT License. See `LICENSE` for more information.
