@@ -1,48 +1,4 @@
-# Never commit real financial data
-data/
-
-# Database
-*.db
-*.db-shm
-*.db-wal
-
-# Environment secrets
 .env
-*.key
-*.pem
-
-# Python
+*.log
 __pycache__/
 *.pyc
-*.pyo
-.venv/
-venv/
-*.egg-info/
-dist/
-build/
-.pytest_cache/
-
-# Vector DB and uploads
-*.faiss
-*.index
-runtime/
-
-# ChromaDB persistence
-chroma/
-
-# Node / Frontend
-node_modules/
-frontend/dist/
-frontend/.env
-frontend/.env.local
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-desktop.ini
