@@ -131,3 +131,6 @@ FinSentinelAI enforces strict security boundaries.
 
 ## License
 MIT License. See `LICENSE` for more information.
+
+## Fin Sentinel AI
+Financial AI monitoring and analysis
