@@ -18,7 +18,7 @@
 * **100% Local & Private:** No API calls to OpenAI or Anthropic. All documents, embeddings, and chat interactions stay completely on your machine.
 * **Decoupled Architecture:** High-performance asynchronous FastAPI backend communicating seamlessly with a React frontend via REST APIs.
 * **User Isolation:** Secure JWT-based authentication. Every user gets a private workspace.
-* **ChromaDB Vector Store:** Blazing fast vector retrieval with native database-level metadata filtering (guarantees cross-user data isolation).
+* **ChromaDB Vector Store:** Blazing fast vector retrieval with native database-level metadata filtering (every query is filtered server-side by the authenticated user's session).
 * **Multi-Modal Support:** Automatically extracts text from PDFs, CSVs, JSONs, and images (using local Vision-Language Models).
 
 ---
@@ -122,10 +122,13 @@ npm run dev
 ---
 
 ## Security & Privacy
-FinSentinelAI enforces strict security boundaries.
+FinSentinelAI enforces security boundaries in layers:
 * Passwords are irreversibly hashed using `bcrypt`.
 * Sessions are stateless and validated via JWT access tokens.
-* The vector store natively filters by `user_id`, meaning it is mathematically impossible for the LLM to access or "hallucinate" context from another user's financial documents.
+* **Retrieval isolation:** `session_id` is always derived server-side from the JWT-authenticated user (never from client input), and every vector search is filtered by it, so one user's documents are not retrievable by another user.
+* **Conversation isolation:** chat history is stored per-session and only the calling session's turns are included in an LLM prompt; `/chat/reset` clears exactly one session.
+
+Scope note: these guarantees are enforced at the retrieval and application-state layers of a single-process deployment. They are property-based design guarantees, not formal proofs — see `tests/test_isolation.py` for the multi-user harness that verifies them empirically.
 
 ---
 
