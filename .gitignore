@@ -2,3 +2,7 @@
 *.log
 __pycache__/
 *.pyc
+_isolation_report.json
+runtime/
+venv/
+.venv/
