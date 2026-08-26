@@ -43,5 +43,9 @@ def chat_with_documents(request: ChatRequest, current_user: User = Depends(get_c
 
 @router.post("/reset")
 def reset_chat(current_user: User = Depends(get_current_user)):
-    pipeline.reset_conversation()
-    return {"status": "success", "message": "Conversation history cleared"}
+    session_id = f"user_{current_user.id}_default"
+    cleared = pipeline.reset_conversation(session_id)
+    return {
+        "status": "success",
+        "message": f"Cleared {cleared} turns for session {session_id}",
+    }

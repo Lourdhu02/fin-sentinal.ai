@@ -52,17 +52,27 @@ def login(req: LoginRequest):
     return {"access_token": token, "token_type": "bearer", "role": user.role}
 
 
+def _session_for(current_user: dict) -> str:
+    """Derive the per-user session id server-side from verified JWT claims."""
+    return f"user_{current_user.get('user_id')}_default"
+
+
 @app.post("/query")
 def query(req: QueryRequest, current_user=Depends(get_current_user), pipeline=Depends(get_pipeline)):
     RBACManager().require_permission(current_user, "chat")
-    result = pipeline.query(req.question, user_id=current_user.get("user_id"), top_k=req.top_k)
+    result = pipeline.query(
+        req.question,
+        session_id=_session_for(current_user),
+        user_id=current_user.get("user_id"),
+        top_k=req.top_k,
+    )
     return result
 
 
 @app.post("/conversation/reset")
 def reset_conversation(current_user=Depends(get_current_user), pipeline=Depends(get_pipeline)):
-    pipeline.reset_conversation()
-    return {"status": "conversation reset"}
+    cleared = pipeline.reset_conversation(_session_for(current_user))
+    return {"status": "conversation reset", "cleared_turns": cleared}
 
 
 @app.get("/invoices")
