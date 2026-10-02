@@ -1,0 +1,48 @@
+name: Retrieval benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "eval/**"
+      - "core/**"
+      - "database/vector_store.py"
+      - ".github/workflows/eval.yml"
+
+jobs:
+  retrieval-eval:
+    name: Retrieval benchmark (60 questions, 1,000 PDFs)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies (CPU-only torch)
+        run: |
+          pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+
+      - name: Metric unit tests
+        run: python -m pytest -q tests/test_eval_metrics.py
+
+      - name: Questions are reproducible from the dataset
+        run: |
+          python -m eval.build_questions --output /tmp/questions.jsonl
+          diff -u eval/questions.jsonl /tmp/questions.jsonl
+
+      - name: Run benchmark
+        run: |
+          python -m eval.run_eval
+          cat eval/results/report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retrieval-eval
+          path: eval/results/
