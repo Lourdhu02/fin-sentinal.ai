@@ -89,8 +89,7 @@ class FinSentinelPipeline:
 
     def query(self, question: str, session_id: str, user_id: int | None = None, top_k: int = 20) -> dict[str, Any]:
         # Perform session-based retrieval
-        query_embedding = self.retriever.embedder.embed_query(question)
-        results = self.vector_store.search(query_embedding, top_k=top_k, filter_dict={"session_id": session_id})
+        results = self.retriever.hybrid_search(question, top_k=top_k, filter_dict={"session_id": session_id})
         
         # Optional: rerank
         results = self.retriever.rerank(question, results, top_n=10)

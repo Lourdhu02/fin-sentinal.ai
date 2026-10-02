@@ -41,6 +41,17 @@ class ChromaDBVectorStore:
         )
         return ids
 
+    def documents(self, filter_dict: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        """All stored chunk metadata (with vector_id) matching the filter."""
+        if self.collection.count() == 0:
+            return []
+        where_clause = None
+        if filter_dict:
+            items = list(filter_dict.items())
+            where_clause = {items[0][0]: items[0][1]} if len(items) == 1 else {"$and": [{k: v} for k, v in items]}
+        got = self.collection.get(where=where_clause, include=["metadatas"])
+        return [{**dict(meta), "vector_id": vid} for vid, meta in zip(got["ids"], got["metadatas"])]
+
     def search(self, query_embedding: np.ndarray, top_k: int = 5, filter_dict: dict[str, Any] | None = None) -> list[dict[str, Any]]:
         if self.collection.count() == 0:
             return []

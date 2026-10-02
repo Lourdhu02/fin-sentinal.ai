@@ -2,8 +2,9 @@
 
 Indexes all 1,000 PDFs in test-data/sugar_dataset through the same parser,
 chunker, embedder and ChromaDB store the app uses, then asks the questions in
-eval/questions.jsonl through the app's query path (dense top-20, then
-cross-encoder rerank to top-10) and scores whether the gold document comes back.
+eval/questions.jsonl and scores whether the gold document comes back at each
+stage: dense, BM25, hybrid (RRF of both), and each of dense/hybrid after the
+cross-encoder rerank. hybrid+rerank is the app's query path.
 
     python -m eval.run_eval                 # retrieval only
     python -m eval.run_eval --llm           # also score answers from Ollama
@@ -77,27 +78,32 @@ def main(argv: list[str] | None = None) -> int:
     n_docs, n_chunks, index_s = build_index(store, embedder, lambda t: FinSentinelPipeline._chunk_text(None, t), OCRParser())
     questions = [json.loads(line) for line in QUESTIONS.read_text(encoding="utf-8").splitlines() if line.strip()]
 
+    stages = ("dense", "bm25", "hybrid", "dense+rerank", "hybrid+rerank")
+    flt = {"session_id": SESSION}
     rows = []
     for q in questions:
+        question = q["question"]
         t0 = time.perf_counter()
-        dense = store.search(embedder.embed_query(q["question"]), top_k=20, filter_dict={"session_id": SESSION})
+        hybrid = retriever.hybrid_search(question, top_k=20, filter_dict=flt)
+        app = retriever.rerank(question, hybrid, top_n=10)
         t1 = time.perf_counter()
-        reranked = retriever.rerank(q["question"], dense, top_n=10)
-        t2 = time.perf_counter()
-        d_files, r_files = ranked_files(dense), ranked_files(reranked)
-        row = {
-            **q,
-            "dense_rank": d_files.index(q["gold_file"]) + 1 if q["gold_file"] in d_files else None,
-            "rerank_rank": r_files.index(q["gold_file"]) + 1 if q["gold_file"] in r_files else None,
-            "dense_ms": (t1 - t0) * 1000, "total_ms": (t2 - t0) * 1000,
-            "dense_files": d_files[:5], "rerank_files": r_files[:5],
+        dense = store.search(embedder.embed_query(question), top_k=20, filter_dict=flt)
+        ranked = {
+            "dense": dense,
+            "bm25": retriever.keyword_search(question, top_k=20, filter_dict=flt),
+            "hybrid": hybrid,
+            "dense+rerank": retriever.rerank(question, dense, top_n=10),
+            "hybrid+rerank": app,
         }
-        for name, files in (("dense", d_files), ("rerank", r_files)):
+        row = {**q, "total_ms": (t1 - t0) * 1000}
+        for name in stages:
+            files = ranked_files(ranked[name])
+            row[f"{name}_files"] = files[:5]
             for k in (1, 5):
                 row[f"{name}_hit@{k}"] = hit_at_k(files, q["gold_file"], k)
             row[f"{name}_rr"] = reciprocal_rank(files, q["gold_file"])
         if llm is not None:
-            response = llm.generate(q["question"], reranked, [], conversation_history=[])
+            response = llm.generate(question, app, [], conversation_history=[])
             row["response"] = response
             row["answer_correct"] = answer_match(response, q["answer"])
         rows.append(row)
@@ -115,7 +121,7 @@ def main(argv: list[str] | None = None) -> int:
         "index_seconds": round(index_s, 1),
         "embedding_model": embedder.model_name if embedder._model is not None else "HASH FALLBACK (not meaningful)",
         "reranker": "cross-encoder/ms-marco-MiniLM-L-6-v2" if retriever._reranker is not None else "none (model not loaded)",
-        "dense": stage("dense"), "rerank": stage("rerank"),
+        "stages": {name: stage(name) for name in stages},
         "latency_ms": {"p50": percentile(lat, 50), "p95": percentile(lat, 95)},
         "machine": f"{platform.system()} {platform.machine()}, {os.cpu_count()} CPUs, CPU-only",
     }
@@ -131,20 +137,21 @@ def main(argv: list[str] | None = None) -> int:
         f"Embedder: `{summary['embedding_model']}` · reranker: `{summary['reranker']}` · {summary['machine']}.", "",
         "| stage | recall@1 | recall@5 | MRR |", "|---|---|---|---|",
     ]
-    for name in ("dense", "rerank"):
-        s = summary[name]
+    for name in stages:
+        s = summary["stages"][name]
         lines.append(f"| {name} | {s['recall@1']:.1%} | {s['recall@5']:.1%} | {s['mrr']:.3f} |")
-    lines += ["", f"Retrieval latency per query (embed + search + rerank): p50 {summary['latency_ms']['p50']:.0f} ms, "
+    lines += ["", f"App query path (hybrid + rerank) latency per query: p50 {summary['latency_ms']['p50']:.0f} ms, "
               f"p95 {summary['latency_ms']['p95']:.0f} ms.", ""]
     if llm is not None:
         lines += [f"Answer accuracy (gold value appears in the answer): {summary['answer_accuracy']:.1%}.", ""]
-    lines += ["| document type | n | rerank recall@1 | rerank recall@5 |", "|---|---|---|---|"]
+    lines += ["| document type | n | dense+rerank recall@5 | hybrid+rerank recall@1 | hybrid+rerank recall@5 |", "|---|---|---|---|---|"]
     for t, rs in by_type.items():
-        lines.append(f"| {t} | {len(rs)} | {mean(r['rerank_hit@1'] for r in rs):.0%} | {mean(r['rerank_hit@5'] for r in rs):.0%} |")
-    misses = [r for r in rows if not r["rerank_hit@5"]]
+        lines.append(f"| {t} | {len(rs)} | {mean(r['dense+rerank_hit@5'] for r in rs):.0%} | "
+                     f"{mean(r['hybrid+rerank_hit@1'] for r in rs):.0%} | {mean(r['hybrid+rerank_hit@5'] for r in rs):.0%} |")
+    misses = [r for r in rows if not r["hybrid+rerank_hit@5"]]
     if misses:
-        lines += ["", "## Misses (gold not in reranked top 5)", ""]
-        lines += [f"- `{r['id']}` {r['question']} → gold `{r['gold_file']}`, got {r['rerank_files'][:3]}" for r in misses]
+        lines += ["", "## Misses (gold not in the app's top 5)", ""]
+        lines += [f"- `{r['id']}` {r['question']} → gold `{r['gold_file']}`, got {r['hybrid+rerank_files'][:3]}" for r in misses]
     report = "\n".join(lines) + "\n"
 
     RESULTS.mkdir(parents=True, exist_ok=True)
