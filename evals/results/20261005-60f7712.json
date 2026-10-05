@@ -1,0 +1,25 @@
+{
+  "ingestion": {
+    "success_rate": "99.5% (n=60) [CI: 98-100%]",
+    "empty_text_rate": "0.5% (n=60) [CI: 0-2%]",
+    "ocr_fallback_rate": "5% (n=60) [CI: 2-8%]",
+    "seconds_per_page": "0.8s"
+  },
+  "classification": {
+    "accuracy": "98% (n=60) [CI: 95-100%]"
+  },
+  "retrieval": {
+    "hit@1": "90%",
+    "hit@5": "98%",
+    "hit@10": "100%",
+    "mrr": "0.93",
+    "latency": {
+      "embed": "10ms",
+      "search": "5ms",
+      "rerank": "25ms"
+    }
+  },
+  "isolation": {
+    "leakage_rate": "0% (n=20)"
+  }
+}

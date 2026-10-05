@@ -18,7 +18,6 @@ class Settings:
     base_dir: Path
     data_dir: Path
     db_path: Path
-    faiss_index_path: Path
     model_name: str
     embedding_model: str
     encryption_key: str
@@ -29,7 +28,6 @@ class Settings:
     def ensure_directories(self) -> None:
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self.db_path.parent.mkdir(parents=True, exist_ok=True)
-        self.faiss_index_path.parent.mkdir(parents=True, exist_ok=True)
 
     def encryption_key_bytes(self) -> bytes:
         raw = self.encryption_key.encode("utf-8")
@@ -47,12 +45,10 @@ def get_settings() -> Settings:
     base_dir = Path(__file__).resolve().parent
     data_dir = Path(os.getenv("FINSENTINEL_DATA_DIR", base_dir / "runtime"))
     db_path = Path(os.getenv("FINSENTINEL_DB_PATH", data_dir / "finsentinel.db"))
-    faiss_index_path = Path(os.getenv("FINSENTINEL_FAISS_PATH", data_dir / "vectors.index"))
     settings = Settings(
         base_dir=base_dir,
         data_dir=data_dir,
         db_path=db_path,
-        faiss_index_path=faiss_index_path,
         model_name=os.getenv("FINSENTINEL_MODEL_NAME", "mistral:7b-instruct-q4_K_M"),
         embedding_model=os.getenv("FINSENTINEL_EMBED_MODEL", "all-MiniLM-L6-v2"),
         encryption_key=os.getenv("FINSENTINEL_ENCRYPTION_KEY", _default_secret("encryption")),
