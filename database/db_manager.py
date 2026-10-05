@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import re
@@ -152,51 +152,52 @@ class DatabaseManager:
         ).fetchone()
         return self._row_to_invoice(row)
 
-    def list_invoices(self) -> list[Invoice]:
-        rows = self.connection.execute("SELECT * FROM invoices ORDER BY created_at DESC").fetchall()
+    def list_invoices(self, user_id: int) -> list[Invoice]:
+        rows = self.connection.execute("SELECT * FROM invoices WHERE created_by = ? ORDER BY created_at DESC", (user_id,)).fetchall()
         return [inv for row in rows if (inv := self._row_to_invoice(row)) is not None]
 
-    def get_all_invoices(self) -> list[Invoice]:
-        return self.list_invoices()
+    def get_all_invoices(self, user_id: int) -> list[Invoice]:
+        return self.list_invoices(user_id)
 
-    def get_invoices_by_vendor(self, vendor_name: str) -> list[Invoice]:
+    def get_invoices_by_vendor(self, vendor_name: str, user_id: int) -> list[Invoice]:
         rows = self.connection.execute(
-            "SELECT * FROM invoices WHERE LOWER(vendor_name) LIKE LOWER(?)",
-            (f"%{vendor_name}%",),
+            "SELECT * FROM invoices WHERE LOWER(vendor_name) LIKE LOWER(?) AND created_by = ?",
+            (f"%{vendor_name}%", user_id),
         ).fetchall()
         return [inv for row in rows if (inv := self._row_to_invoice(row)) is not None]
 
-    def get_invoices_above_total(self, threshold: float) -> list[Invoice]:
+    def get_invoices_above_total(self, threshold: float, user_id: int) -> list[Invoice]:
         rows = self.connection.execute(
-            "SELECT * FROM invoices WHERE total >= ? ORDER BY total DESC", (threshold,)
+            "SELECT * FROM invoices WHERE total >= ? AND created_by = ? ORDER BY total DESC", (threshold, user_id)
         ).fetchall()
         return [inv for row in rows if (inv := self._row_to_invoice(row)) is not None]
 
-    def get_all_line_items(self) -> list[dict]:
+    def get_all_line_items(self, user_id: int) -> list[dict]:
         items: list[dict] = []
-        for invoice in self.get_all_invoices():
+        for invoice in self.get_all_invoices(user_id):
             items.extend(self._extract_line_items(invoice))
         return items
 
-    def get_invoices_by_ids(self, invoice_ids: list[int]) -> list[Invoice]:
+    def get_invoices_by_ids(self, invoice_ids: list[int], user_id: int) -> list[Invoice]:
         if not invoice_ids:
             return []
         placeholders = ",".join("?" for _ in invoice_ids)
+        params = invoice_ids + [user_id]
         rows = self.connection.execute(
-            f"SELECT * FROM invoices WHERE id IN ({placeholders})", invoice_ids
+            f"SELECT * FROM invoices WHERE id IN ({placeholders}) AND created_by = ?", params
         ).fetchall()
         return [inv for row in rows if (inv := self._row_to_invoice(row)) is not None]
 
-    def get_invoice_totals(self, exclude_invoice_id: int | None = None) -> list[float]:
+    def get_invoice_totals(self, user_id: int, exclude_invoice_id: int | None = None) -> list[float]:
         if exclude_invoice_id is None:
-            rows = self.connection.execute("SELECT total FROM invoices").fetchall()
+            rows = self.connection.execute("SELECT total FROM invoices WHERE created_by = ?", (user_id,)).fetchall()
         else:
             rows = self.connection.execute(
-                "SELECT total FROM invoices WHERE id != ?", (exclude_invoice_id,)
+                "SELECT total FROM invoices WHERE created_by = ? AND id != ?", (user_id, exclude_invoice_id)
             ).fetchall()
         return [float(row["total"]) for row in rows]
 
-    def get_vendor_summary(self) -> list[dict]:
+    def get_vendor_summary(self, user_id: int) -> list[dict]:
         rows = self.connection.execute(
             """
             SELECT vendor_name,
@@ -206,9 +207,10 @@ class DatabaseManager:
                    MAX(total) as max_invoice,
                    MIN(total) as min_invoice
             FROM invoices
+            WHERE created_by = ?
             GROUP BY LOWER(vendor_name)
             ORDER BY total_spend DESC
-            """
+            """, (user_id,)
         ).fetchall()
         return [dict(row) for row in rows]
 

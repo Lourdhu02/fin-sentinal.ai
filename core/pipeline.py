@@ -84,6 +84,21 @@ class FinSentinelPipeline:
                         meta["user_id"] = int(user_id)
                 self.vector_store.add(embeddings, metadata)
                 stored_count += 1
+                
+                # TOBIO: Structured Extraction
+                invoice = self._build_invoice(document.path, source_text, user_id)
+                saved_invoice = self.db.create_invoice(invoice)
+                
+                # Verify & anomaly
+                verification = self.verifier.verify_invoice(saved_invoice, self.db)
+                anomaly = self.anomaly_detector.score(saved_invoice.total, self.db.get_invoice_totals(user_id, saved_invoice.id))
+                
+                # Update metadata on invoice (optional since we just created it, but good for flags)
+                saved_invoice.metadata["verification"] = verification.model_dump()
+                saved_invoice.metadata["anomaly"] = anomaly.model_dump()
+                self.db.connection.execute("UPDATE invoices SET metadata_json = ? WHERE id = ?", (json.dumps(saved_invoice.metadata), saved_invoice.id))
+                self.db.connection.commit()
+
                 processed.append({
                     "path": document.path,
                     "status": "stored",
@@ -104,12 +119,27 @@ class FinSentinelPipeline:
         }
 
     def query(self, question: str, session_id: str, user_id: int | None = None, top_k: int = 20) -> dict[str, Any]:
+        # TOBIO: Exact-answer router
+        analysis = self.retriever.analyze_query(question)
+        if analysis and analysis.get("kind") in ["total", "count", "vendor_summary"]:
+            # Route to SQL
+            sql_answer = self._handle_structured_query(analysis, question, user_id)
+            if sql_answer:
+                # LLM only phrases the answer and must quote the SQL number.
+                prompt = f"The exact answer from the database is: '{sql_answer}'. Please phrase this naturally but YOU MUST quote the exact numbers."
+                response = self.llm_engine.generate(prompt, [], [], [])
+                self.audit_logger.log_interaction(user_id, "query", question, response)
+                return {"query": question, "response": response, "results": [], "answer_source": "sql"}
+
         # Perform session-based retrieval
         query_embedding = self.retriever.embedder.embed_query(question)
         results = self.vector_store.search(query_embedding, top_k=top_k, filter_dict={"session_id": session_id})
         
         # Optional: rerank
         results = self.retriever.rerank(question, results, top_n=10)
+        
+        # Invoice summaries
+        summaries = self._build_invoice_summaries(results, user_id)
 
         # Only the calling session's turns are visible to the LLM prompt.
         with self._history_lock:
@@ -118,7 +148,7 @@ class FinSentinelPipeline:
         response = self.llm_engine.generate(
             question,
             results,
-            [], # no longer using invoice summaries
+            summaries,
             conversation_history=history[-6:],
         )
 
@@ -130,7 +160,7 @@ class FinSentinelPipeline:
                 del session_history[:-_MAX_HISTORY_TURNS]
 
         self.audit_logger.log_interaction(user_id, "query", question, response)
-        return {"query": question, "response": response, "results": results}
+        return {"query": question, "response": response, "results": results, "answer_source": "rag"}
 
     def reset_conversation(self, session_id: str) -> int:
         """Clear conversation history for exactly one session.
@@ -227,7 +257,7 @@ class FinSentinelPipeline:
         parts.extend(e for e in extras if e.split(": ", 1)[-1].strip())
         return "\n".join(parts)
 
-    def _build_invoice_summaries(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def _build_invoice_summaries(self, results: list[dict[str, Any]], user_id: int) -> list[dict[str, Any]]:
         summaries: list[dict[str, Any]] = []
         seen_ids: set[int] = set()
         for result in results:
@@ -235,12 +265,12 @@ class FinSentinelPipeline:
             if not isinstance(invoice_id, int) or invoice_id in seen_ids:
                 continue
             invoice = self.db.get_invoice_by_id(invoice_id)
-            if invoice is None:
+            if invoice is None or invoice.created_by != user_id:
                 continue
             verification = self.verifier.verify_invoice(invoice, self.db)
             anomaly = self.anomaly_detector.score(
                 invoice.total,
-                self.db.get_invoice_totals(exclude_invoice_id=invoice.id),
+                self.db.get_invoice_totals(user_id, exclude_invoice_id=invoice.id),
             )
             anomaly_dict = anomaly.model_dump()
             anomaly_dict["explanation"] = invoice.metadata.get("anomaly", {}).get("explanation", "")
@@ -264,10 +294,10 @@ class FinSentinelPipeline:
             seen_ids.add(invoice_id)
         return summaries
 
-    def _handle_structured_query(self, route: dict[str, Any], question: str) -> str | None:
+    def _handle_structured_query(self, route: dict[str, Any], question: str, user_id: int) -> str | None:
         kind = str(route.get("kind", "llm"))
         if kind == "total":
-            invoices = self.db.get_all_invoices()
+            invoices = self.db.get_all_invoices(user_id)
             total_spend = sum(float(inv.total) for inv in invoices)
             symbol = self._currency_symbol(invoices)
             return f"Total spend across {len(invoices)} documents: {symbol}{self._format_number(total_spend)}"
@@ -275,11 +305,11 @@ class FinSentinelPipeline:
             target = route.get("target")
             if not target:
                 return None
-            count = self._count_items(str(target))
+            count = self._count_items(str(target), user_id)
             label = self._pluralize_target(str(target), count)
             return f"Total {label} purchased: {count}"
         if kind == "vendor_summary":
-            summaries = self.db.get_vendor_summary()
+            summaries = self.db.get_vendor_summary(user_id)
             if not summaries:
                 return "No vendor data found."
             lines = ["Vendor spend summary:"]
@@ -291,9 +321,9 @@ class FinSentinelPipeline:
             return "\n".join(lines)
         return None
 
-    def _count_items(self, target: str) -> int:
+    def _count_items(self, target: str, user_id: int) -> int:
         normalized_target = self._normalize_target(target)
-        line_items = self.db.get_all_line_items()
+        line_items = self.db.get_all_line_items(user_id)
         total_quantity = 0
         matched = False
         for item in line_items:
@@ -303,7 +333,7 @@ class FinSentinelPipeline:
                 matched = True
         if matched:
             return total_quantity
-        invoices = self.db.get_all_invoices()
+        invoices = self.db.get_all_invoices(user_id)
         fallback_total = 0
         for invoice in invoices:
             for line in invoice.content.splitlines():
