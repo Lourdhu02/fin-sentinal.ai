@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,9 @@ from database.db_manager import DatabaseManager
 from database.vector_store import ChromaDBVectorStore
 from models.invoice import Invoice
 from security.audit_logger import AuditLogger
+
+# Maximum number of turns (user + assistant messages) retained per session.
+_MAX_HISTORY_TURNS = 20
 
 
 class FinSentinelPipeline:
@@ -39,7 +43,12 @@ class FinSentinelPipeline:
         self.llm_engine = llm_engine or OllamaEngine()
         self.audit_logger = audit_logger or AuditLogger(self.db)
         self.extractor = UniversalExtractor()
-        self._conversation_history: list[dict[str, str]] = []
+        # Conversation state is keyed by session_id so that concurrent users
+        # sharing this pipeline instance can never observe each other's turns.
+        # NOTE: never store conversation state as a plain instance-level list;
+        # this pipeline is instantiated once per process by the API layer.
+        self._conversation_history: dict[str, list[dict[str, str]]] = {}
+        self._history_lock = threading.Lock()
 
     def ingest_and_store(self, source_path: str | Path, session_id: str, user_id: int | None = None) -> dict[str, Any]:
         path = Path(source_path)
@@ -66,6 +75,13 @@ class FinSentinelPipeline:
                     }
                     for index, chunk in enumerate(chunks)
                 ]
+                # Defense-in-depth: record the owning user alongside the
+                # session so cross-user access is detectable/auditable even if
+                # session_id semantics change later. ChromaDB rejects None
+                # metadata values, so user_id is only set when known.
+                if user_id is not None:
+                    for meta in metadata:
+                        meta["user_id"] = int(user_id)
                 self.vector_store.add(embeddings, metadata)
                 stored_count += 1
                 processed.append({
@@ -95,23 +111,45 @@ class FinSentinelPipeline:
         # Optional: rerank
         results = self.retriever.rerank(question, results, top_n=10)
 
+        # Only the calling session's turns are visible to the LLM prompt.
+        with self._history_lock:
+            history = list(self._conversation_history.get(session_id, []))
+
         response = self.llm_engine.generate(
             question,
             results,
             [], # no longer using invoice summaries
-            conversation_history=self._conversation_history[-6:],
+            conversation_history=history[-6:],
         )
 
-        self._conversation_history.append({"role": "user", "content": question})
-        self._conversation_history.append({"role": "assistant", "content": response})
-        if len(self._conversation_history) > 20:
-            self._conversation_history = self._conversation_history[-20:]
+        with self._history_lock:
+            session_history = self._conversation_history.setdefault(session_id, [])
+            session_history.append({"role": "user", "content": question})
+            session_history.append({"role": "assistant", "content": response})
+            if len(session_history) > _MAX_HISTORY_TURNS:
+                del session_history[:-_MAX_HISTORY_TURNS]
 
         self.audit_logger.log_interaction(user_id, "query", question, response)
         return {"query": question, "response": response, "results": results}
 
-    def reset_conversation(self) -> None:
-        self._conversation_history.clear()
+    def reset_conversation(self, session_id: str) -> int:
+        """Clear conversation history for exactly one session.
+
+        Requires an explicit ``session_id`` so callers cannot accidentally
+        wipe every user's history (the pre-fix global behaviour).
+
+        Returns the number of turns that were removed.
+        """
+        if not session_id:
+            raise ValueError("session_id is required to reset a conversation.")
+        with self._history_lock:
+            removed = self._conversation_history.pop(session_id, [])
+        return len(removed)
+
+    def conversation_turns(self, session_id: str) -> list[dict[str, str]]:
+        """Return a copy of the stored turns for a session (introspection/testing)."""
+        with self._history_lock:
+            return list(self._conversation_history.get(session_id, []))
 
     def _build_invoice(self, document_path: str | Path, text: str, user_id: int | None) -> Invoice:
         safe_text = text if text and text.strip() else Path(document_path).stem
