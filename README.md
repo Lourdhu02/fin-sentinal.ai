@@ -19,7 +19,7 @@
 * **Decoupled Architecture:** High-performance asynchronous FastAPI backend communicating seamlessly with a React frontend via REST APIs.
 * **User Isolation:** Secure JWT-based authentication. Every user gets a private workspace.
 * **ChromaDB Vector Store:** Blazing fast vector retrieval with native database-level metadata filtering (every query is filtered server-side by the authenticated user's session).
-* **Multi-Modal Support:** Automatically extracts text from PDFs, CSVs, JSONs, and images (using local Vision-Language Models).
+* **Multi-Modal Support:** Automatically extracts text from PDFs, CSVs, JSONs, and images (using Tesseract OCR).
 
 ---
 
@@ -75,8 +75,8 @@ graph TD
 
 ```powershell
 # Clone the repository
-git clone https://github.com/Lourdhu02/FinSentinal.AI.git
-cd FinSentinal.AI
+git clone https://github.com/Lourdhu02/fin-sentinal.ai.git
+cd fin-sentinal.ai
 
 # Create and activate virtual environment
 python -m venv venv

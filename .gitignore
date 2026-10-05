@@ -6,3 +6,5 @@ _isolation_report.json
 runtime/
 venv/
 .venv/
+frontend/node_modules/
+frontend/dist/

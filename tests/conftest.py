@@ -1,52 +1,49 @@
-"""Shared pytest configuration for FinSentinelAI.
-
-IMPORTANT: this module sets hermetic environment variables at *import time*,
-before any application module is imported. ``config.get_settings()`` is
-``lru_cache``-wrapped and several API modules bind database connections at
-module import (e.g. ``api/routes/auth.py``), so the data directory must be
-redirected before the first import of anything under ``api/``, ``core/``,
-``database/`` or ``security/``.
-"""
-
-from __future__ import annotations
-
-import json
 import os
-import tempfile
+import pytest
 from pathlib import Path
-from typing import Any
+from tempfile import TemporaryDirectory
 
-# ---------------------------------------------------------------------------
-# Hermetic environment (must run before app imports -- see docstring).
-# ---------------------------------------------------------------------------
-_TEST_ROOT = Path(tempfile.mkdtemp(prefix="finsentinel-tests-"))
-_DATA_DIR = _TEST_ROOT / "data"
-_DATA_DIR.mkdir(parents=True, exist_ok=True)
+@pytest.fixture(autouse=True)
+def setup_test_env(monkeypatch):
+    with TemporaryDirectory() as tmpdir:
+        tmp_path = Path(tmpdir)
+        monkeypatch.setenv("FINSENTINEL_DATA_DIR", str(tmp_path))
+        monkeypatch.setenv("FINSENTINEL_ENV", "test")
+        yield tmp_path
 
-os.environ["FINSENTINEL_DATA_DIR"] = str(_DATA_DIR)
-os.environ["FINSENTINEL_DB_PATH"] = str(_DATA_DIR / "test-finsentinel.db")
-# Keep JWT lifetimes predictable across the session; expiry behaviour is
-# exercised explicitly in test_security.py.
-os.environ.setdefault("FINSENTINEL_TOKEN_EXPIRY_MINUTES", "60")
+class FakeEmbedder:
+    def embed_texts(self, texts):
+        import hashlib
+        # Return deterministic 384-d vectors based on hash of text
+        res = []
+        for text in texts:
+            h = int(hashlib.sha256(text.encode()).hexdigest(), 16)
+            vec = [(h % (i + 1)) / (i + 1) for i in range(384)]
+            res.append(vec)
+        return res
+    def embed_query(self, query):
+        return self.embed_texts([query])[0]
 
-from tests.harness_support import REPORT  # noqa: E402
+class FakeReranker:
+    def rerank(self, query, results, top_n=10):
+        # identity pass-through
+        return results[:top_n]
 
-_REPORT_PATH = Path(__file__).resolve().parent / "_isolation_report.json"
+class FakeLLM:
+    def generate(self, question, results, summaries, conversation_history):
+        return f"Fake answer to: {question}"
 
+@pytest.fixture
+def fake_embedder(monkeypatch):
+    embedder = FakeEmbedder()
+    monkeypatch.setattr("core.embedder.LocalEmbedder", lambda: embedder)
+    return embedder
 
-def pytest_sessionfinish(session: Any, exitstatus: Any) -> None:
-    """Persist the isolation-harness measurements collected during the run.
-
-    The resulting JSON file is the raw material for the paper's before/after
-    results table (see tests/test_isolation.py RUNBOOK).
-    """
-    payload = {
-        "data_dir": str(_DATA_DIR),
-        "measurements": REPORT["measurements"],
-        "prompt_audit": REPORT["prompt_audit"],
-    }
-    try:
-        _REPORT_PATH.write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    except OSError:
-        # Never fail the suite because reporting failed.
-        pass
+@pytest.fixture
+def fake_pipeline(fake_embedder, monkeypatch):
+    from core.pipeline import FinSentinelPipeline
+    monkeypatch.setattr("core.retriever.Retriever.rerank", FakeReranker().rerank)
+    pipeline = FinSentinelPipeline()
+    pipeline.llm_engine = FakeLLM()
+    pipeline.embedder = fake_embedder
+    return pipeline
