@@ -24,9 +24,16 @@ class Retriever:
         except Exception:
             self._reranker = None
 
-    def retrieve(self, query: str, top_k: int = 20) -> list[dict]:
+    def retrieve(self, query: str, filter_dict: dict[str, Any], top_k: int = 20) -> list[dict]:
+        """Retrieve chunks from the vector store.
+
+        ``filter_dict`` is intentionally REQUIRED (no default): calling this
+        without an explicit isolation filter (e.g. ``{"session_id": ...}``)
+        would silently return every user's data. Do not "simplify" this
+        signature back to an optional filter.
+        """
         query_embedding = self.embedder.embed_query(query)
-        return self.vector_store.search(query_embedding, top_k=top_k)
+        return self.vector_store.search(query_embedding, top_k=top_k, filter_dict=filter_dict)
 
     def rerank(self, query: str, results: list[dict], top_n: int = 8) -> list[dict]:
         if not results:
