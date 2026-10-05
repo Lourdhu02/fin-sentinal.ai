@@ -19,11 +19,12 @@ CREATE TABLE IF NOT EXISTS invoices (
     total REAL NOT NULL DEFAULT 0,
     currency TEXT NOT NULL DEFAULT 'USD',
     content TEXT NOT NULL,
-    content_hash TEXT NOT NULL UNIQUE,
+    content_hash TEXT NOT NULL,
     metadata_json TEXT NOT NULL DEFAULT '{}',
-    created_by INTEGER,
+    created_by INTEGER NOT NULL,
     created_at TEXT NOT NULL,
-    FOREIGN KEY (created_by) REFERENCES users(id)
+    FOREIGN KEY (created_by) REFERENCES users(id),
+    UNIQUE(created_by, content_hash)
 );
 
 CREATE TABLE IF NOT EXISTS audit_logs (

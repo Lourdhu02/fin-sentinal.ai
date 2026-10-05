@@ -1,0 +1,31 @@
+[project]
+name = "finsentinelai"
+version = "2.0.0"
+description = "Enterprise API for Financial Document RAG"
+requires-python = ">= 3.10"
+dependencies = [
+    "fastapi>=0.100.0,<1.0.0",
+    "uvicorn>=0.23.0,<1.0.0",
+    "pydantic>=2.0.0,<3.0.0",
+    "python-multipart>=0.0.6,<0.1.0",
+    "pyjwt>=2.8.0,<3.0.0",
+    "passlib[bcrypt]>=1.7.4,<2.0.0",
+    "chromadb>=0.4.15,<0.6.0",
+    "sqlalchemy>=2.0.0,<3.0.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "needs_ollama: marks tests that require ollama (deselect with '-m \"not needs_ollama\"')",
+    "needs_tesseract: marks tests that require tesseract (deselect with '-m \"not needs_tesseract\"')"
+]
+addopts = "--tb=short"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"

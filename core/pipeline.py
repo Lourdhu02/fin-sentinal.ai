@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import threading
 from pathlib import Path
 from typing import Any
 
@@ -15,6 +16,9 @@ from database.db_manager import DatabaseManager
 from database.vector_store import ChromaDBVectorStore
 from models.invoice import Invoice
 from security.audit_logger import AuditLogger
+
+# Maximum number of turns (user + assistant messages) retained per session.
+_MAX_HISTORY_TURNS = 20
 
 
 class FinSentinelPipeline:
@@ -39,7 +43,12 @@ class FinSentinelPipeline:
         self.llm_engine = llm_engine or OllamaEngine()
         self.audit_logger = audit_logger or AuditLogger(self.db)
         self.extractor = UniversalExtractor()
-        self._conversation_history: list[dict[str, str]] = []
+        # Conversation state is keyed by session_id so that concurrent users
+        # sharing this pipeline instance can never observe each other's turns.
+        # NOTE: never store conversation state as a plain instance-level list;
+        # this pipeline is instantiated once per process by the API layer.
+        self._conversation_history: dict[str, list[dict[str, str]]] = {}
+        self._history_lock = threading.Lock()
 
     def ingest_and_store(self, source_path: str | Path, session_id: str, user_id: int | None = None) -> dict[str, Any]:
         path = Path(source_path)
@@ -66,8 +75,30 @@ class FinSentinelPipeline:
                     }
                     for index, chunk in enumerate(chunks)
                 ]
+                # Defense-in-depth: record the owning user alongside the
+                # session so cross-user access is detectable/auditable even if
+                # session_id semantics change later. ChromaDB rejects None
+                # metadata values, so user_id is only set when known.
+                if user_id is not None:
+                    for meta in metadata:
+                        meta["user_id"] = int(user_id)
                 self.vector_store.add(embeddings, metadata)
                 stored_count += 1
+                
+                # TOBIO: Structured Extraction
+                invoice = self._build_invoice(document.path, source_text, user_id)
+                saved_invoice = self.db.create_invoice(invoice)
+                
+                # Verify & anomaly
+                verification = self.verifier.verify_invoice(saved_invoice, self.db)
+                anomaly = self.anomaly_detector.score(saved_invoice.total, self.db.get_invoice_totals(user_id, saved_invoice.id))
+                
+                # Update metadata on invoice (optional since we just created it, but good for flags)
+                saved_invoice.metadata["verification"] = verification.model_dump()
+                saved_invoice.metadata["anomaly"] = anomaly.model_dump()
+                self.db.connection.execute("UPDATE invoices SET metadata_json = ? WHERE id = ?", (json.dumps(saved_invoice.metadata), saved_invoice.id))
+                self.db.connection.commit()
+
                 processed.append({
                     "path": document.path,
                     "status": "stored",
@@ -88,30 +119,67 @@ class FinSentinelPipeline:
         }
 
     def query(self, question: str, session_id: str, user_id: int | None = None, top_k: int = 20) -> dict[str, Any]:
+        # TOBIO: Exact-answer router
+        analysis = self.retriever.analyze_query(question)
+        if analysis and analysis.get("kind") in ["total", "count", "vendor_summary"]:
+            # Route to SQL
+            sql_answer = self._handle_structured_query(analysis, question, user_id)
+            if sql_answer:
+                # LLM only phrases the answer and must quote the SQL number.
+                prompt = f"The exact answer from the database is: '{sql_answer}'. Please phrase this naturally but YOU MUST quote the exact numbers."
+                response = self.llm_engine.generate(prompt, [], [], [])
+                self.audit_logger.log_interaction(user_id, "query", question, response)
+                return {"query": question, "response": response, "results": [], "answer_source": "sql"}
+
         # Perform session-based retrieval
         query_embedding = self.retriever.embedder.embed_query(question)
         results = self.vector_store.search(query_embedding, top_k=top_k, filter_dict={"session_id": session_id})
         
         # Optional: rerank
         results = self.retriever.rerank(question, results, top_n=10)
+        
+        # Invoice summaries
+        summaries = self._build_invoice_summaries(results, user_id)
+
+        # Only the calling session's turns are visible to the LLM prompt.
+        with self._history_lock:
+            history = list(self._conversation_history.get(session_id, []))
 
         response = self.llm_engine.generate(
             question,
             results,
-            [], # no longer using invoice summaries
-            conversation_history=self._conversation_history[-6:],
+            summaries,
+            conversation_history=history[-6:],
         )
 
-        self._conversation_history.append({"role": "user", "content": question})
-        self._conversation_history.append({"role": "assistant", "content": response})
-        if len(self._conversation_history) > 20:
-            self._conversation_history = self._conversation_history[-20:]
+        with self._history_lock:
+            session_history = self._conversation_history.setdefault(session_id, [])
+            session_history.append({"role": "user", "content": question})
+            session_history.append({"role": "assistant", "content": response})
+            if len(session_history) > _MAX_HISTORY_TURNS:
+                del session_history[:-_MAX_HISTORY_TURNS]
 
         self.audit_logger.log_interaction(user_id, "query", question, response)
-        return {"query": question, "response": response, "results": results}
+        return {"query": question, "response": response, "results": results, "answer_source": "rag"}
 
-    def reset_conversation(self) -> None:
-        self._conversation_history.clear()
+    def reset_conversation(self, session_id: str) -> int:
+        """Clear conversation history for exactly one session.
+
+        Requires an explicit ``session_id`` so callers cannot accidentally
+        wipe every user's history (the pre-fix global behaviour).
+
+        Returns the number of turns that were removed.
+        """
+        if not session_id:
+            raise ValueError("session_id is required to reset a conversation.")
+        with self._history_lock:
+            removed = self._conversation_history.pop(session_id, [])
+        return len(removed)
+
+    def conversation_turns(self, session_id: str) -> list[dict[str, str]]:
+        """Return a copy of the stored turns for a session (introspection/testing)."""
+        with self._history_lock:
+            return list(self._conversation_history.get(session_id, []))
 
     def _build_invoice(self, document_path: str | Path, text: str, user_id: int | None) -> Invoice:
         safe_text = text if text and text.strip() else Path(document_path).stem
@@ -189,7 +257,7 @@ class FinSentinelPipeline:
         parts.extend(e for e in extras if e.split(": ", 1)[-1].strip())
         return "\n".join(parts)
 
-    def _build_invoice_summaries(self, results: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    def _build_invoice_summaries(self, results: list[dict[str, Any]], user_id: int) -> list[dict[str, Any]]:
         summaries: list[dict[str, Any]] = []
         seen_ids: set[int] = set()
         for result in results:
@@ -197,12 +265,12 @@ class FinSentinelPipeline:
             if not isinstance(invoice_id, int) or invoice_id in seen_ids:
                 continue
             invoice = self.db.get_invoice_by_id(invoice_id)
-            if invoice is None:
+            if invoice is None or invoice.created_by != user_id:
                 continue
             verification = self.verifier.verify_invoice(invoice, self.db)
             anomaly = self.anomaly_detector.score(
                 invoice.total,
-                self.db.get_invoice_totals(exclude_invoice_id=invoice.id),
+                self.db.get_invoice_totals(user_id, exclude_invoice_id=invoice.id),
             )
             anomaly_dict = anomaly.model_dump()
             anomaly_dict["explanation"] = invoice.metadata.get("anomaly", {}).get("explanation", "")
@@ -226,10 +294,10 @@ class FinSentinelPipeline:
             seen_ids.add(invoice_id)
         return summaries
 
-    def _handle_structured_query(self, route: dict[str, Any], question: str) -> str | None:
+    def _handle_structured_query(self, route: dict[str, Any], question: str, user_id: int) -> str | None:
         kind = str(route.get("kind", "llm"))
         if kind == "total":
-            invoices = self.db.get_all_invoices()
+            invoices = self.db.get_all_invoices(user_id)
             total_spend = sum(float(inv.total) for inv in invoices)
             symbol = self._currency_symbol(invoices)
             return f"Total spend across {len(invoices)} documents: {symbol}{self._format_number(total_spend)}"
@@ -237,11 +305,11 @@ class FinSentinelPipeline:
             target = route.get("target")
             if not target:
                 return None
-            count = self._count_items(str(target))
+            count = self._count_items(str(target), user_id)
             label = self._pluralize_target(str(target), count)
             return f"Total {label} purchased: {count}"
         if kind == "vendor_summary":
-            summaries = self.db.get_vendor_summary()
+            summaries = self.db.get_vendor_summary(user_id)
             if not summaries:
                 return "No vendor data found."
             lines = ["Vendor spend summary:"]
@@ -253,9 +321,9 @@ class FinSentinelPipeline:
             return "\n".join(lines)
         return None
 
-    def _count_items(self, target: str) -> int:
+    def _count_items(self, target: str, user_id: int) -> int:
         normalized_target = self._normalize_target(target)
-        line_items = self.db.get_all_line_items()
+        line_items = self.db.get_all_line_items(user_id)
         total_quantity = 0
         matched = False
         for item in line_items:
@@ -265,7 +333,7 @@ class FinSentinelPipeline:
                 matched = True
         if matched:
             return total_quantity
-        invoices = self.db.get_all_invoices()
+        invoices = self.db.get_all_invoices(user_id)
         fallback_total = 0
         for invoice in invoices:
             for line in invoice.content.splitlines():

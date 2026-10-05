@@ -29,8 +29,8 @@ def run_chat(username: str, password: str | None = None) -> int:
         if query.lower() in {"exit", "quit"}:
             break
         if query.lower() == "reset":
-            pipeline.reset_conversation()
-            print("Conversation history cleared.")
+            cleared = pipeline.reset_conversation(session_id)
+            print(f"Conversation history cleared ({cleared} turns).")
             continue
         result = pipeline.query(query, session_id=session_id, user_id=user.id)
         print(f"\n{result['response']}\n")

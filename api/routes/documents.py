@@ -8,10 +8,10 @@ from api.routes.auth import get_current_user
 from models.user import User
 from core.pipeline import FinSentinelPipeline
 from config import get_settings
+from api.deps import get_pipeline
 
 router = APIRouter()
 settings = get_settings()
-pipeline = FinSentinelPipeline()
 
 def _sanitize_filename(filename: str) -> str:
     """Strip path components and dangerous characters to prevent path traversal."""
@@ -29,7 +29,8 @@ class DocumentResponse(BaseModel):
 @router.post("/upload", response_model=list[DocumentResponse])
 async def upload_documents(
     files: list[UploadFile] = File(...),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
+    pipeline: FinSentinelPipeline = Depends(get_pipeline)
 ):
     upload_dir = settings.data_dir / "uploads" / str(current_user.id)
     upload_dir.mkdir(parents=True, exist_ok=True)
@@ -58,7 +59,10 @@ async def upload_documents(
     return responses
 
 @router.get("/list")
-def list_documents(current_user: User = Depends(get_current_user)):
+def list_documents(
+    current_user: User = Depends(get_current_user),
+    pipeline: FinSentinelPipeline = Depends(get_pipeline)
+):
     # Query ChromaDB for distinct filenames for this user
     session_id = f"user_{current_user.id}_default"
     try:
@@ -77,7 +81,11 @@ def list_documents(current_user: User = Depends(get_current_user)):
         return {"documents": []}
 
 @router.delete("/{filename}")
-def delete_document(filename: str, current_user: User = Depends(get_current_user)):
+def delete_document(
+    filename: str,
+    current_user: User = Depends(get_current_user),
+    pipeline: FinSentinelPipeline = Depends(get_pipeline)
+):
     session_id = f"user_{current_user.id}_default"
     try:
         pipeline.vector_store.delete_by_filter({

@@ -63,19 +63,6 @@ def detect_kind(text: str, file_path: str | Path = "") -> DocumentKind:
     path_str = str(file_path).lower()
     t = text.lower()
 
-    if "salary_slip" in path_str or "payslip" in path_str:
-        return "salary_slip"
-    if "bank_statement" in path_str or "bank statement" in path_str:
-        return "bank_statement"
-    if "credit_debit" in path_str or "credit note" in path_str or "debit note" in path_str:
-        return "credit_debit_note"
-    if "gst_return" in path_str or "gstr" in path_str:
-        return "gst_return"
-    if "purchase_order" in path_str or "purchase order" in path_str:
-        return "purchase_order"
-    if "invoice" in path_str:
-        return "invoice"
-
     if re.search(r"\b(salary slip|pay statement|net pay|payslip|pay slip)\b", t):
         return "salary_slip"
     if re.search(r"\b(bank statement|account statement|opening balance|closing balance)\b", t):
@@ -87,6 +74,19 @@ def detect_kind(text: str, file_path: str | Path = "") -> DocumentKind:
     if re.search(r"\b(purchase order|p\.?o\.? no|delivery date|po number)\b", t):
         return "purchase_order"
     if re.search(r"\b(invoice|bill to|ship to|invoice no|invoice number)\b", t):
+        return "invoice"
+
+    if "salary_slip" in path_str or "payslip" in path_str:
+        return "salary_slip"
+    if "bank_statement" in path_str or "bank statement" in path_str:
+        return "bank_statement"
+    if "credit_debit" in path_str or "credit note" in path_str or "debit note" in path_str:
+        return "credit_debit_note"
+    if "gst_return" in path_str or "gstr" in path_str:
+        return "gst_return"
+    if "purchase_order" in path_str or "purchase order" in path_str:
+        return "purchase_order"
+    if "invoice" in path_str:
         return "invoice"
 
     return "unknown"
