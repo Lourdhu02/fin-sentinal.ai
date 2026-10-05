@@ -43,7 +43,7 @@ def chat_with_documents(
             sources=sources
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.post("/reset")
 def reset_chat(
