@@ -5,16 +5,16 @@ import json
 
 from config import get_settings
 from database.db_manager import DatabaseManager
-from database.vector_store import ChromaDBVectorStore
 from security.auth import AuthManager
 
 
 def initialize_system(admin_username: str, admin_password: str) -> dict:
+    if len(admin_password) < 12 or len(admin_password.encode("utf-8")) > 72:
+        raise ValueError("Admin password must be at least 12 characters and at most 72 UTF-8 bytes")
     settings = get_settings()
     settings.ensure_directories()
     db = DatabaseManager()
     auth = AuthManager()
-    existing_record = db.get_user(admin_username)
     existing = db.get_user_by_username(admin_username)
     password_hash = auth.hash_password(admin_password)
     if existing is None:
@@ -23,14 +23,8 @@ def initialize_system(admin_username: str, admin_password: str) -> dict:
             password_hash=password_hash,
             role="admin",
         )
-    elif existing_record is not None and not auth.verify_password(admin_password, existing_record["password_hash"]):
-        db.connection.execute(
-            "UPDATE users SET password_hash = ?, role = ? WHERE username = ?",
-            (password_hash, "admin", admin_username),
-        )
-        db.connection.commit()
-        existing = db.get_user_by_username(admin_username)
-    vector_store = ChromaDBVectorStore()
+    else:
+        raise ValueError("Account already exists; bootstrap never overwrites credentials")
     return {
         "db_path": str(settings.db_path),
         "chroma_dir": str(settings.data_dir / "chroma"),

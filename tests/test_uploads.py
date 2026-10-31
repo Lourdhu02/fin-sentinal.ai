@@ -28,3 +28,8 @@ def test_fake_pdf_rejected(tmp_path):
     with pytest.raises(ValueError, match="extension"):
         save(tmp_path, "a.pdf", b"not a pdf")
     assert list(tmp_path.iterdir()) == []
+
+
+def test_utf8_prefix_can_end_in_middle_of_codepoint(tmp_path):
+    path = save(tmp_path, "unicode.txt", ("a" * 1023 + "₹").encode(), limit=2000)
+    assert path.read_text(encoding="utf-8").endswith("₹")

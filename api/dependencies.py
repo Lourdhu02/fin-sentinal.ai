@@ -17,7 +17,10 @@ class AppContainer:
             if self.pipeline is None:
                 from core.pipeline import FinSentinelPipeline
 
-                self.pipeline = FinSentinelPipeline(db_manager=self.db)
+                try:
+                    self.pipeline = FinSentinelPipeline(db_manager=self.db)
+                except (ImportError, ValueError, OSError) as exc:
+                    raise RuntimeError("Provision local inference dependencies and artifacts") from exc
             return self.pipeline
 
 

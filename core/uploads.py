@@ -1,5 +1,6 @@
 from pathlib import Path
 import tempfile
+import codecs
 
 from security.files import contained_path
 
@@ -19,7 +20,7 @@ def validate_content(path: Path, suffix: str):
     elif b"\x00" in prefix:
         raise ValueError("Binary content is not allowed for text uploads")
     else:
-        prefix.decode("utf-8", errors="strict")
+        codecs.getincrementaldecoder("utf-8")(errors="strict").decode(prefix, final=False)
 
 
 async def save_upload(upload, directory: Path, max_bytes: int) -> Path:

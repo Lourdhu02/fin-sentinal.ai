@@ -73,6 +73,7 @@ def register(user_in: UserCreate, db: DatabaseManager = Depends(get_db)):
     try:
         user = db.create_user(user_in.username, hashed_password)
     except sqlite3.IntegrityError:
+        db.connection.rollback()
         raise HTTPException(status_code=409, detail="Username already registered") from None
     return UserResponse(id=user.id, username=user.username, role=user.role)
 

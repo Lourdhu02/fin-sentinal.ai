@@ -31,7 +31,10 @@ class OllamaEngine:
             "Cite each factual claim using [source:SOURCE_ID] with the exact supplied ID. "
             "If evidence is insufficient, say so. Never invent values. "
             "Do not calculate financial aggregates; verified structured calculations are required.\n"
-            + json.dumps({"question": query, "history": conversation_history or [], "evidence": evidence}, ensure_ascii=False)
+            + json.dumps({"question": query, "history": [
+                {"role": turn["role"], "content": turn["content"][:1000]}
+                for turn in (conversation_history or [])[-4:]
+            ], "evidence": evidence}, ensure_ascii=False)
         )
 
     def _payload(self, prompt):

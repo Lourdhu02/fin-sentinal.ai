@@ -92,7 +92,7 @@ class FinSentinelPipeline:
             results = self.documents.authorized_chunks(user_id, results)
             lexical = self.documents.search(user_id, question, limit=top_k)
             results = reciprocal_rank_fusion(results, lexical, limit=40)
-            results = self.retriever.rerank(question, results, top_n=10)
+            results = self.retriever.rerank(question, results, top_n=6)
             response = self.llm_engine.generate(question, results, [],
                 conversation_history=self.conversations.history(user_id, session_id)[-6:])
             if results and not verify_citations(response, results):
