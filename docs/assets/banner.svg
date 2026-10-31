@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">FinSentinelAI — Financial documents. Traceable answers. Local inference.</title>
+  <desc id="desc">Dark navy banner with mint typography and an abstract document-to-evidence diagram.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1200" y2="320" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#101D2A"/><stop offset="1" stop-color="#071218"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" stroke="#94D9C4" stroke-opacity=".04"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="320" rx="20" fill="url(#background)"/>
+  <rect width="1200" height="320" rx="20" fill="url(#grid)"/>
+  <path d="M56 62H84" stroke="#75E1BC" stroke-width="4" stroke-linecap="round"/>
+  <text x="98" y="67" fill="#9FB5BC" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="600" letter-spacing="3">LOCAL DOCUMENT INTELLIGENCE</text>
+  <text x="56" y="145" fill="#F1F7F8" font-family="Segoe UI,Arial,sans-serif" font-size="58" font-weight="700" letter-spacing="-2">FinSentinel<tspan fill="#75E1BC">AI</tspan></text>
+  <text x="58" y="191" fill="#D0DFE4" font-family="Segoe UI,Arial,sans-serif" font-size="21">Financial documents. Traceable answers.</text>
+  <text x="58" y="244" fill="#89A2AD" font-family="Segoe UI,Arial,sans-serif" font-size="14">HYBRID SEARCH</text>
+  <circle cx="195" cy="239" r="2" fill="#75E1BC"/>
+  <text x="212" y="244" fill="#89A2AD" font-family="Segoe UI,Arial,sans-serif" font-size="14">PAGE PROVENANCE</text>
+  <circle cx="371" cy="239" r="2" fill="#75E1BC"/>
+  <text x="388" y="244" fill="#89A2AD" font-family="Segoe UI,Arial,sans-serif" font-size="14">LOCAL INFERENCE</text>
+  <g stroke="#314C58" stroke-width="1.5">
+    <rect x="800" y="68" width="100" height="138" rx="10" fill="#10242E"/>
+    <path d="M822 95H878M822 109H865M822 123H878M822 152H878M822 166H860" stroke="#607D89" stroke-linecap="round"/>
+    <rect x="812" y="142" width="76" height="36" rx="5" stroke="#75E1BC"/>
+    <path d="M900 160H942Q954 160 954 172V205Q954 217 966 217H1000"/>
+    <circle cx="954" cy="160" r="5" fill="#75E1BC" stroke="#75E1BC"/>
+    <rect x="1000" y="188" width="144" height="58" rx="10" fill="#102C2C" stroke="#407D6B"/>
+  </g>
+  <text x="1017" y="212" fill="#75E1BC" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="600">SOURCE EVIDENCE</text>
+  <text x="1017" y="231" fill="#9FB5BC" font-family="Segoe UI,Arial,sans-serif" font-size="12">document / page / chunk</text>
+  <text x="800" y="237" fill="#607D89" font-family="Segoe UI,Arial,sans-serif" font-size="12">PARSE → RETRIEVE → CITE</text>
+</svg>
