@@ -23,12 +23,17 @@ class DatabaseManager:
 
     @property
     def connection(self) -> sqlite3.Connection:
-        if not hasattr(_local, "conn") or _local.conn is None:
-            _local.conn = sqlite3.connect(self.db_path, check_same_thread=False)
-            _local.conn.row_factory = sqlite3.Row
-            _local.conn.execute("PRAGMA foreign_keys = ON")
-            _local.conn.execute("PRAGMA journal_mode = WAL")
-        return _local.conn
+        connections = getattr(_local, "connections", None)
+        if connections is None:
+            connections = _local.connections = {}
+        key = str(self.db_path.resolve())
+        if key not in connections:
+            conn = sqlite3.connect(key, timeout=30)
+            conn.row_factory = sqlite3.Row
+            conn.execute("PRAGMA foreign_keys = ON")
+            conn.execute("PRAGMA journal_mode = WAL")
+            connections[key] = conn
+        return connections[key]
 
     def initialize(self) -> None:
         schema_path = Path(__file__).with_name("schema.sql")
@@ -38,9 +43,10 @@ class DatabaseManager:
         self.connection.commit()
 
     def close(self) -> None:
-        if hasattr(_local, "conn") and _local.conn:
-            _local.conn.close()
-            _local.conn = None
+        connections = getattr(_local, "connections", {})
+        conn = connections.pop(str(self.db_path.resolve()), None)
+        if conn is not None:
+            conn.close()
 
     def _now(self) -> str:
         return datetime.now(timezone.utc).isoformat()
