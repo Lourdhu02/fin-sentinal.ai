@@ -20,3 +20,16 @@ used as an authoritative ledger.
 Verification uses isolated temporary storage and injected model doubles. Actual
 offline and GPU acceptance require pre-provisioned artifacts and blocked egress
 on the target host; unit tests do not establish those properties.
+
+## Completed foundation
+
+Package/lock/CI, secure local secrets, one lazy API composition root, active-account
+checks, bounded per-user conversations, safe uploads/deletion, PDF OCR fallback,
+page/offset provenance, Decimal money primitives, exact source observations,
+tenant document registry, idempotent ingestion, authoritative evidence checks,
+BM25+dense fusion, reference validation, local inference adapters, capability
+diagnostics, evaluation scoring and client error handling are implemented.
+
+See OPERATIONS.md for verification and migration limits. The next development
+slice is a reviewed evaluation corpus followed by parser/model experiments and
+verified structured calculations. Hardware-aware model selection remains a plan.

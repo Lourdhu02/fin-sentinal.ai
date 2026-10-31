@@ -1,136 +1,94 @@
 # FinSentinelAI
 
-<div align="center">
-  <img src="https://img.shields.io/badge/Status-v1.0.0-success.svg" alt="Version 1.0.0">
-  <img src="https://img.shields.io/badge/Architecture-React%20%2B%20FastAPI%20%2B%20ChromaDB-blue" alt="Architecture">
-  <img src="https://img.shields.io/badge/Security-JWT%20Isolated-blueviolet" alt="Security">
-</div>
+Local financial-document search with FastAPI, React, SQLite, Chroma and a local
+Ollama or llama.cpp server. This implementation adds isolation, recoverable
+ingestion, page provenance, hybrid retrieval and reference validation.
 
-<br>
+## Install
 
-**FinSentinelAI** is an enterprise-grade, privacy-first AI financial document intelligence platform. It runs 100% locally to process, index, and query highly sensitive financial documents (invoices, receipts, bank statements) using advanced RAG (Retrieval-Augmented Generation) and local LLMs.
-
----
-
-## Features (v1.0.0)
-
-* **Top 1% Minimalist UI:** Ultra-premium, Apple-inspired React Single Page Application built with Vite and TailwindCSS v3.
-* **100% Local & Private:** No API calls to OpenAI or Anthropic. All documents, embeddings, and chat interactions stay completely on your machine.
-* **Decoupled Architecture:** High-performance asynchronous FastAPI backend communicating seamlessly with a React frontend via REST APIs.
-* **User Isolation:** Secure JWT-based authentication. Every user gets a private workspace.
-* **ChromaDB Vector Store:** Blazing fast vector retrieval with native database-level metadata filtering (guarantees cross-user data isolation).
-* **Multi-Modal Support:** Automatically extracts text from PDFs, CSVs, JSONs, and images (using local Vision-Language Models).
-
----
-
-## Architecture Flow
-
-Below is the high-level system architecture of FinSentinelAI:
-
-```mermaid
-graph TD
-    subgraph Frontend ["Frontend (React + TailwindCSS)"]
-        UI[User Interface]
-        AuthUI[Auth & Session]
-    end
-    
-    subgraph Backend ["Backend (FastAPI)"]
-        API[REST API Router]
-        Auth[JWT Authentication]
-        Pipeline[RAG Pipeline Core]
-        Ingestion[Universal Extractor]
-    end
-    
-    subgraph Storage ["Data Layer"]
-        SQL[(SQLite User/Meta DB)]
-        VDB[(ChromaDB Vector Store)]
-    end
-    
-    subgraph AI ["Local AI Engine"]
-        Emb[SentenceTransformers]
-        LLM[Ollama Local LLM]
-    end
-
-    UI <-->|HTTP/JSON| API
-    AuthUI --> Auth
-    API --> Auth
-    API --> Pipeline
-    Pipeline --> Ingestion
-    Pipeline <--> SQL
-    Pipeline <--> VDB
-    Pipeline <--> Emb
-    Pipeline <--> LLM
-```
-
----
-
-## Getting Started
-
-### Prerequisites
-* Python 3.10+
-* Node.js v18+ & npm
-* [Ollama](https://ollama.ai/) installed and running locally with your model of choice.
-
-### 1. Backend Setup
+Requires Python 3.11+, uv, Node 22+, and a separately installed local inference
+runtime. Tesseract is required for scanned PDFs and images. Native-text PDFs do
+not require Tesseract.
 
 ```powershell
-# Clone the repository
-git clone https://github.com/Lourdhu02/FinSentinal.AI.git
-cd FinSentinal.AI
-
-# Create and activate virtual environment
-python -m venv venv
-.\venv\Scripts\activate
-
-# Install requirements
-pip install -r requirements.txt
-
-# Configure environment variables
-cp .env.example .env
-# Edit .env and set FINSENTINEL_JWT_SECRET to a random secret
-
-# Initialize database and admin user
-python setup.py
-
-# Start the FastAPI Server (runs on http://localhost:8000)
-python -m uvicorn api.main:app --host 0.0.0.0 --port 8000
+uv sync --locked --extra local --extra test
+Copy-Item .env.example .env
 ```
 
-### 2. Frontend Setup
-
-Open a new terminal window:
+Before offline use, provision the configured SentenceTransformers embedding and
+reranker models once, or configure local model directories. Provision the Ollama
+model separately. Model weights are not included in this repository or lockfile.
+The default embedding is `all-MiniLM-L6-v2`; the optional reranker is
+`cross-encoder/ms-marco-MiniLM-L-6-v2`.
 
 ```powershell
-# Navigate to the frontend directory
+uv run --no-sync python -m cli.bootstrap
+uv run --no-sync uvicorn api.main:app --host 127.0.0.1 --port 8000 --env-file .env
+```
+
+Bootstrap prompts for an admin password and never overwrites an existing account.
+It is optional when development registration is enabled. Passwords for new
+accounts require 12 characters and must fit bcrypt's 72-byte limit.
+
+```powershell
 cd frontend
-
-# Install Node dependencies
-npm install
-
-# Start the React Dev Server (runs on http://localhost:5173)
+npm ci
 npm run dev
 ```
 
-### 3. Usage
+Open http://localhost:5173. `VITE_API_URL` overrides the backend base URL.
 
-1. Open your browser to `http://localhost:5173`.
-2. Click **Create an account** on the login screen.
-3. Access your private **Document Dashboard**.
-4. Upload financial documents.
-5. Navigate to the **Assistant Chat** to securely query your data using local AI.
+## Runtime behavior
 
----
+- One API application; `api.app` is a compatibility import of `api.main`.
+- Expensive models load lazily, once per process. Run one API worker on a laptop.
+- CPU embeddings and reranking; generation placement is controlled by Ollama or
+  llama.cpp. GPU visibility is reported, not an automatic offload guarantee.
+- Uploads are streamed into staging, size-limited, signature-checked and published
+  exclusively. Same-name uploads require explicit deletion before replacement.
+- PDFs preserve page numbers and parser identity. Empty pages use bounded OCR;
+  unreadable documents are marked failed rather than indexed as empty text.
+- SQLite stores document state, exact source observations, chunks and BM25 text.
+  Chroma is a rebuildable dense index. Queries fuse lexical and dense rankings.
+- SQL ownership checks reauthorize vector hits. Failed/deleting records cannot
+  contribute evidence. Conversation history is bounded and user-scoped.
+- Answers require valid `[source:chunk-id]` references. This checks reference
+  validity, **not semantic entailment or numeric claim correctness**.
 
-## Security & Privacy
-FinSentinelAI enforces strict security boundaries.
-* Passwords are irreversibly hashed using `bcrypt`.
-* Sessions are stateless and validated via JWT access tokens.
-* The vector store natively filters by `user_id`, meaning it is mathematically impossible for the LLM to access or "hallucinate" context from another user's financial documents.
+Source observations preserve decimal strings and offsets. `core.finance` provides
+exact money arithmetic. Legacy invoice `REAL` fields remain compatibility data;
+they are not an authoritative ledger. Verified aggregation and reconciliation
+query tools are not yet exposed by the chat API.
 
----
+## Local inference
 
-## License
-MIT License. See `LICENSE` for more information.
+Set `FINSENTINEL_INFERENCE=ollama` (default), or `llamacpp` with a running
+OpenAI-compatible llama-server. Only numeric loopback HTTP endpoints are accepted;
+proxies and redirects are disabled. Provision and select the server's model
+explicitly. No models are downloaded automatically by the application in its
+default offline model-loading mode.
 
-## Fin Sentinel AI
-Financial AI monitoring and analysis
+For Ollama, set `OLLAMA_NO_CLOUD=1` in the environment of the **Ollama process**.
+Set `HF_HUB_OFFLINE=1` and `HF_HUB_DISABLE_TELEMETRY=1` for offline model loading.
+An outbound-denied end-to-end acceptance run is still required before claiming
+complete offline operation. See [operations](docs/OPERATIONS.md).
+
+## Verification
+
+```powershell
+uv sync --locked --extra test --extra storage
+uv run --no-sync pytest -q
+uv run --no-sync ruff check .
+uv build
+```
+
+The storage extra enables real Chroma and six-category PDF smoke tests without
+installing generation weights. This verification sync does not install ML
+generation dependencies; repeat the local sync before running the full app.
+
+Frontend: `npm run lint`, `npm run build`, and `npm audit --omit=dev`.
+CI defines Windows/Linux and Python 3.11/3.12 jobs; only the local Windows checks
+have been run during implementation.
+
+See [implementation status](docs/IMPLEMENTATION.md), [evaluation](evals/README.md),
+[API](api.md), and [model experiments](model.md).
