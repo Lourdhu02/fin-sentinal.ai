@@ -3,7 +3,8 @@ from typing import Optional
 import jwt
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
+import sqlite3
 from passlib.context import CryptContext
 from config import get_settings
 from database.db_manager import DatabaseManager
@@ -19,8 +20,15 @@ class Token(BaseModel):
     token_type: str
 
 class UserCreate(BaseModel):
-    username: str
-    password: str
+    username: str = Field(min_length=3, max_length=64, pattern=r"^[A-Za-z0-9_.-]+$")
+    password: str = Field(min_length=12, max_length=72)
+
+    @field_validator("password")
+    @classmethod
+    def bcrypt_limit(cls, value):
+        if len(value.encode("utf-8")) > 72:
+            raise ValueError("Password exceeds bcrypt's 72-byte limit")
+        return value
     
 class UserResponse(BaseModel):
     id: int
@@ -56,11 +64,16 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: DatabaseManager = 
 
 @router.post("/register", response_model=UserResponse)
 def register(user_in: UserCreate, db: DatabaseManager = Depends(get_db)):
+    if not get_settings().registration_enabled:
+        raise HTTPException(status_code=403, detail="Registration is disabled")
     if db.get_user_by_username(user_in.username):
         raise HTTPException(status_code=400, detail="Username already registered")
         
     hashed_password = pwd_context.hash(user_in.password)
-    user = db.create_user(user_in.username, hashed_password)
+    try:
+        user = db.create_user(user_in.username, hashed_password)
+    except sqlite3.IntegrityError:
+        raise HTTPException(status_code=409, detail="Username already registered") from None
     return UserResponse(id=user.id, username=user.username, role=user.role)
 
 @router.post("/login", response_model=Token)

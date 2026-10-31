@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Any
 
 from api.routes.auth import get_current_user
@@ -9,7 +9,7 @@ from api.dependencies import get_pipeline
 router = APIRouter()
 
 class ChatRequest(BaseModel):
-    query: str
+    query: str = Field(min_length=1, max_length=8000, pattern=r"\S")
 
 class ChatResponse(BaseModel):
     query: str
