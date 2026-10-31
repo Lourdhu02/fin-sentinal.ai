@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import hashlib
 import os
 import warnings
 
@@ -27,15 +26,19 @@ class LocalEmbedder:
         try:
             from sentence_transformers import SentenceTransformer
 
-            self._model = SentenceTransformer(self.model_name, device="cpu")
+            self._model = SentenceTransformer(
+                self.model_name, device="cpu", local_files_only=self.settings.offline
+            )
             if hasattr(self._model, "get_embedding_dimension"):
                 detected_dimension = self._model.get_embedding_dimension()
             else:
                 detected_dimension = self._model.get_sentence_embedding_dimension()
             if detected_dimension:
                 self.dimension = int(detected_dimension)
-        except Exception:
-            self._model = None
+        except Exception as exc:
+            raise RuntimeError(
+                "Embedding model unavailable. Provision the configured model before offline startup."
+            ) from exc
 
     def embed_texts(self, texts: list[str]) -> np.ndarray:
         if not texts:
@@ -49,18 +52,9 @@ class LocalEmbedder:
                 show_progress_bar=False,
             )
             return np.asarray(embeddings, dtype=np.float32)
-        vectors = [self._fallback_embedding(text) for text in texts]
-        return np.asarray(vectors, dtype=np.float32)
+        raise RuntimeError("Embedding model is not loaded")
 
     def embed_query(self, text: str) -> np.ndarray:
         return self.embed_texts([text])[0]
 
-    def _fallback_embedding(self, text: str) -> np.ndarray:
-        seed = int.from_bytes(hashlib.sha256(text.encode("utf-8")).digest()[:8], "big") % (2**32)
-        rng = np.random.default_rng(seed)
-        vector = rng.standard_normal(self.dimension)
-        norm = np.linalg.norm(vector)
-        if norm == 0:
-            return vector.astype(np.float32)
-        return (vector / norm).astype(np.float32)
 

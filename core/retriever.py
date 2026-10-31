@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import re
 from typing import Any
+import logging
+
+from config import get_settings
 
 from core.embedder import LocalEmbedder
 from database.vector_store import ChromaDBVectorStore
@@ -15,14 +18,18 @@ class Retriever:
         self._load_reranker()
 
     def _load_reranker(self) -> None:
+        if not get_settings().reranker_enabled:
+            return
         try:
             from sentence_transformers import CrossEncoder
             self._reranker = CrossEncoder(
                 "cross-encoder/ms-marco-MiniLM-L-6-v2",
                 device="cpu",
+                local_files_only=get_settings().offline,
             )
         except Exception:
             self._reranker = None
+            logging.getLogger(__name__).warning("Reranker unavailable; using first-stage ranking")
 
     def retrieve(self, query: str, top_k: int = 20) -> list[dict]:
         query_embedding = self.embedder.embed_query(query)
