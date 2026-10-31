@@ -7,6 +7,7 @@ from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 from config import get_settings
+from core.local_http import post_json, validate_endpoint
 
 
 class OllamaEngine:
@@ -14,6 +15,7 @@ class OllamaEngine:
         self.settings = get_settings()
         self.model_name = model_name or self.settings.model_name
         self.endpoint = endpoint or os.getenv("OLLAMA_ENDPOINT", "http://127.0.0.1:11434/api/generate")
+        validate_endpoint(self.endpoint)
 
     def build_prompt(
         self,
@@ -68,12 +70,14 @@ class OllamaEngine:
         invoice_summaries: list[dict[str, Any]],
         conversation_history: list[dict[str, str]] | None = None,
     ) -> str:
+        if not retrieved_items:
+            return "I don't have enough evidence to answer this question."
         prompt = self.build_prompt(query, retrieved_items, invoice_summaries, conversation_history)
         payload = {
             "model": self.model_name,
             "prompt": prompt,
             "stream": False,
-            "options": {"temperature": 0.1},
+            "options": {"temperature": 0.1, "num_predict": 1024, "num_ctx": 4096},
         }
         request = Request(
             self.endpoint,
@@ -82,14 +86,13 @@ class OllamaEngine:
             method="POST",
         )
         try:
-            with urlopen(request, timeout=180) as response:
-                data = json.loads(response.read().decode("utf-8"))
+            data = post_json(self.endpoint, payload)
             text = str(data.get("response", "")).strip()
             if text:
                 return text
-        except (URLError, TimeoutError, OSError, json.JSONDecodeError):
-            pass
-        return self._fallback_response(query, retrieved_items, invoice_summaries)
+        except (URLError, TimeoutError, OSError, json.JSONDecodeError) as exc:
+            raise RuntimeError("Local generation service unavailable") from exc
+        raise RuntimeError("Local generation returned an empty response")
 
     def generate_direct(self, prompt: str) -> str:
         payload = {
@@ -105,8 +108,7 @@ class OllamaEngine:
             method="POST",
         )
         try:
-            with urlopen(request, timeout=60) as response:
-                data = json.loads(response.read().decode("utf-8"))
+            data = post_json(self.endpoint, payload)
             return str(data.get("response", "")).strip()
         except Exception:
             return "Unable to generate explanation (LLM unavailable)."
