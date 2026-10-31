@@ -4,10 +4,9 @@ from typing import Any
 
 from api.routes.auth import get_current_user
 from models.user import User
-from core.pipeline import FinSentinelPipeline
+from api.dependencies import get_pipeline
 
 router = APIRouter()
-pipeline = FinSentinelPipeline()
 
 class ChatRequest(BaseModel):
     query: str
@@ -18,7 +17,7 @@ class ChatResponse(BaseModel):
     sources: list[dict[str, Any]]
 
 @router.post("/", response_model=ChatResponse)
-def chat_with_documents(request: ChatRequest, current_user: User = Depends(get_current_user)):
+def chat_with_documents(request: ChatRequest, current_user: User = Depends(get_current_user), pipeline=Depends(get_pipeline)):
     session_id = f"user_{current_user.id}_default"
     
     try:
@@ -42,6 +41,6 @@ def chat_with_documents(request: ChatRequest, current_user: User = Depends(get_c
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/reset")
-def reset_chat(current_user: User = Depends(get_current_user)):
-    pipeline.reset_conversation()
+def reset_chat(current_user: User = Depends(get_current_user), pipeline=Depends(get_pipeline)):
+    pipeline.reset_conversation(session_id=f"user_{current_user.id}_default", user_id=current_user.id)
     return {"status": "success", "message": "Conversation history cleared"}
