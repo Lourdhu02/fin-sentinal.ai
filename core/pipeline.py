@@ -5,6 +5,7 @@ from pathlib import Path
 from threading import RLock
 
 from core.chunking import chunk_text
+from core.citations import verify_citations
 from core.conversations import ConversationStore, require_scope
 from core.embedder import LocalEmbedder
 from core.facts import extract_facts
@@ -94,6 +95,8 @@ class FinSentinelPipeline:
             results = self.retriever.rerank(question, results, top_n=10)
             response = self.llm_engine.generate(question, results, [],
                 conversation_history=self.conversations.history(user_id, session_id)[-6:])
+            if results and not verify_citations(response, results):
+                response = "I could not produce a properly cited answer. Please inspect the source evidence."
             self.audit_logger.log_interaction(user_id, "query", question, response)
             self.conversations.append(user_id, session_id, question, response)
             return {"query": question, "response": response, "results": results}

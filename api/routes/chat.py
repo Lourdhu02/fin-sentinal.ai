@@ -27,6 +27,9 @@ def chat_with_documents(request: ChatRequest, current_user: User = Depends(get_c
         sources = []
         for r in result.get("results", []):
             sources.append({
+                "chunk_id": r.get("chunk_id"),
+                "document_id": r.get("document_id"),
+                "page": r.get("page"),
                 "file_name": r.get("file_name", "Unknown"),
                 "score": r.get("score", 0.0),
                 "text": r.get("text", "")[:300] + "..."
@@ -37,8 +40,8 @@ def chat_with_documents(request: ChatRequest, current_user: User = Depends(get_c
             response=result.get("response", "Error generating response"),
             sources=sources
         )
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except RuntimeError:
+        raise HTTPException(status_code=503, detail="Local model service unavailable") from None
 
 @router.post("/reset")
 def reset_chat(current_user: User = Depends(get_current_user), pipeline=Depends(get_pipeline)):
