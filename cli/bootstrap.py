@@ -9,7 +9,7 @@ from database.vector_store import ChromaDBVectorStore
 from security.auth import AuthManager
 
 
-def initialize_system(admin_username: str = "admin", admin_password: str = "admin123") -> dict:
+def initialize_system(admin_username: str, admin_password: str) -> dict:
     settings = get_settings()
     settings.ensure_directories()
     db = DatabaseManager()
@@ -35,16 +35,16 @@ def initialize_system(admin_username: str = "admin", admin_password: str = "admi
         "db_path": str(settings.db_path),
         "chroma_dir": str(settings.data_dir / "chroma"),
         "admin_username": existing.username,
-        "admin_token": auth.create_access_token(existing),
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Initialize FinSentinelAI")
     parser.add_argument("--admin-username", default="admin")
-    parser.add_argument("--admin-password", default="admin123")
+    parser.add_argument("--admin-password")
     args = parser.parse_args()
-    result = initialize_system(args.admin_username, args.admin_password)
+    from getpass import getpass
+    result = initialize_system(args.admin_username, args.admin_password or getpass("Admin password: "))
     print(json.dumps(result, indent=2))
     return 0
 
