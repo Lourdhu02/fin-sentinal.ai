@@ -102,3 +102,16 @@ class DocumentRepository:
         self.scope(user_id)
         with self.db.connection:
             self.db.connection.execute("DELETE FROM documents_v1 WHERE user_id=? AND filename=?", (user_id, filename))
+
+    def authorized_chunks(self, user_id, results):
+        self.scope(user_id)
+        authorized = []
+        for item in results:
+            row = self.db.connection.execute("""
+                SELECT c.metadata_json FROM chunks_v1 c JOIN documents_v1 d ON d.id=c.document_id
+                WHERE c.id=? AND d.user_id=? AND d.status='indexed'
+            """, (item.get("chunk_id", ""), user_id)).fetchone()
+            if row:
+                # SQL, not caller-controlled vector payload, supplies evidence text.
+                authorized.append({**json.loads(row[0]), "score": item.get("score", 0.0)})
+        return authorized

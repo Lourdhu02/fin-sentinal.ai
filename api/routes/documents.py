@@ -47,9 +47,8 @@ async def upload_documents(files: list[UploadFile] = File(...),
 
 @router.get("/list")
 def list_documents(current_user: User = Depends(get_current_user), pipeline=Depends(get_pipeline)):
-    session = f"user_{current_user.id}_default"
-    results = pipeline.vector_store.collection.get(where={"session_id": session}, include=["metadatas"])
-    return {"documents": sorted({m["file_name"] for m in results.get("metadatas", []) if m and "file_name" in m})}
+    records = pipeline.documents.list(current_user.id)
+    return {"documents": [item["filename"] for item in records], "details": records}
 
 
 @router.delete("/{filename}")
@@ -58,6 +57,6 @@ def delete_document(filename: str, current_user: User = Depends(get_current_user
         path = contained_path(get_settings().data_dir / "uploads" / str(current_user.id), filename)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from None
-    pipeline.vector_store.delete_by_filter({"session_id": f"user_{current_user.id}_default", "file_name": filename})
+    pipeline.delete_document(filename, current_user.id)
     path.unlink(missing_ok=True)
     return {"status": "success"}

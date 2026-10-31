@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import re
-from typing import Any
+from typing import Any, TYPE_CHECKING
 import logging
 
 from config import get_settings
 
 from core.embedder import LocalEmbedder
-from database.vector_store import ChromaDBVectorStore
+if TYPE_CHECKING:
+    from database.vector_store import ChromaDBVectorStore
 
 
 class Retriever:

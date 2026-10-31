@@ -28,13 +28,14 @@ class ChromaDBVectorStore:
         if len(embeddings) == 0:
             return []
             
-        import uuid
-        ids = [str(uuid.uuid4()) for _ in range(len(embeddings))]
+        if len(embeddings) != len(metadatas):
+            raise ValueError("Embedding and metadata counts differ")
+        ids = [metadata["chunk_id"] for metadata in metadatas]
         
         # Chroma expects list of lists for embeddings
         embedding_list = embeddings.tolist()
         
-        self.collection.add(
+        self.collection.upsert(
             embeddings=embedding_list,
             metadatas=metadatas,
             ids=ids
@@ -76,8 +77,7 @@ class ChromaDBVectorStore:
                     
             return formatted_results
         except Exception as e:
-            print(f"ChromaDB search error: {e}")
-            return []
+            raise RuntimeError("Vector search failed") from e
 
     def delete_by_filter(self, filter_dict: dict[str, Any]) -> None:
         where_clause = None
