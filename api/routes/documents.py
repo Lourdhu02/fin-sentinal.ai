@@ -8,13 +8,14 @@ from api.routes.auth import get_current_user
 from models.user import User
 from api.dependencies import get_pipeline
 from config import get_settings
+from security.files import safe_filename, contained_path
 
 router = APIRouter()
 
 def _sanitize_filename(filename: str) -> str:
     """Strip path components and dangerous characters to prevent path traversal."""
     # Extract just the filename, discarding any directory components
-    name = PurePosixPath(filename).name or Path(filename).name
+    return safe_filename(filename)
     # Remove any remaining problematic characters
     name = re.sub(r'[^\w\s\-.]', '_', name).strip()
     return name or "unnamed_file"
@@ -41,7 +42,7 @@ async def upload_documents(
     responses = []
     for file in files:
         safe_name = _sanitize_filename(file.filename)
-        file_path = upload_dir / safe_name
+        file_path = contained_path(upload_dir, safe_name)
         with open(file_path, "wb") as f:
             f.write(await file.read())
             
@@ -79,6 +80,10 @@ def list_documents(current_user: User = Depends(get_current_user), pipeline=Depe
 @router.delete("/{filename}")
 def delete_document(filename: str, current_user: User = Depends(get_current_user), pipeline=Depends(get_pipeline)):
     settings = get_settings()
+    try:
+        file_path = contained_path(settings.data_dir / "uploads" / str(current_user.id), filename)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from None
     session_id = f"user_{current_user.id}_default"
     try:
         pipeline.vector_store.delete_by_filter({
@@ -87,7 +92,6 @@ def delete_document(filename: str, current_user: User = Depends(get_current_user
         })
         
         # Also delete physical file
-        file_path = settings.data_dir / "uploads" / str(current_user.id) / filename
         if file_path.exists():
             file_path.unlink()
             
