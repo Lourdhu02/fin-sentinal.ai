@@ -15,6 +15,7 @@ from database.db_manager import DatabaseManager
 from database.vector_store import ChromaDBVectorStore
 from models.invoice import Invoice
 from security.audit_logger import AuditLogger
+from core.conversations import ConversationStore, require_scope
 
 
 class FinSentinelPipeline:
@@ -39,9 +40,10 @@ class FinSentinelPipeline:
         self.llm_engine = llm_engine or OllamaEngine()
         self.audit_logger = audit_logger or AuditLogger(self.db)
         self.extractor = UniversalExtractor()
-        self._conversation_history: list[dict[str, str]] = []
+        self.conversations = ConversationStore()
 
     def ingest_and_store(self, source_path: str | Path, session_id: str, user_id: int | None = None) -> dict[str, Any]:
+        require_scope(user_id, session_id)
         path = Path(source_path)
         source_files = self.ingestion.get_supported_files(path)
         documents = self.ingestion.ingest(path)
@@ -88,6 +90,7 @@ class FinSentinelPipeline:
         }
 
     def query(self, question: str, session_id: str, user_id: int | None = None, top_k: int = 20) -> dict[str, Any]:
+        require_scope(user_id, session_id)
         # Perform session-based retrieval
         query_embedding = self.retriever.embedder.embed_query(question)
         results = self.vector_store.search(query_embedding, top_k=top_k, filter_dict={"session_id": session_id})
@@ -99,19 +102,17 @@ class FinSentinelPipeline:
             question,
             results,
             [], # no longer using invoice summaries
-            conversation_history=self._conversation_history[-6:],
+            conversation_history=self.conversations.history(user_id, session_id)[-6:],
         )
 
-        self._conversation_history.append({"role": "user", "content": question})
-        self._conversation_history.append({"role": "assistant", "content": response})
-        if len(self._conversation_history) > 20:
-            self._conversation_history = self._conversation_history[-20:]
+        self.conversations.append(user_id, session_id, question, response)
 
         self.audit_logger.log_interaction(user_id, "query", question, response)
         return {"query": question, "response": response, "results": results}
 
-    def reset_conversation(self) -> None:
-        self._conversation_history.clear()
+    def reset_conversation(self, session_id: str, user_id: int) -> None:
+        require_scope(user_id, session_id)
+        self.conversations.reset(user_id, session_id)
 
     def _build_invoice(self, document_path: str | Path, text: str, user_id: int | None) -> Invoice:
         safe_text = text if text and text.strip() else Path(document_path).stem
