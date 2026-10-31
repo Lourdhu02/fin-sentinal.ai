@@ -1,9 +1,9 @@
 ﻿from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
-from core.ocr_parser import OCRParser
+from core.ocr_parser import OCRParser, ParsedPage
 
 
 @dataclass(slots=True)
@@ -12,6 +12,7 @@ class IngestedDocument:
     file_type: str
     text: str
     error: str | None = None
+    pages: list[ParsedPage] = field(default_factory=list)
 
 
 class IngestionService:
@@ -62,7 +63,14 @@ class IngestionService:
     def _ingest_file(self, file_path: Path) -> IngestedDocument:
         file_type = self.detect_file_type(file_path)
         try:
+            if file_type == "pdf":
+                pages = self.parser.parse_pdf_pages(file_path)
+                return IngestedDocument(path=str(file_path), file_type=file_type,
+                                        text="\n\n".join(p.text for p in pages), pages=pages)
             text = self.parser.parse_path(file_path)
-            return IngestedDocument(path=str(file_path), file_type=file_type, text=text)
+            if not text.strip():
+                raise ValueError("Document contains no readable text")
+            return IngestedDocument(path=str(file_path), file_type=file_type, text=text,
+                                    pages=[ParsedPage(1, text, "tesseract" if file_type == "image" else "text")])
         except Exception as exc:
             return IngestedDocument(path=str(file_path), file_type=file_type, text="", error=str(exc))
