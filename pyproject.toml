@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finsentinel-ai"
+version = "1.1.0"
+description = "Local financial document intelligence"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.111,<1", "uvicorn>=0.29,<1", "pydantic>=2.7,<3",
+  "numpy>=1.26,<3", "PyJWT>=2.8,<3", "passlib>=1.7.4,<2",
+  "bcrypt>=4,<4.1", "cryptography>=42", "python-multipart>=0.0.18",
+]
+
+[project.optional-dependencies]
+local = ["sentence-transformers>=3,<6", "chromadb>=0.5,<2", "scikit-learn>=1.4,<2", "pdfplumber>=0.11,<1", "pytesseract>=0.3.13", "Pillow>=10.3"]
+test = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.11,<1"]
+
+[project.scripts]
+finsentinel = "main:main"
+
+[tool.setuptools]
+py-modules = ["config", "main"]
+
+[tool.setuptools.packages.find]
+include = ["api*", "cli*", "core*", "database*", "models*", "security*"]
+
+[tool.setuptools.package-data]
+database = ["schema.sql"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E9", "F63", "F7", "F82"]
