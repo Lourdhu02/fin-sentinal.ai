@@ -8,6 +8,7 @@ from core.chunking import chunk_text
 from core.conversations import ConversationStore, require_scope
 from core.embedder import LocalEmbedder
 from core.facts import extract_facts
+from core.fusion import reciprocal_rank_fusion
 from core.ingestion import IngestionService
 from core.llm_engine import OllamaEngine
 from core.retriever import Retriever
@@ -88,6 +89,8 @@ class FinSentinelPipeline:
             results = self.vector_store.search(embedding, top_k=top_k,
                                                filter_dict={"session_id": session_id, "user_id": user_id})
             results = self.documents.authorized_chunks(user_id, results)
+            lexical = self.documents.search(user_id, question, limit=top_k)
+            results = reciprocal_rank_fusion(results, lexical, limit=40)
             results = self.retriever.rerank(question, results, top_n=10)
             response = self.llm_engine.generate(question, results, [],
                 conversation_history=self.conversations.history(user_id, session_id)[-6:])
