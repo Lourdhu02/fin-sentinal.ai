@@ -11,7 +11,7 @@ from core.embedder import LocalEmbedder
 from core.facts import extract_facts
 from core.fusion import reciprocal_rank_fusion
 from core.ingestion import IngestionService
-from core.llm_engine import OllamaEngine
+from core.llm_engine import create_generator
 from core.retriever import Retriever
 from database.db_manager import DatabaseManager
 from database.documents import DocumentRepository
@@ -30,7 +30,7 @@ class FinSentinelPipeline:
             vector_store = ChromaDBVectorStore()
         self.vector_store = vector_store
         self.retriever = retriever or Retriever(self.embedder, self.vector_store)
-        self.llm_engine = llm_engine or OllamaEngine()
+        self.llm_engine = llm_engine or create_generator()
         self.audit_logger = audit_logger or AuditLogger(self.db)
         self.conversations = ConversationStore()
         # One GPU operation at a time, including deletion and conversation reset.
