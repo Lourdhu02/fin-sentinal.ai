@@ -55,6 +55,8 @@ class FinSentinelPipeline:
                 source_text = document.text if document.text else ""
                 if document.error and not source_text:
                     raise ValueError(document.error)
+                if not source_text.strip():
+                    raise ValueError("Document contains no readable text")
                 
                 chunks = self._chunk_text(source_text)
                 embeddings = self.embedder.embed_texts(chunks)
