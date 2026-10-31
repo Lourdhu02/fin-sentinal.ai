@@ -1,60 +1,40 @@
 name: CI
+on: [push, pull_request]
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+permissions:
+  contents: read
 
 jobs:
-  backend-lint:
-    name: Backend Lint & Import Check
-    runs-on: ubuntu-latest
+  backend:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ['3.11', '3.12']
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: astral-sh/setup-uv@v6
         with:
-          python-version: "3.11"
-          cache: pip
+          enable-cache: true
+          python-version: ${{ matrix.python }}
+      - run: uv sync --locked --extra test --extra storage
+      - run: uv run --no-sync ruff check .
+      - run: uv run --no-sync pytest -q
+      - run: uv build
 
-      - name: Install dependencies
-        run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Check Python syntax
-        run: python -m py_compile config.py
-
-      - name: Verify core imports
-        run: |
-          python -c "from config import get_settings; print('config OK')"
-          python -c "from database.db_manager import DatabaseManager; print('db_manager OK')"
-          python -c "from database.vector_store import ChromaDBVectorStore; print('vector_store OK')"
-          python -c "from models.user import User; print('models OK')"
-
-  frontend-build:
-    name: Frontend Build & Lint
+  frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: frontend
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '22'
           cache: npm
           cache-dependency-path: frontend/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Build
-        run: npm run build
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm audit --omit=dev --audit-level=high

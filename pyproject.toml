@@ -14,6 +14,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+storage = ["chromadb>=0.5,<2", "pdfplumber>=0.11,<1"]
 local = ["sentence-transformers>=3,<6", "chromadb>=0.5,<2", "scikit-learn>=1.4,<2", "pdfplumber>=0.11,<1", "pytesseract>=0.3.13", "Pillow>=10.3"]
 test = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.11,<1"]
 
