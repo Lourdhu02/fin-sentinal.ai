@@ -16,3 +16,11 @@ api.interceptors.request.use((config) => {
 });
 
 export default api;
+
+api.interceptors.response.use(response => response, error => {
+  if (error.response?.status === 401 && !error.config?.url?.endsWith('/login')) {
+    localStorage.removeItem('token');
+    window.dispatchEvent(new Event('finsentinel:session-expired'));
+  }
+  return Promise.reject(error);
+});

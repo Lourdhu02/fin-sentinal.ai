@@ -58,6 +58,15 @@ export default function Chat() {
     "List all vendors mentioned in my files",
   ];
 
+  const resetChat = async () => {
+    try {
+      await api.post('/api/chat/reset');
+      setMessages([]);
+    } catch {
+      setMessages(prev => [...prev, { role: 'assistant', content: 'Could not reset conversation. Please retry.', isError: true }]);
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen bg-background">
       {/* ─── Header ─── */}
@@ -75,7 +84,7 @@ export default function Chat() {
         </div>
         <div className="flex items-center gap-2 px-3 py-1 bg-surface rounded-full">
           <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
-          <span className="text-[11px] font-semibold text-charcoal-600">Ready</span>
+          <button onClick={resetChat} disabled={isLoading} className="text-[11px] font-semibold text-charcoal-600">Reset chat</button>
         </div>
       </header>
 
@@ -217,7 +226,7 @@ function SourceDropdown({ sources }) {
             <div key={i} className="bg-surface rounded-xl p-3 text-[12px]">
               <div className="flex items-center gap-2 mb-1">
                 <FileText className="h-3.5 w-3.5 text-charcoal-400" strokeWidth={1.5} />
-                <span className="font-semibold text-charcoal-900">{s.file_name}</span>
+                <span className="font-semibold text-charcoal-900">{s.file_name}{s.page ? ` · Page ${s.page}` : ''}</span>
               </div>
               <p className="text-charcoal-600 leading-relaxed line-clamp-2">{s.text}</p>
             </div>

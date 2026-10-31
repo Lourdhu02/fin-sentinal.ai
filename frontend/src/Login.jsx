@@ -62,6 +62,9 @@ export default function Login() {
             <input
               type="password"
               required
+              minLength={isLogin ? undefined : 12}
+              maxLength={72}
+              autoComplete={isLogin ? 'current-password' : 'new-password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="input-minimal"

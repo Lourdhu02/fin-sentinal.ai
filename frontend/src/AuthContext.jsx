@@ -23,6 +23,11 @@ export const AuthProvider = ({ children }) => {
   }, [logout]);
 
   useEffect(() => {
+    window.addEventListener('finsentinel:session-expired', logout);
+    return () => window.removeEventListener('finsentinel:session-expired', logout);
+  }, [logout]);
+
+  useEffect(() => {
     if (token) {
       fetchUser();
     } else {

@@ -13,6 +13,7 @@ export default function Dashboard() {
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [error, setError] = useState('');
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ export default function Dashboard() {
     if (!files.length) return;
 
     setIsUploading(true);
+    setError('');
     setUploadProgress(Array.from(files).map(f => ({ name: f.name, status: 'uploading' })));
     
     const formData = new FormData();
@@ -42,25 +44,26 @@ export default function Dashboard() {
     }
 
     try {
-      await api.post('/api/documents/upload', formData, {
+      const response = await api.post('/api/documents/upload', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
+      setUploadProgress(response.data.map(item => ({ name: item.filename, status: item.status, message: item.message })));
       fetchDocuments();
     } catch (err) {
-      console.error('Upload failed', err);
+      setError(err.response?.data?.detail || 'Upload failed. Please retry.');
+      setUploadProgress([]);
     } finally {
       setIsUploading(false);
-      setUploadProgress([]);
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
 
   const handleDelete = async (filename) => {
     try {
-      await api.delete(`/api/documents/${filename}`);
+      await api.delete(`/api/documents/${encodeURIComponent(filename)}`);
       fetchDocuments();
     } catch (err) {
-      console.error('Delete failed', err);
+      setError(err.response?.data?.detail || 'Deletion failed. Please retry.');
     }
   };
 
@@ -143,6 +146,7 @@ export default function Dashboard() {
 
         {/* List Area */}
         <div className="flex-1 px-10 pb-10 overflow-y-auto animate-fade-in stagger-2">
+          {error && <p role="alert" className="mb-4 text-red-600">{error}</p>}
           
           {/* Search */}
           {documents.length > 0 && (
@@ -168,8 +172,10 @@ export default function Dashboard() {
             <div className="mb-6 space-y-2">
               {uploadProgress.map((p, i) => (
                 <div key={i} className="flex items-center gap-3 text-[13px] text-charcoal-600 bg-surface px-4 py-3 rounded-lg border border-black/5 animate-fade-in">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  <span>Processing <span className="font-medium text-charcoal-900">{p.name}</span>...</span>
+                  {p.status === 'uploading' && <Loader2 className="h-4 w-4 animate-spin" />}
+                  <span role={p.status === 'error' ? 'alert' : 'status'}>
+                    <span className="font-medium text-charcoal-900">{p.name}</span>: {p.message || 'Processing...'}
+                  </span>
                 </div>
               ))}
             </div>
