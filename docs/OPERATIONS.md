@@ -44,7 +44,7 @@ networking denied. Exercise login, upload, scanned OCR, retrieval, generation,
 reset and deletion; monitor DNS/outbound attempts. Missing artifacts must produce
 explicit failure. This acceptance procedure has not yet been run on GPU models.
 
-## Verification recorded during implementation
+## Verification recorded during the foundation implementation
 
 Windows / Python 3.11: 70 tests passed, including real Chroma CRUD/filtering, sample
 PDF parsing in six document categories, and API end-to-end tests with injected
@@ -56,3 +56,11 @@ reported no compatible automatic fix. Linux/matrix checks await CI execution.
 Tests do not establish financial answer accuracy, real-model latency, GPU fitting,
 whole-corpus parsing quality or offline egress guarantees. See the evaluation
 contract before publishing any such metrics.
+
+## Evaluation implementation — 1 November 2026
+
+The current backend suite passes 95 tests. The executable BM25 baseline, catalog
+and draft review queue are recorded under `evals/`. It reports parser failures
+explicitly and preserves incomplete-ingestion exit status. Python package builds,
+lock consistency and Ruff are checked for the evaluation changes. Frontend files
+were unchanged. This is still not a real-model or offline-egress acceptance run.

@@ -159,7 +159,9 @@ For offline operation, configure `OLLAMA_NO_CLOUD=1` in the separately running *
 
 ## Verification
 
-The latest recorded local run passed **70 tests**, including authenticated API flows with injected models, real Chroma filtering/upserts/deletion, and PDF samples from all six corpus categories. Frontend lint/build and Python wheel/source builds also passed. These results measure software behavior; model answer quality and GPU throughput need their own evaluations.
+The latest recorded local run passed **95 tests**, covering authenticated API flows, real Chroma operations, PDF samples, corpus integrity, split leakage, evidence spans, and benchmark failure accounting. Frontend lint/build passed during the foundation work; the evaluation changes do not touch the frontend. These results measure software behavior; model answer quality and GPU throughput need their own evaluations.
+
+The [evaluation workspace](evals/README.md) now includes a hashed 1,000-PDF catalog, a balanced 72-document review sample, and an [executed BM25 baseline](evals/reports/BASELINE.md). Its 66 draft identifier queries measure navigation only. The report preserves 29 indexing failures and makes no financial-accuracy or GPU-performance claim.
 
 Run the lightweight verification profile without downloading generation weights:
 
@@ -180,7 +182,7 @@ For the frontend, run `npm ci`, `npm run lint`, and `npm run build` from `fronte
 |---|---|---|
 | Isolation & ingestion | User-scoped evidence/history, safe paths, processing states, repeatable indexing | Broader concurrency, recovery, and adversarial testing |
 | Document intelligence | Native PDF parsing, OCR fallback, page/character provenance | Benchmark Docling, table extraction, and difficult-page routing |
-| Retrieval | BM25 + dense fusion, optional reranking | Reviewed, template-separated judgments and measured recall improvements |
+| Retrieval | BM25 + dense fusion, optional reranking; executed navigation baseline | Human-reviewed semantic judgments and measured recall improvements |
 | Financial correctness | Decimal money primitives and source observations | Verified SQL/calculation tools and numeric claim checking |
 | Local inference | Ollama/llama.cpp adapters and hardware visibility | CPU/GPU model benchmarks and measured execution profiles |
 | Operations | Locked dependencies, CI definitions, local diagnostics | Offline egress acceptance and tested backup/restore |

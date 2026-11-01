@@ -33,3 +33,16 @@ diagnostics, evaluation scoring and client error handling are implemented.
 See OPERATIONS.md for verification and migration limits. The next development
 slice is a reviewed evaluation corpus followed by parser/model experiments and
 verified structured calculations. Hardware-aware model selection remains a plan.
+
+## Evaluation foundation — 1 November 2026
+
+A complete 1,000-PDF catalog, declared-layout/exact-duplicate grouping, balanced
+72-document review sample, source-span validation, and isolated executable
+retrieval runner are implemented. BM25 was measured over 819 non-holdout sources;
+790 indexed successfully and 29 failed. The 66 draft navigation questions and six
+candidate-label failures are explicit. Optional dense/hybrid profiles require
+local embedding artifacts and use an exact NumPy index, not a Chroma speed test.
+
+The current suite passes 95 tests. Generated labels remain drafts, financial
+accuracy is unscored, and GPU/model experiments have not run. See
+`evals/reports/BASELINE.md` and `docs/EVALUATION_PLAN.md` for evidence and next steps.
