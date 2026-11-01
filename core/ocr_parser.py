@@ -18,6 +18,11 @@ class OCRParser:
     IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".bmp", ".tif", ".tiff"}
     TEXT_SUFFIXES = {".txt", ".md", ".csv", ".json", ".xml", ".html", ".htm"}
 
+    def __init__(self, max_pdf_pages: int | None = None):
+        if max_pdf_pages is not None and max_pdf_pages <= 0:
+            raise ValueError("PDF page limit must be positive")
+        self.max_pdf_pages = max_pdf_pages
+
     def parse_path(self, file_path: str | Path) -> str:
         path = Path(file_path)
         suffix = path.suffix.lower()
@@ -37,7 +42,8 @@ class OCRParser:
 
         pages: list[ParsedPage] = []
         with pdfplumber.open(str(file_path)) as pdf:
-            if len(pdf.pages) > get_settings().max_pdf_pages:
+            limit = self.max_pdf_pages if self.max_pdf_pages is not None else get_settings().max_pdf_pages
+            if len(pdf.pages) > limit:
                 raise ValueError("PDF exceeds configured page limit")
             for number, page in enumerate(pdf.pages, 1):
                 text = page.extract_text(x_tolerance=1, y_tolerance=1) or ""
