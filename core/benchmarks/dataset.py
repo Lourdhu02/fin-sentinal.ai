@@ -95,18 +95,19 @@ def select_documents(catalog, per_category=12, seed="finsentinel-eval-v1"):
         raise ValueError("Per-category sample size must be positive")
     selected = []
     for category in sorted({doc.category for doc in catalog.documents}):
-        buckets = defaultdict(list)
-        for doc in catalog.documents:
-            if doc.category == category and doc.partition != "holdout_candidate":
-                buckets[doc.layout].append(doc)
-        for bucket in buckets.values():
-            bucket.sort(key=lambda doc: hashlib.sha256(f"{seed}:{doc.document_id}".encode()).hexdigest())
-        ordered = []
-        for round_index in range(max((len(b) for b in buckets.values()), default=0)):
-            ordered.extend(buckets[key][round_index] for key in sorted(buckets) if round_index < len(buckets[key]))
-        if len(ordered) < per_category:
-            raise ValueError(f"Insufficient non-holdout documents in {category}")
-        selected.extend(ordered[:per_category])
+        for split, count in (("development", (per_category + 1) // 2), ("regression", per_category // 2)):
+            buckets = defaultdict(list)
+            for doc in catalog.documents:
+                if doc.category == category and doc.partition == split:
+                    buckets[doc.layout].append(doc)
+            for bucket in buckets.values():
+                bucket.sort(key=lambda doc: hashlib.sha256(f"{seed}:{doc.document_id}".encode()).hexdigest())
+            ordered = []
+            for round_index in range(max((len(b) for b in buckets.values()), default=0)):
+                ordered.extend(buckets[key][round_index] for key in sorted(buckets) if round_index < len(buckets[key]))
+            if len(ordered) < count:
+                raise ValueError(f"Insufficient {split} documents in {category}")
+            selected.extend(ordered[:count])
     return selected
 
 
@@ -141,6 +142,7 @@ def make_review_queue(catalog: Catalog, root: Path, per_category=12):
                                   intent="identifier_lookup", evidence=evidence).model_dump())
     return {"schema_version": "review-queue-v1", "catalog_manifest_sha256": catalog.source_manifest_sha256,
             "catalog_sha256": hashlib.sha256(catalog.model_dump_json().encode()).hexdigest(),
+            "sampling_policy": "category-balanced; equal development/regression allocation; round-robin declared layouts",
             "label_origin": "machine-generated navigation candidates; not human-reviewed ground truth",
             "selected_document_ids": [doc.document_id for doc in selected], "judgments": judgments,
             "candidate_failures": failures}

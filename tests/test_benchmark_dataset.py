@@ -40,6 +40,8 @@ def test_sample_is_deterministic_and_excludes_holdout():
     assert len(selected) == 12
     assert all(d.partition != "holdout_candidate" for d in selected)
     assert {d.layout for d in selected} == set(range(8))
+    assert sum(d.partition == "development" for d in selected) == 6
+    assert sum(d.partition == "regression" for d in selected) == 6
 
 
 @pytest.mark.parametrize("path", ["../secret", "/absolute", "..\\secret", "C:secret"])

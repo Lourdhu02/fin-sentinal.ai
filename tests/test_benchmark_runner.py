@@ -85,3 +85,17 @@ def test_failed_rows_contribute_zero_to_aggregate():
     good = {"error": None, "latency_ms": 1, "metrics": {key: 1 for key in ["recall", "mrr", "ndcg", "evidence_recall"]}}
     bad = {"error": "failure", "latency_ms": 2, "metrics": {key: 0 for key in good["metrics"]}}
     assert summarize([good, bad])["metrics"]["recall"] == 0.5
+
+
+def test_combined_profile_retains_partition_summaries(tmp_path, monkeypatch):
+    catalog, queue, text = fixture_inputs(tmp_path)
+    monkeypatch.setattr("core.benchmarks.runner.OCRParser.parse_pdf_pages",
+                        lambda *args: [SimpleNamespace(page=1, text=text)])
+    report = run_benchmark(catalog, queue, tmp_path, split="all_nonholdout", allow_draft=True)
+    assert report["by_partition"]["regression"]["queries"] == 1
+
+
+def test_dense_mode_does_not_silently_use_unpinned_model(tmp_path):
+    catalog, queue, _ = fixture_inputs(tmp_path)
+    with pytest.raises(ValueError, match="local embedding directory"):
+        run_benchmark(catalog, queue, tmp_path, mode="dense", allow_draft=True)

@@ -54,7 +54,8 @@ def validate_queue(catalog, queue, root, split, allow_draft):
     judgments = [Judgment.model_validate(item) for item in queue["judgments"]]
     if len({j.query_id for j in judgments}) != len(judgments):
         raise ValueError("Duplicate query IDs")
-    selected = [j for j in judgments if j.partition == split]
+    selected = [j for j in judgments if j.partition == split or
+                (split == "all_nonholdout" and j.partition != "holdout_candidate")]
     if not selected:
         raise ValueError("No judgments in requested partition")
     if not allow_draft and any(j.review_status != "human_reviewed" for j in selected):
@@ -252,7 +253,7 @@ def run_benchmark(catalog, queue, root, *, split="regression", mode="bm25", k=5,
                         predictions = []
                     metrics = retrieval_metrics(expected, [p["benchmark_document_id"] for p in predictions], k)
                     metrics["evidence_recall"] = evidence_recall(judgment.evidence, predictions)
-                    rows.append({"query_id": judgment.query_id, "category": judgment.category,
+                    rows.append({"query_id": judgment.query_id, "category": judgment.category, "partition": judgment.partition,
                                  "review_status": judgment.review_status, "metrics": metrics,
                                  "latency_ms": elapsed_ms, "error": error,
                                  "retrieved_document_ids": [p["benchmark_document_id"] for p in predictions],
@@ -260,6 +261,8 @@ def run_benchmark(catalog, queue, root, *, split="regression", mode="bm25", k=5,
                 report["summary"] = summarize(rows)
                 report["by_category"] = {category: summarize([r for r in rows if r["category"] == category])
                                          for category in sorted({r["category"] for r in rows})}
+                report["by_partition"] = {partition: summarize([r for r in rows if r["partition"] == partition])
+                                          for partition in sorted({r["partition"] for r in rows})}
                 report["queries"] = rows
                 report["status"] = "completed_with_failures" if failures or any(r["error"] for r in rows) else "completed"
                 if leaked or authorized:
@@ -276,7 +279,7 @@ def main():
     parser.add_argument("--catalog", required=True, type=Path)
     parser.add_argument("--judgments", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--partition", choices=["development", "regression", "holdout_candidate"], default="regression")
+    parser.add_argument("--partition", choices=["development", "regression", "all_nonholdout", "holdout_candidate"], default="regression")
     parser.add_argument("--mode", choices=["bm25", "dense", "hybrid"], default="bm25")
     parser.add_argument("--embedding-directory", type=Path)
     parser.add_argument("--k", type=int, default=5)
