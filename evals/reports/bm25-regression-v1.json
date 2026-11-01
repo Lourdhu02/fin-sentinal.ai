@@ -1,0 +1,594 @@
+{
+  "schema_version": "benchmark-v1",
+  "started_at": "2026-11-01T10:02:24.771600+00:00",
+  "status": "completed_with_failures",
+  "provisional": true,
+  "release_gates_applied": false,
+  "label_scope": "identifier navigation; not general QA or financial accuracy",
+  "catalog_sha256": "a3927501b1382a03a04c96388b042fc9bcd973625d59fcf9241c0e205ee98260",
+  "judgments_sha256": "b0ad8b9124d82ca4c687574723dfcb043138f150a621d37a515aed6f55e4445a",
+  "configuration": {
+    "mode": "bm25",
+    "partition": "regression",
+    "k": 5,
+    "chunk_size": 900,
+    "overlap": 120,
+    "dense_index": null,
+    "reranker": null,
+    "generation": false,
+    "index_scope": "all non-holdout documents"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "packages": {
+      "pdfplumber": "0.11.10",
+      "numpy": "2.4.6",
+      "sentence-transformers": null,
+      "psutil": "7.2.2",
+      "pydantic": "2.14.2"
+    },
+    "code": {
+      "commit": "17f777da99a2d7aa2a796c7f2277dba211c2e9bd",
+      "tracked_changes": false,
+      "implementation_sha256": "19411faa946c53a89a71455ad6d46c7f4e140e5ceffaeb37368bbecd7cb50f44"
+    },
+    "hardware": {
+      "os": "Windows",
+      "architecture": "AMD64",
+      "logical_cpus": 32,
+      "nvidia_devices": [
+        {
+          "name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "total_mib": 8151,
+          "free_mib": 7899
+        }
+      ],
+      "gpu_detection": "available",
+      "note": "GPU visibility does not prove model offload; verify the inference runtime separately"
+    }
+  },
+  "embedding_artifact": null,
+  "judgment_coverage": {
+    "selected_documents": 72,
+    "candidate_failures": [
+      {
+        "document_id": "4b6b84ec4032f17201e72d948a06bf23a7cf1d43e26966b3ffbaaaadb62d6405",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "8d720db221beae72fb6df66bca72ca90fdf283953bda003eca70510c292bf830",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "9dfce79fec426e535abd7c55e6b9ff37e7e3b60e198960edb1f70a028074fd69",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "2b83b384772a277eb69602703cccf14ec76ce088e3d361e867f9266981dd7911",
+        "reason": "PdfminerException"
+      }
+    ],
+    "scored_queries_in_partition": 10,
+    "note": "Candidate failures have no valid ground truth and are not retrieval queries; all corpus parse failures are reported separately"
+  },
+  "corpus": {
+    "documents": 819,
+    "indexed_documents": 790,
+    "chunks": 1766,
+    "failures": [
+      {
+        "document_id": "6150745f6bf7ccec60e2e34e76e93e364106b76dbe76ff432cd3fb6da298c70f",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "6a2497c1959a3cd3aab77d3b858f176e1824df37f2692173a5f0008dbfb4436c",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "0e339e0ef7295400710b457ce819f7c71700c30a666e72750cdd8dbcf2fa7577",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "8a8446a40b6a9ce7e6e79c6a3b298748ae416b8b7d908e312c7464d5dc514297",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "5878b637e7322ddb66358fb155b91225fbcb139edf9c274713b771d9b5bdaa3f",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "2e06b86a61bfb47f34540698da40a42fc69ce0aab7184d3c7c575bb6efcbf114",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "8c04fda40abcb0bd4f053b3436e161000d1440f857a1f6c1d2ed5b889f89654b",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "7f213b743aa5684da7fd4fac4c2c08195a5e4d4348c52421f4980ff2a263616d",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "efc548d4095b6d6a68e3a262c4e3c7aab283317d963e7088112c48575a104cde",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "33ca5f2e586089ff85a6121feb5610b6105f12a9963ee2587dfefd84dd33a426",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "812b46f03a20768121a725612cd8a66ad9336313bacc5766f6528a60e8d89338",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "9a870f1db0eb5bc867e99687aa4ac7b461c8a87c2f74204ea564cadcb672de18",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "09906754e3a7b9ae682a14ff2dc396d0ab893798aee027d02127682d24e1037c",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "73fcce20f8b873629fc42578411c5df0d61d6531a45ed25f25d8068904fbc471",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "4b6b84ec4032f17201e72d948a06bf23a7cf1d43e26966b3ffbaaaadb62d6405",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "6692d73d9ba1ba9c25737696c70a19677e71e5a466493495931fb6fe6a9421c5",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "e6f31cefc29d195fda1cd9e9f66a711cf27004bd03200ea95d6b1f6ee30ccf44",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "903e7f4a0e0c707b5e0fa81035be746032b765ea3d6c279f365080ee6960f1db",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "5b440b626f1e341e796166da5635cc299178e77e0acae382e1cd6206110fcec7",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "c6cc44806763468498b8d958f8fcd7da1a50cc626a2b789180728d1d117923ec",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "ec78222a84ade38fde32b8d3563ec740a491d3236f6077471ed79528044f0822",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "2b83b384772a277eb69602703cccf14ec76ce088e3d361e867f9266981dd7911",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "fc38beeea78ec8cba79b8d5d0a974ba645dd44af17691c161cdc760281d04149",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "baa057438b8e69ad148570617a8202ef008056fb0a50eb3a1d036908092e5a3a",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "9dfce79fec426e535abd7c55e6b9ff37e7e3b60e198960edb1f70a028074fd69",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "47d56a2850c2752209c701d451275e0cc3d4b831459bca473c9f183af8675aa5",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "8d720db221beae72fb6df66bca72ca90fdf283953bda003eca70510c292bf830",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "4889b46bf438eb363689a40e68b855c0f285134e2aa39adda03c3f9370cb7d46",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "462893b4ddaf29ce309375ed7a8405b60e475965b3547491b3d905f5a490e802",
+        "error_type": "PdfminerException"
+      }
+    ]
+  },
+  "ingestion_seconds": 40.1837266000075,
+  "sqlite_index_seconds": 5.76447950056172,
+  "extraction_diagnostics": {
+    "documents_with_any_observed_amount": 295,
+    "documents_with_explicit_currency": 116,
+    "denominator": 819,
+    "accuracy": null,
+    "reason": "No independently reviewed financial-field labels"
+  },
+  "embedding_initialization_and_index_seconds": 5.00003807246685e-07,
+  "isolation_canary": {
+    "lexical_leaks": 0,
+    "foreign_vector_hits_authorized": 0,
+    "scope": "SQLite lexical filtering and authoritative vector-hit reauthorization; not a full security audit"
+  },
+  "summary": {
+    "queries": 10,
+    "failed_queries": 0,
+    "metrics": {
+      "recall": 1.0,
+      "mrr": 0.9,
+      "ndcg": 0.9261859507142916,
+      "evidence_recall": 1.0
+    },
+    "retrieval_latency_ms": {
+      "p50": 10.93360000231769,
+      "p95": 12.282199997571297
+    }
+  },
+  "by_category": {
+    "bank_statements": {
+      "queries": 2,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 9.118300004047342,
+        "p95": 10.003399991546758
+      }
+    },
+    "credit_debit_notes": {
+      "queries": 1,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 11.001799997757189,
+        "p95": 11.001799997757189
+      }
+    },
+    "gst_returns": {
+      "queries": 2,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 10.582800008705817,
+        "p95": 10.81210000847932
+      }
+    },
+    "invoices": {
+      "queries": 2,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 11.123699994641356,
+        "p95": 12.282199997571297
+      }
+    },
+    "purchase_orders": {
+      "queries": 1,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 11.337100004311651,
+        "p95": 11.337100004311651
+      }
+    },
+    "salary_slips": {
+      "queries": 2,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309297535714575,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 10.93360000231769,
+        "p95": 12.174000003142282
+      }
+    }
+  },
+  "queries": [
+    {
+      "query_id": "7881f7aad06089426068",
+      "category": "bank_statements",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.003399991546758,
+      "error": null,
+      "retrieved_document_ids": [
+        "fe32406f2a2d8fe5f30fb327ceac8a1ca31c81bc4b481df9629bb652219c5762",
+        "a130dd430cb805e87615b3cc99dbc3c8788eec23924aafbcf9b85bc5840c2a59",
+        "a3ea6353a51da00928e2da46d0ecc9b68e28370dafb936d0d2706d2f2a35c231",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed",
+        "bbf095d3db6899c89d70916c9ae3f9043268e18e084cae0741de431eaebeb8ff"
+      ],
+      "retrieved_chunk_ids": [
+        "1007d5514f926a7d3ff47f3e095ae9dc8c25278aa96dbe6b8fcc600a09092779",
+        "dca4bc432ee2395389c91f64092c7c784657bed22c6493849f6434146e7a0293",
+        "dd612d5fd647431ed6c1851b7ed4d008f5e04f572ca93c8ebafb6bb821a7717c",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0",
+        "82d1afead83a1593b59f51aa634ad3cb6db853b55ef1c4591e62d9643464ec63"
+      ]
+    },
+    {
+      "query_id": "1fa76d1a5595fea2f3d3",
+      "category": "bank_statements",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.118300004047342,
+      "error": null,
+      "retrieved_document_ids": [
+        "74a4808e16acc574c3b957b0ef6fb1d9322827dff7ad9156766791def5e1132d",
+        "bbf095d3db6899c89d70916c9ae3f9043268e18e084cae0741de431eaebeb8ff",
+        "474be494a3e447198a24fbd9ed81a76db949d9638ddf93c5d8d1f03c50e264ec",
+        "3e8003fc78d4c0c09c07d44a4e4d31aae1594d06117d85fcccc52b91a89a61b1",
+        "35904730502c49696794a41a9f41f4e547f0aba042a6f7aba200883ad9069225"
+      ],
+      "retrieved_chunk_ids": [
+        "52b4a0802f446886467668ee603717fff38d52a09c288e4737c7de7234ad5815",
+        "82d1afead83a1593b59f51aa634ad3cb6db853b55ef1c4591e62d9643464ec63",
+        "de1edfd2db3153fd4c908f12f936a23ef6845c020f89d69d96a2136bc2ec1f95",
+        "f30b8f1dc88129223ed817c025b0e431af7f4a6fbc24ff9e0526baa7034bedd4",
+        "eb92b73d3570666221084efdb1f6031419e8400c6a62285c4ba36efa328500ce"
+      ]
+    },
+    {
+      "query_id": "e809a1f0cceb0aa669f9",
+      "category": "credit_debit_notes",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.001799997757189,
+      "error": null,
+      "retrieved_document_ids": [
+        "ec7f0cb4d89aa37b3f7d1005f96b4fe533679b723309e7f27b1a1684f9fa2ac7",
+        "073d7c02cf83548504be2f22552324b741ef4d8bb9b0371c67312ee46bb7036f",
+        "4ac1187258c1c9b2dad097563460dea9e3ae968eea1db5b2f6eb794a1a3c6856",
+        "2fac63c80a4dac775b37d677b4161b6b54056981e258e6226bd9d44cbc95fde0",
+        "c45ebaa64a98fcdd2fd8f0cfc7f02fda3863456f65e843fa268ca869bd076dfe"
+      ],
+      "retrieved_chunk_ids": [
+        "6b34c295c10794f30652c7ceebba9ef90c1fc21cd9cc920f3669945c324705de",
+        "8e004c7627a611640f73d5cba112626eb5aa777884fa6e93fc95e23087f8aff8",
+        "ac85214741c19d079f2284b78a6811439a1cf98235e9c6b7850a1fba96a811b6",
+        "8f46474e8151e79778e214b935cd22e3c670a330c43ccc55baa11bc2e73c1ba2",
+        "ae40a666e7192513709fa0c45200c46b503f3226eff3e995c59c8571cc08a1da"
+      ]
+    },
+    {
+      "query_id": "45d36a3f929bd84938f5",
+      "category": "gst_returns",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.582800008705817,
+      "error": null,
+      "retrieved_document_ids": [
+        "a6146d7416c402e22fc800105c01b381f1aa05453d61fb0aa929ce19002f16d8",
+        "a6146d7416c402e22fc800105c01b381f1aa05453d61fb0aa929ce19002f16d8",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "e54d3406d506396226bb403a62d8ccb0516d39f47f8dad6ec5739d3692f1436b",
+        "333eca8e0ce91be2ad7f4697062bf083474f8f7e7ac5bc84d283712c84906801",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "b00ac094622042bf2abc",
+      "category": "gst_returns",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.81210000847932,
+      "error": null,
+      "retrieved_document_ids": [
+        "e79963706de83df8ba39a1d7959b09208351fef4500b169fdd6b3d13853f2518",
+        "e79963706de83df8ba39a1d7959b09208351fef4500b169fdd6b3d13853f2518",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "854e70bff39eb338a6d2e6ba91e09d523c301999ec98229ed6299d380f63f90a",
+        "c7f509a94e12de804aba3922a28402705b37525c0824ddce1025e79c2453c05e",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "fdd8c1a60afd449c7e6b",
+      "category": "invoices",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.123699994641356,
+      "error": null,
+      "retrieved_document_ids": [
+        "004f6d8d63a208712f7afc58f63b5ce54b4a2652302aaa076ebd28d718efa8e1",
+        "a4d53bb41ecbaa70cd91b184adab6f97ba0554bd643037e26981acfa494d14f5",
+        "a4d53bb41ecbaa70cd91b184adab6f97ba0554bd643037e26981acfa494d14f5",
+        "053931a3a35b64eae9a7e75d4cf3cb019d9e7cd9826c436233a004ca106e455d",
+        "ede680192443af9084876a19071f7274fac7c0b19535f6b8cabf6e4666ce2728"
+      ],
+      "retrieved_chunk_ids": [
+        "a417ed54ab107477497dba076ead9b3739286ad482d3ba43be14facf488664b5",
+        "4d282f53718fca7f4d81aaee1ebde4d9e59b3b20f4433e53307023f739592a8f",
+        "016ee05bcb8f9c80a5712a9813c4ecf36798b8f98ad14d42e712e0ec23e4e87f",
+        "14f86adc0ee02916022f9a5b3c9e6f862a84e337a442e73f5f15f1be40db6e3e",
+        "b0c1762a9790afa99e699156e7b2c92bc3e8c1f8ec138ea8c34e093f6ee7b56a"
+      ]
+    },
+    {
+      "query_id": "6270b340771acf92a057",
+      "category": "invoices",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 12.282199997571297,
+      "error": null,
+      "retrieved_document_ids": [
+        "f2d25f508e1caa9be5e335390dfadb3a64d0e79fa46b8c0729a585fef41c170c",
+        "d4d4edc150351eacfccd5142c8f2b7b40de9d6ed8fb1bfe9b23c9fb4e027c5ad",
+        "74602684b7fb8b42e69d5147538e05398d26e8bd8ea0733605a9ec5948525275",
+        "fb78a56e987551e26a05e9674933aeb70792af5c6cadd550c20211af93850d56",
+        "667df4ba7443456a227345ddfa817d50389e2385f23a5d93014460a8809119cb"
+      ],
+      "retrieved_chunk_ids": [
+        "91238545c6c97d570d26f4efff3a9f419ff7892ba0ca69b188e53e2e4ec123d6",
+        "984bc7685a0521ca7c574604d699c9ddcbc4094ce067ce169ed82dd44d0a0948",
+        "e0fde747ad43fb8219df977351e049683ebe64d094c35f0a8434a8c67fa52310",
+        "abbfe6aa102916bddd11674d09752d093fa298c486bb5b1b12cc2e4a381cd118",
+        "06e2ec794ef32fed4447e56e009a691f45d360a9703c549e65f3bc658f1e2eb1"
+      ]
+    },
+    {
+      "query_id": "78a475d9f4cdb873df5e",
+      "category": "purchase_orders",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.337100004311651,
+      "error": null,
+      "retrieved_document_ids": [
+        "7371cfad47b3c3c15f586f630498ec77462fdba62832c15f4577353d3a42edac",
+        "2ee1781c8c72e7178a2573ea2a1a008b8c66cdcb782a831301d3bfa487156953",
+        "9cf821b47d4acbc68c9a623c7916113377a29b82385617ad975d2c066ef90f5f",
+        "54b42cec01e5541068e74e6be68001257db02e69d89c9f347c3489bdb9187a78",
+        "453d6ae37f6adc7bb06b39d49b6ce4cf7d01428bdae944fbed5c73ccd32e4fce"
+      ],
+      "retrieved_chunk_ids": [
+        "7be98d157d05ac0b31e7af994e832da9d241c5457251740938e98462ce5a6b1d",
+        "29d6f1dcbe3115b1f6a3506fa70b15432bbd19f63865e9fd1b613ce1579ffffd",
+        "6e50b32398ccd66cf59b42d4203ae7485e5a695e11b9dafa64b55b6b2b9def11",
+        "8cc920a784850e0b2e027548f45b8e6013e67dd24be2eb05f3988cd44a3fd2e8",
+        "2684e9385331da98a50e31339a1c7e58aa8abbb74ccbf49a69cf9ca8cdb3a78e"
+      ]
+    },
+    {
+      "query_id": "b4c944ae35ef2f39642b",
+      "category": "salary_slips",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309297535714575,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 12.174000003142282,
+      "error": null,
+      "retrieved_document_ids": [
+        "9e72853a926a77ff47537624e1309883060e129554a0b451c91cd53d9dbd9013",
+        "f26bb49da63ef22555576b353b489c290a9fe5811a46f235cce3cb458d7de43d",
+        "be47a528ebdf0d30fb423c0b95c80a28a0b42c7442d3abea231313e485af6e20",
+        "463a152833de25b6ac50c55b4d3e358b891d278648c7bc22ce2af410eb2eb4b2",
+        "7761e235a7c1ea328eae5b93e6a1037e533582613fb53affbd4656b777eb836a"
+      ],
+      "retrieved_chunk_ids": [
+        "fa79514f78274c643ae22da121041aa81cae4f3420c3f17c3d09af8ad91161a0",
+        "a2dc9b3d8088bba32c1944dbb00b720301872c8d83a9c58c8bafbf06ed147b49",
+        "e49551e5626d15e690949b8c3836e3fe6dee917a306f22272774eacc15f96016",
+        "5fc9cb9ea99392babc6c409dd1c561c37dae9e2a6230280992e321b4cc83e60d",
+        "bec44653f40463d86f7064bd36d176200a4a91d4efbb150c854b699d6801f893"
+      ]
+    },
+    {
+      "query_id": "f0b3f6832ccf249cab69",
+      "category": "salary_slips",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309297535714575,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.93360000231769,
+      "error": null,
+      "retrieved_document_ids": [
+        "b30f746e42640146b207e454e3c76f8700f0f52c9bcf69e0175aaa87a5173d2c",
+        "daddda7d257dc9fa78e7a25bcd7601373ba93aceefcf278528a367c66931b328",
+        "b0c5022fc34dd1b79339905031c6be772c61a2829b284d1d8ea6bdfa2c31415d",
+        "07956d22d6763953f768cf1da0bdcf31b787bcb22af4e1421670d6bf686e355c",
+        "c9d92a5cc6f3d3f14340bbaf7f49ddd3b61a11aab40daf55565f977c8d9a2a61"
+      ],
+      "retrieved_chunk_ids": [
+        "c4854b0cac11e68d43e044be7a8de54f51eb5af76726144f623e396a30043eb4",
+        "b0572914e259971a3318f0c724e28375175b7e9c4feca7206a29a3deef5091b2",
+        "dc800600746a1a2b97d34497b062079bc6698d8888394fd2567475aff118b2bb",
+        "1c721da7f684757b8d269a68c71d9de4dbdcd67c0b31e407f3791060d7483b92",
+        "b1478822b46c6114c464a680d1ab6628620471c400d29df389f18d5aef640dc3"
+      ]
+    }
+  ],
+  "resources": {
+    "wall_seconds": 40.311092899995856,
+    "process_cpu_seconds": 38.703125,
+    "sampled_peak_rss_bytes": 80793600,
+    "rss_sample_interval_ms": 50,
+    "python_heap_peak_bytes": null,
+    "scope": "this process only; RSS is sampled, GPU peak is not measured",
+    "instrumentation": "periodic RSS sampling",
+    "python_heap_tracing": false
+  }
+}

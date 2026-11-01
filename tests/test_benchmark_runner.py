@@ -99,3 +99,19 @@ def test_dense_mode_does_not_silently_use_unpinned_model(tmp_path):
     catalog, queue, _ = fixture_inputs(tmp_path)
     with pytest.raises(ValueError, match="local embedding directory"):
         run_benchmark(catalog, queue, tmp_path, mode="dense", allow_draft=True)
+
+
+@pytest.mark.parametrize("mode", ["dense", "hybrid"])
+def test_optional_profiles_use_explicit_embedding_artifact(tmp_path, monkeypatch, mode):
+    from tests.helpers import Embedder
+    catalog, queue, text = fixture_inputs(tmp_path)
+    artifact = tmp_path / "embedding"
+    artifact.mkdir()
+    (artifact / "fixture.bin").write_bytes(b"unit-test artifact; not a real model")
+    monkeypatch.setattr("core.benchmarks.runner.OCRParser.parse_pdf_pages",
+                        lambda *args: [SimpleNamespace(page=1, text=text)])
+    monkeypatch.setattr("core.embedder.LocalEmbedder", lambda *args: Embedder())
+    report = run_benchmark(catalog, queue, tmp_path, mode=mode, allow_draft=True, embedding_directory=artifact)
+    assert report["embedding_artifact"]["files"] == 1
+    assert report["configuration"]["dense_index"] == "numpy exact normalized dot product"
+    assert report["summary"]["metrics"]["evidence_recall"] == 1

@@ -1,0 +1,1297 @@
+{
+  "schema_version": "review-queue-v1",
+  "catalog_manifest_sha256": "25c5380d51fbe8200f2d3620d307c4c0b6e8b5e7353086b61424e860f11ddd0c",
+  "catalog_sha256": "a3927501b1382a03a04c96388b042fc9bcd973625d59fcf9241c0e205ee98260",
+  "sampling_policy": "category-balanced; equal development/regression allocation; round-robin declared layouts",
+  "label_origin": "machine-generated navigation candidates; not human-reviewed ground truth",
+  "selected_document_ids": [
+    "2e9c1530e392b63082d93637a7b64dec2c66e316ae324c04b8f891146cca04dc",
+    "c749c809147cb0a9d47e74e210e27fa2f0c864adf78e25e6d0a0d695536fde0b",
+    "acb0e0e65933815b1c331e67c73c9bf20fcf97101ebb2252d11829652af94352",
+    "4b6b84ec4032f17201e72d948a06bf23a7cf1d43e26966b3ffbaaaadb62d6405",
+    "25be2ae6c00c37f84e1330a7f797c78c74331734441ce93c04f5ebf45da29cef",
+    "20ac233434e34feb9171b740f553590104c642e4d5f0328b97c3579205a37dde",
+    "74a4808e16acc574c3b957b0ef6fb1d9322827dff7ad9156766791def5e1132d",
+    "fe32406f2a2d8fe5f30fb327ceac8a1ca31c81bc4b481df9629bb652219c5762",
+    "2f270f7e6950dfd513829eee110a010b8b19f4afb8bfc4f94238ecdfce9df395",
+    "443df54881fc66ec740414a55eef089d11a6541c3630550f1cdbd5b2314f24cc",
+    "89b1516dd7c590c2fe6c626e28023c24a95b59bb04c673c0972d8698af93916e",
+    "6b46d0a01f36508a7f13c6f96ccdef8f6bc1b36899602bde3359ce92552e7923",
+    "21da605eae56c8ed0bbeabff30335cc6e54818c551f550ed4558a6fb78504f01",
+    "ab7fc9e3ce00baa21bd2b7e677528e95c39c94f017e7b46d1961a41abfcd157d",
+    "128a30ee73aa28d0e3a7235bcf1411b977cd36ddaf048ff2ca9d72447fc93906",
+    "2fac63c80a4dac775b37d677b4161b6b54056981e258e6226bd9d44cbc95fde0",
+    "3c6b6269f8ff723d52af46adcaaec2baf80978b88624343fa6cbdaf1756e0943",
+    "ede680192443af9084876a19071f7274fac7c0b19535f6b8cabf6e4666ce2728",
+    "ec7f0cb4d89aa37b3f7d1005f96b4fe533679b723309e7f27b1a1684f9fa2ac7",
+    "8d720db221beae72fb6df66bca72ca90fdf283953bda003eca70510c292bf830",
+    "d9c113b3b20a70c41f21ab3edd49ec096763781bf14f832d819c073f95b0443c",
+    "0e513570c83aa4dc040bd1e33583eb4d9d20c7b69e3193c87e30d3cd407bab01",
+    "cce32bdbc09f00ea0448f7c32b45c1f257893f5bb0ba3b2a7ceb142e0e671681",
+    "72fc074b79a27d7b5213619dc11efd7cb025572721a3fe94590f8b28e8bc5d4d",
+    "4e0cef3aafb9f23ce56a7814c621b8cac15dacd44332d563addcde8bd8be5114",
+    "c844ce956ff72a56ac2d01413031f9678c5a4a37fcd232f290503bca1bcb4793",
+    "da3acbb90dcdcb1e98ae325500042f60b6cdc2929c722464f4fac85500011df4",
+    "a47f1ab72bfb0bd92fa4b74349a78cac34dcebe5c53e088bd055c1efa5ee07e8",
+    "ac437b69a344300871778cceac863a7d139cefd92adeb29a3b0f7b6361fb01e5",
+    "01c4140e4a6f5a528e1eae06ab35cf2298e5b529bbd66ccfecc871e3887a73a8",
+    "a6146d7416c402e22fc800105c01b381f1aa05453d61fb0aa929ce19002f16d8",
+    "e79963706de83df8ba39a1d7959b09208351fef4500b169fdd6b3d13853f2518",
+    "e860d4240e9ba0ca6600214b6b81f5b2227ec6735f5fba43b6bd2ae8b680b46a",
+    "dbc1c2b7e34b29e403904ba11c1c10a3cab0cbe8bc3e7dd1687a902ca10e2047",
+    "1b8f8464a8e1dba080ce6dda5e8e27cb77492f7e1ccf87c2836e2d9634068e92",
+    "3986365b5247023ed64ab6b7b6dfb340dfe8e910ec89b824edb63ee1415f14cd",
+    "9b911e4ebf42e400dcb625ed802c0ed4990d3a31fa1320ef1b7c5e8adc246c37",
+    "27b0138748f850aac095530635481fd5464773ac8e696dc0c0906b2525675158",
+    "e9fefb8613ca6c61a64c5b991cd7600d0f4f96066c6cb9bc0af1d5bd94f30e6d",
+    "35e3d086099825212366718ef1f4643117111bd88fbe8281fd11442d47b4fc7b",
+    "f29a59ee9746e4a1e3fc30c87123667324009b0bed540e72db3616e4640fdc40",
+    "802e72d1823e05c5cf45362e7a3792539b2053b6274c8732266710bc78bc1641",
+    "f2d25f508e1caa9be5e335390dfadb3a64d0e79fa46b8c0729a585fef41c170c",
+    "004f6d8d63a208712f7afc58f63b5ce54b4a2652302aaa076ebd28d718efa8e1",
+    "0558a2a6446cd9bf5d227891d27fe415329a04f8dde07a423cb1d747d37612a2",
+    "c0fbe681aa499b5aa734d0d3331b0ee9f83ea02837fcf870a8acccad05b50fe9",
+    "a090f0d51ba2223dde0257234bf05a49715cc54cb2d76dacd51c9bfaa93dda8f",
+    "8a8446a40b6a9ce7e6e79c6a3b298748ae416b8b7d908e312c7464d5dc514297",
+    "61948a4381d8275a0e670b6a7faaecb6a6d23665840824665cbf979c43184155",
+    "3729410bdd458bb725501e8543f72a13e8748586a80b766a3161255127db025e",
+    "93be4055d3c96278f90c4e5097f6b6909d0e1b6c12b9fb6f1013acd2722d78ef",
+    "ea04106f986191842124aefe30001be4f67beed22dbae29d82c7a79fb329fb32",
+    "7835fdb65c6ff28e217768660376128a2d70c5f8e632921a0922f1587b376c8c",
+    "32347f9c8198ab129b0a01a0411cad3752b8867330e0191fb01983b4d72f8ea1",
+    "9dfce79fec426e535abd7c55e6b9ff37e7e3b60e198960edb1f70a028074fd69",
+    "7371cfad47b3c3c15f586f630498ec77462fdba62832c15f4577353d3a42edac",
+    "e0584a92fec5a2325f246bf8442cf870e8897e5722ce4a5e37732421b36abb56",
+    "e44117f060799e9a765940d3cc566a89782f1a9d232c4b6674e292f7674b0eae",
+    "ff32bfc558173df104e4ff0b5819a7bbe495ddf6c7dc10df8907aca65e2ba5b8",
+    "e64662591e8d452900e557cf660cae8f2eac992b40197bcc3d6796b040cefde2",
+    "2676cdb8b756ba72afabedea174a9c2b8637aef67a64a7afd23028c52e093fcb",
+    "2b83b384772a277eb69602703cccf14ec76ce088e3d361e867f9266981dd7911",
+    "57982e7a90334d517f01f7913d65370204379cb2b51c4de6ec8ea6818347d0e9",
+    "a9a323151de5dcc9a5fb88516e0718e7825e882229a7225550c00f837110bf8a",
+    "b07d53f8f4157c45295708c5c57508d66519dacefb4ff09e9abbb23842cf2196",
+    "e70f372a7cce07179679bd97e114ae62b8256d0ff7235697375a8c872aac4d54",
+    "f26bb49da63ef22555576b353b489c290a9fe5811a46f235cce3cb458d7de43d",
+    "daddda7d257dc9fa78e7a25bcd7601373ba93aceefcf278528a367c66931b328",
+    "ec78222a84ade38fde32b8d3563ec740a491d3236f6077471ed79528044f0822",
+    "fa723beffbc3fd63618be42be385fdc00a39c3df71feef4b728531b5d83faed6",
+    "6b2a03cbbd9001bbcc9ab51d8917d45b0d90aee0a202d9eba90a499f3dc18d08",
+    "8879a294bf4fa059f98b0ec164b920556ec6ef778d99ed24d7325492935232f3"
+  ],
+  "judgments": [
+    {
+      "query_id": "c26cfe4aa0e7a095905e",
+      "question": "Find the bank statements document identified by STMT-202209-1728.",
+      "category": "bank_statements",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "c749c809147cb0a9d47e74e210e27fa2f0c864adf78e25e6d0a0d695536fde0b",
+          "page": 1,
+          "start_char": 187,
+          "end_char": 203,
+          "quote": "STMT-202209-1728"
+        }
+      ]
+    },
+    {
+      "query_id": "fd88fe7c5ce084f1838d",
+      "question": "Find the bank statements document identified by STMT-202210-7569.",
+      "category": "bank_statements",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "20ac233434e34feb9171b740f553590104c642e4d5f0328b97c3579205a37dde",
+          "page": 1,
+          "start_char": 187,
+          "end_char": 203,
+          "quote": "STMT-202210-7569"
+        }
+      ]
+    },
+    {
+      "query_id": "71a9e8e49326235ee09c",
+      "question": "Find the bank statements document identified by STMT-202302-7103.",
+      "category": "bank_statements",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "25be2ae6c00c37f84e1330a7f797c78c74331734441ce93c04f5ebf45da29cef",
+          "page": 1,
+          "start_char": 187,
+          "end_char": 203,
+          "quote": "STMT-202302-7103"
+        }
+      ]
+    },
+    {
+      "query_id": "b8855d5ddb64c6add574",
+      "question": "Find the bank statements document identified by STMT-202304-3723.",
+      "category": "bank_statements",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "acb0e0e65933815b1c331e67c73c9bf20fcf97101ebb2252d11829652af94352",
+          "page": 1,
+          "start_char": 187,
+          "end_char": 203,
+          "quote": "STMT-202304-3723"
+        }
+      ]
+    },
+    {
+      "query_id": "819c66cbf74947701d81",
+      "question": "Find the bank statements document identified by STMT-202310-3208.",
+      "category": "bank_statements",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "2e9c1530e392b63082d93637a7b64dec2c66e316ae324c04b8f891146cca04dc",
+          "page": 1,
+          "start_char": 187,
+          "end_char": 203,
+          "quote": "STMT-202310-3208"
+        }
+      ]
+    },
+    {
+      "query_id": "8685d49901996a593468",
+      "question": "Find the bank statements document identified by STMT-202204-4431.",
+      "category": "bank_statements",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "2f270f7e6950dfd513829eee110a010b8b19f4afb8bfc4f94238ecdfce9df395",
+          "page": 1,
+          "start_char": 187,
+          "end_char": 203,
+          "quote": "STMT-202204-4431"
+        }
+      ]
+    },
+    {
+      "query_id": "cbf65de398003589ecc9",
+      "question": "Find the bank statements document identified by STMT-202306-4240.",
+      "category": "bank_statements",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "6b46d0a01f36508a7f13c6f96ccdef8f6bc1b36899602bde3359ce92552e7923",
+          "page": 1,
+          "start_char": 226,
+          "end_char": 242,
+          "quote": "STMT-202306-4240"
+        }
+      ]
+    },
+    {
+      "query_id": "b63b412f688aff7a6f69",
+      "question": "Find the bank statements document identified by STMT-202404-4805.",
+      "category": "bank_statements",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "89b1516dd7c590c2fe6c626e28023c24a95b59bb04c673c0972d8698af93916e",
+          "page": 1,
+          "start_char": 226,
+          "end_char": 242,
+          "quote": "STMT-202404-4805"
+        }
+      ]
+    },
+    {
+      "query_id": "7881f7aad06089426068",
+      "question": "Find the bank statements document identified by STMT-202408-3358.",
+      "category": "bank_statements",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "fe32406f2a2d8fe5f30fb327ceac8a1ca31c81bc4b481df9629bb652219c5762",
+          "page": 1,
+          "start_char": 226,
+          "end_char": 242,
+          "quote": "STMT-202408-3358"
+        }
+      ]
+    },
+    {
+      "query_id": "82c68d66b758273bb392",
+      "question": "Find the bank statements document identified by STMT-202410-1741.",
+      "category": "bank_statements",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "443df54881fc66ec740414a55eef089d11a6541c3630550f1cdbd5b2314f24cc",
+          "page": 1,
+          "start_char": 226,
+          "end_char": 242,
+          "quote": "STMT-202410-1741"
+        }
+      ]
+    },
+    {
+      "query_id": "1fa76d1a5595fea2f3d3",
+      "question": "Find the bank statements document identified by STMT-202411-3187.",
+      "category": "bank_statements",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "74a4808e16acc574c3b957b0ef6fb1d9322827dff7ad9156766791def5e1132d",
+          "page": 1,
+          "start_char": 183,
+          "end_char": 199,
+          "quote": "STMT-202411-3187"
+        }
+      ]
+    },
+    {
+      "query_id": "44e66e019d3d71bddb4e",
+      "question": "Find the credit debit notes document identified by CN-2022-0919.",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "128a30ee73aa28d0e3a7235bcf1411b977cd36ddaf048ff2ca9d72447fc93906",
+          "page": 1,
+          "start_char": 175,
+          "end_char": 187,
+          "quote": "CN-2022-0919"
+        }
+      ]
+    },
+    {
+      "query_id": "c784225d58ae5b658198",
+      "question": "Find the credit debit notes document identified by CN-2023-0423.",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "3c6b6269f8ff723d52af46adcaaec2baf80978b88624343fa6cbdaf1756e0943",
+          "page": 1,
+          "start_char": 136,
+          "end_char": 148,
+          "quote": "CN-2023-0423"
+        }
+      ]
+    },
+    {
+      "query_id": "6f3db18eb368aca93add",
+      "question": "Find the credit debit notes document identified by CN-2023-0682.",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "ede680192443af9084876a19071f7274fac7c0b19535f6b8cabf6e4666ce2728",
+          "page": 1,
+          "start_char": 136,
+          "end_char": 148,
+          "quote": "CN-2023-0682"
+        }
+      ]
+    },
+    {
+      "query_id": "c4a6b4b2ba131e1e8509",
+      "question": "Find the credit debit notes document identified by CN-2024-0100.",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "21da605eae56c8ed0bbeabff30335cc6e54818c551f550ed4558a6fb78504f01",
+          "page": 1,
+          "start_char": 175,
+          "end_char": 187,
+          "quote": "CN-2024-0100"
+        }
+      ]
+    },
+    {
+      "query_id": "faff60ba291fa0148552",
+      "question": "Find the credit debit notes document identified by DN-2022-0809.",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "2fac63c80a4dac775b37d677b4161b6b54056981e258e6226bd9d44cbc95fde0",
+          "page": 1,
+          "start_char": 134,
+          "end_char": 146,
+          "quote": "DN-2022-0809"
+        }
+      ]
+    },
+    {
+      "query_id": "a7608c142fa7da5a8160",
+      "question": "Find the credit debit notes document identified by DN-2024-0532.",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "ab7fc9e3ce00baa21bd2b7e677528e95c39c94f017e7b46d1961a41abfcd157d",
+          "page": 1,
+          "start_char": 130,
+          "end_char": 142,
+          "quote": "DN-2024-0532"
+        }
+      ]
+    },
+    {
+      "query_id": "d71bcd37704e0765665d",
+      "question": "Find the credit debit notes document identified by CN-2022-0674.",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "cce32bdbc09f00ea0448f7c32b45c1f257893f5bb0ba3b2a7ceb142e0e671681",
+          "page": 1,
+          "start_char": 136,
+          "end_char": 148,
+          "quote": "CN-2022-0674"
+        }
+      ]
+    },
+    {
+      "query_id": "87da3e22e2bb07b02fe7",
+      "question": "Find the credit debit notes document identified by CN-2024-0438.",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "0e513570c83aa4dc040bd1e33583eb4d9d20c7b69e3193c87e30d3cd407bab01",
+          "page": 1,
+          "start_char": 132,
+          "end_char": 144,
+          "quote": "CN-2024-0438"
+        }
+      ]
+    },
+    {
+      "query_id": "e809a1f0cceb0aa669f9",
+      "question": "Find the credit debit notes document identified by DN-2022-0678.",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "ec7f0cb4d89aa37b3f7d1005f96b4fe533679b723309e7f27b1a1684f9fa2ac7",
+          "page": 1,
+          "start_char": 130,
+          "end_char": 142,
+          "quote": "DN-2022-0678"
+        }
+      ]
+    },
+    {
+      "query_id": "ebaa64e58edfa7ecad9b",
+      "question": "Find the credit debit notes document identified by DN-2023-0197.",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "72fc074b79a27d7b5213619dc11efd7cb025572721a3fe94590f8b28e8bc5d4d",
+          "page": 1,
+          "start_char": 173,
+          "end_char": 185,
+          "quote": "DN-2023-0197"
+        }
+      ]
+    },
+    {
+      "query_id": "5d0597c5d29b1018e13b",
+      "question": "Find the credit debit notes document identified by DN-2023-0414.",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "d9c113b3b20a70c41f21ab3edd49ec096763781bf14f832d819c073f95b0443c",
+          "page": 1,
+          "start_char": 173,
+          "end_char": 185,
+          "quote": "DN-2023-0414"
+        }
+      ]
+    },
+    {
+      "query_id": "970170bef29b63c0d86f",
+      "question": "Find the gst returns document identified by AA18M5331892.",
+      "category": "gst_returns",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "4e0cef3aafb9f23ce56a7814c621b8cac15dacd44332d563addcde8bd8be5114",
+          "page": 1,
+          "start_char": 208,
+          "end_char": 220,
+          "quote": "AA18M5331892"
+        }
+      ]
+    },
+    {
+      "query_id": "e6acb1015c04fd75a9c6",
+      "question": "Find the gst returns document identified by AA33M6770456.",
+      "category": "gst_returns",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "da3acbb90dcdcb1e98ae325500042f60b6cdc2929c722464f4fac85500011df4",
+          "page": 1,
+          "start_char": 253,
+          "end_char": 265,
+          "quote": "AA33M6770456"
+        }
+      ]
+    },
+    {
+      "query_id": "58f4004e76c4b4854ee3",
+      "question": "Find the gst returns document identified by AA51M2786964.",
+      "category": "gst_returns",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "01c4140e4a6f5a528e1eae06ab35cf2298e5b529bbd66ccfecc871e3887a73a8",
+          "page": 1,
+          "start_char": 253,
+          "end_char": 265,
+          "quote": "AA51M2786964"
+        }
+      ]
+    },
+    {
+      "query_id": "197a185a9ca41954f0dd",
+      "question": "Find the gst returns document identified by AA84M8103918.",
+      "category": "gst_returns",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "a47f1ab72bfb0bd92fa4b74349a78cac34dcebe5c53e088bd055c1efa5ee07e8",
+          "page": 1,
+          "start_char": 214,
+          "end_char": 226,
+          "quote": "AA84M8103918"
+        }
+      ]
+    },
+    {
+      "query_id": "9bc9536ad5af60ba1c17",
+      "question": "Find the gst returns document identified by AA92M7898996.",
+      "category": "gst_returns",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "ac437b69a344300871778cceac863a7d139cefd92adeb29a3b0f7b6361fb01e5",
+          "page": 1,
+          "start_char": 251,
+          "end_char": 263,
+          "quote": "AA92M7898996"
+        }
+      ]
+    },
+    {
+      "query_id": "affdef216cdc17484cbb",
+      "question": "Find the gst returns document identified by AA97M3625471.",
+      "category": "gst_returns",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "c844ce956ff72a56ac2d01413031f9678c5a4a37fcd232f290503bca1bcb4793",
+          "page": 1,
+          "start_char": 210,
+          "end_char": 222,
+          "quote": "AA97M3625471"
+        }
+      ]
+    },
+    {
+      "query_id": "45d36a3f929bd84938f5",
+      "question": "Find the gst returns document identified by AA14M9076699.",
+      "category": "gst_returns",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "a6146d7416c402e22fc800105c01b381f1aa05453d61fb0aa929ce19002f16d8",
+          "page": 1,
+          "start_char": 251,
+          "end_char": 263,
+          "quote": "AA14M9076699"
+        }
+      ]
+    },
+    {
+      "query_id": "7f5abb018489a6766813",
+      "question": "Find the gst returns document identified by AA71M3283134.",
+      "category": "gst_returns",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "dbc1c2b7e34b29e403904ba11c1c10a3cab0cbe8bc3e7dd1687a902ca10e2047",
+          "page": 1,
+          "start_char": 251,
+          "end_char": 263,
+          "quote": "AA71M3283134"
+        }
+      ]
+    },
+    {
+      "query_id": "09c074f29d52aa520c4c",
+      "question": "Find the gst returns document identified by AA73M2073579.",
+      "category": "gst_returns",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "e860d4240e9ba0ca6600214b6b81f5b2227ec6735f5fba43b6bd2ae8b680b46a",
+          "page": 1,
+          "start_char": 212,
+          "end_char": 224,
+          "quote": "AA73M2073579"
+        }
+      ]
+    },
+    {
+      "query_id": "b00ac094622042bf2abc",
+      "question": "Find the gst returns document identified by AA74M5907158.",
+      "category": "gst_returns",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "e79963706de83df8ba39a1d7959b09208351fef4500b169fdd6b3d13853f2518",
+          "page": 1,
+          "start_char": 251,
+          "end_char": 263,
+          "quote": "AA74M5907158"
+        }
+      ]
+    },
+    {
+      "query_id": "fa6741a3562c1f8580f1",
+      "question": "Find the gst returns document identified by AA88M9193739.",
+      "category": "gst_returns",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "3986365b5247023ed64ab6b7b6dfb340dfe8e910ec89b824edb63ee1415f14cd",
+          "page": 1,
+          "start_char": 208,
+          "end_char": 220,
+          "quote": "AA88M9193739"
+        }
+      ]
+    },
+    {
+      "query_id": "39eaeba5fbe349a2d514",
+      "question": "Find the gst returns document identified by AA96M3183280.",
+      "category": "gst_returns",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "1b8f8464a8e1dba080ce6dda5e8e27cb77492f7e1ccf87c2836e2d9634068e92",
+          "page": 1,
+          "start_char": 208,
+          "end_char": 220,
+          "quote": "AA96M3183280"
+        }
+      ]
+    },
+    {
+      "query_id": "fbf699d9330e48a7a5bd",
+      "question": "Find the invoices document identified by INV-2022-2376.",
+      "category": "invoices",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "35e3d086099825212366718ef1f4643117111bd88fbe8281fd11442d47b4fc7b",
+          "page": 1,
+          "start_char": 132,
+          "end_char": 145,
+          "quote": "INV-2022-2376"
+        }
+      ]
+    },
+    {
+      "query_id": "ddb97e95781b33191327",
+      "question": "Find the invoices document identified by INV-2022-5262.",
+      "category": "invoices",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "802e72d1823e05c5cf45362e7a3792539b2053b6274c8732266710bc78bc1641",
+          "page": 1,
+          "start_char": 171,
+          "end_char": 184,
+          "quote": "INV-2022-5262"
+        }
+      ]
+    },
+    {
+      "query_id": "d572f15db4fde5a41bc4",
+      "question": "Find the invoices document identified by INV-2022-5269.",
+      "category": "invoices",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "f29a59ee9746e4a1e3fc30c87123667324009b0bed540e72db3616e4640fdc40",
+          "page": 1,
+          "start_char": 128,
+          "end_char": 141,
+          "quote": "INV-2022-5269"
+        }
+      ]
+    },
+    {
+      "query_id": "a2ab649747899af70ef7",
+      "question": "Find the invoices document identified by INV-2022-9285.",
+      "category": "invoices",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "27b0138748f850aac095530635481fd5464773ac8e696dc0c0906b2525675158",
+          "page": 1,
+          "start_char": 128,
+          "end_char": 141,
+          "quote": "INV-2022-9285"
+        }
+      ]
+    },
+    {
+      "query_id": "6aa70bd7beb68b53af84",
+      "question": "Find the invoices document identified by INV-2024-2956.",
+      "category": "invoices",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "9b911e4ebf42e400dcb625ed802c0ed4990d3a31fa1320ef1b7c5e8adc246c37",
+          "page": 1,
+          "start_char": 132,
+          "end_char": 145,
+          "quote": "INV-2024-2956"
+        }
+      ]
+    },
+    {
+      "query_id": "4abae9dfe23c456f2b26",
+      "question": "Find the invoices document identified by INV-2024-6727.",
+      "category": "invoices",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "e9fefb8613ca6c61a64c5b991cd7600d0f4f96066c6cb9bc0af1d5bd94f30e6d",
+          "page": 1,
+          "start_char": 128,
+          "end_char": 141,
+          "quote": "INV-2024-6727"
+        }
+      ]
+    },
+    {
+      "query_id": "472531ebbcf40f653d0d",
+      "question": "Find the invoices document identified by INV-2022-8972.",
+      "category": "invoices",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "0558a2a6446cd9bf5d227891d27fe415329a04f8dde07a423cb1d747d37612a2",
+          "page": 1,
+          "start_char": 128,
+          "end_char": 141,
+          "quote": "INV-2022-8972"
+        }
+      ]
+    },
+    {
+      "query_id": "fdd8c1a60afd449c7e6b",
+      "question": "Find the invoices document identified by INV-2023-3831.",
+      "category": "invoices",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "004f6d8d63a208712f7afc58f63b5ce54b4a2652302aaa076ebd28d718efa8e1",
+          "page": 1,
+          "start_char": 171,
+          "end_char": 184,
+          "quote": "INV-2023-3831"
+        }
+      ]
+    },
+    {
+      "query_id": "4bc1a6f5384fbe0462c5",
+      "question": "Find the invoices document identified by INV-2023-4114.",
+      "category": "invoices",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "a090f0d51ba2223dde0257234bf05a49715cc54cb2d76dacd51c9bfaa93dda8f",
+          "page": 1,
+          "start_char": 171,
+          "end_char": 184,
+          "quote": "INV-2023-4114"
+        }
+      ]
+    },
+    {
+      "query_id": "d11404c07f37b98796e3",
+      "question": "Find the invoices document identified by INV-2024-1472.",
+      "category": "invoices",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "c0fbe681aa499b5aa734d0d3331b0ee9f83ea02837fcf870a8acccad05b50fe9",
+          "page": 1,
+          "start_char": 132,
+          "end_char": 145,
+          "quote": "INV-2024-1472"
+        }
+      ]
+    },
+    {
+      "query_id": "6270b340771acf92a057",
+      "question": "Find the invoices document identified by INV-2024-5225.",
+      "category": "invoices",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "f2d25f508e1caa9be5e335390dfadb3a64d0e79fa46b8c0729a585fef41c170c",
+          "page": 1,
+          "start_char": 132,
+          "end_char": 145,
+          "quote": "INV-2024-5225"
+        }
+      ]
+    },
+    {
+      "query_id": "ad68bea554633ec98f58",
+      "question": "Find the purchase orders document identified by PO-2022-0712.",
+      "category": "purchase_orders",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "32347f9c8198ab129b0a01a0411cad3752b8867330e0191fb01983b4d72f8ea1",
+          "page": 1,
+          "start_char": 130,
+          "end_char": 142,
+          "quote": "PO-2022-0712"
+        }
+      ]
+    },
+    {
+      "query_id": "83f8b922d340ddf2b5fe",
+      "question": "Find the purchase orders document identified by PO-2022-0925.",
+      "category": "purchase_orders",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "61948a4381d8275a0e670b6a7faaecb6a6d23665840824665cbf979c43184155",
+          "page": 1,
+          "start_char": 134,
+          "end_char": 146,
+          "quote": "PO-2022-0925"
+        }
+      ]
+    },
+    {
+      "query_id": "2680c396257c7ea0dd88",
+      "question": "Find the purchase orders document identified by PO-2023-0852.",
+      "category": "purchase_orders",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "7835fdb65c6ff28e217768660376128a2d70c5f8e632921a0922f1587b376c8c",
+          "page": 1,
+          "start_char": 134,
+          "end_char": 146,
+          "quote": "PO-2023-0852"
+        }
+      ]
+    },
+    {
+      "query_id": "0a4e4358e45f3a830eb7",
+      "question": "Find the purchase orders document identified by PO-2024-0369.",
+      "category": "purchase_orders",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "ea04106f986191842124aefe30001be4f67beed22dbae29d82c7a79fb329fb32",
+          "page": 1,
+          "start_char": 130,
+          "end_char": 142,
+          "quote": "PO-2024-0369"
+        }
+      ]
+    },
+    {
+      "query_id": "e501914c81efbc3c3f74",
+      "question": "Find the purchase orders document identified by PO-2024-0681.",
+      "category": "purchase_orders",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "93be4055d3c96278f90c4e5097f6b6909d0e1b6c12b9fb6f1013acd2722d78ef",
+          "page": 1,
+          "start_char": 134,
+          "end_char": 146,
+          "quote": "PO-2024-0681"
+        }
+      ]
+    },
+    {
+      "query_id": "cffa62d59cf5dd80d59f",
+      "question": "Find the purchase orders document identified by PO-2024-0916.",
+      "category": "purchase_orders",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "3729410bdd458bb725501e8543f72a13e8748586a80b766a3161255127db025e",
+          "page": 1,
+          "start_char": 130,
+          "end_char": 142,
+          "quote": "PO-2024-0916"
+        }
+      ]
+    },
+    {
+      "query_id": "78a475d9f4cdb873df5e",
+      "question": "Find the purchase orders document identified by PO-2022-0965.",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "7371cfad47b3c3c15f586f630498ec77462fdba62832c15f4577353d3a42edac",
+          "page": 1,
+          "start_char": 134,
+          "end_char": 146,
+          "quote": "PO-2022-0965"
+        }
+      ]
+    },
+    {
+      "query_id": "703bd236fe4bf97527d5",
+      "question": "Find the purchase orders document identified by PO-2023-0894.",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "e0584a92fec5a2325f246bf8442cf870e8897e5722ce4a5e37732421b36abb56",
+          "page": 1,
+          "start_char": 173,
+          "end_char": 185,
+          "quote": "PO-2023-0894"
+        }
+      ]
+    },
+    {
+      "query_id": "5048ef7389c08469978c",
+      "question": "Find the purchase orders document identified by PO-2024-0357.",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "e44117f060799e9a765940d3cc566a89782f1a9d232c4b6674e292f7674b0eae",
+          "page": 1,
+          "start_char": 130,
+          "end_char": 142,
+          "quote": "PO-2024-0357"
+        }
+      ]
+    },
+    {
+      "query_id": "eb04146f4e9e63054868",
+      "question": "Find the purchase orders document identified by PO-2024-0522.",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "ff32bfc558173df104e4ff0b5819a7bbe495ddf6c7dc10df8907aca65e2ba5b8",
+          "page": 1,
+          "start_char": 173,
+          "end_char": 185,
+          "quote": "PO-2024-0522"
+        }
+      ]
+    },
+    {
+      "query_id": "a0d4c3a8b5004b562243",
+      "question": "Find the purchase orders document identified by PO-2024-0537.",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "e64662591e8d452900e557cf660cae8f2eac992b40197bcc3d6796b040cefde2",
+          "page": 1,
+          "start_char": 134,
+          "end_char": 146,
+          "quote": "PO-2024-0537"
+        }
+      ]
+    },
+    {
+      "query_id": "00f5441dc621b95c29cf",
+      "question": "Find the salary slips document identified by SS/2022/04/EMP-0103.",
+      "category": "salary_slips",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "b07d53f8f4157c45295708c5c57508d66519dacefb4ff09e9abbb23842cf2196",
+          "page": 1,
+          "start_char": 345,
+          "end_char": 364,
+          "quote": "SS/2022/04/EMP-0103"
+        }
+      ]
+    },
+    {
+      "query_id": "451f434393df131a4c9c",
+      "question": "Find the salary slips document identified by SS/2022/07/EMP-0117.",
+      "category": "salary_slips",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "e70f372a7cce07179679bd97e114ae62b8256d0ff7235697375a8c872aac4d54",
+          "page": 1,
+          "start_char": 330,
+          "end_char": 349,
+          "quote": "SS/2022/07/EMP-0117"
+        }
+      ]
+    },
+    {
+      "query_id": "df316a380b1f85a8de45",
+      "question": "Find the salary slips document identified by SS/2023/07/EMP-0159.",
+      "category": "salary_slips",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "57982e7a90334d517f01f7913d65370204379cb2b51c4de6ec8ea6818347d0e9",
+          "page": 1,
+          "start_char": 386,
+          "end_char": 405,
+          "quote": "SS/2023/07/EMP-0159"
+        }
+      ]
+    },
+    {
+      "query_id": "cbde867e03682b451942",
+      "question": "Find the salary slips document identified by SS/2024/06/EMP-0117.",
+      "category": "salary_slips",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "2676cdb8b756ba72afabedea174a9c2b8637aef67a64a7afd23028c52e093fcb",
+          "page": 1,
+          "start_char": 330,
+          "end_char": 349,
+          "quote": "SS/2024/06/EMP-0117"
+        }
+      ]
+    },
+    {
+      "query_id": "64e5a5197a3beef7a9dc",
+      "question": "Find the salary slips document identified by SS/2025/02/EMP-0145.",
+      "category": "salary_slips",
+      "partition": "development",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "a9a323151de5dcc9a5fb88516e0718e7825e882229a7225550c00f837110bf8a",
+          "page": 1,
+          "start_char": 343,
+          "end_char": 362,
+          "quote": "SS/2025/02/EMP-0145"
+        }
+      ]
+    },
+    {
+      "query_id": "06728c4e5c83ed7bdb0d",
+      "question": "Find the salary slips document identified by SS/2023/06/EMP-0201.",
+      "category": "salary_slips",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "6b2a03cbbd9001bbcc9ab51d8917d45b0d90aee0a202d9eba90a499f3dc18d08",
+          "page": 1,
+          "start_char": 335,
+          "end_char": 354,
+          "quote": "SS/2023/06/EMP-0201"
+        }
+      ]
+    },
+    {
+      "query_id": "b4c944ae35ef2f39642b",
+      "question": "Find the salary slips document identified by SS/2024/01/EMP-0041.",
+      "category": "salary_slips",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "f26bb49da63ef22555576b353b489c290a9fe5811a46f235cce3cb458d7de43d",
+          "page": 1,
+          "start_char": 380,
+          "end_char": 399,
+          "quote": "SS/2024/01/EMP-0041"
+        }
+      ]
+    },
+    {
+      "query_id": "f4ffa6fab8f89f19b588",
+      "question": "Find the salary slips document identified by SS/2024/01/EMP-0145.",
+      "category": "salary_slips",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "8879a294bf4fa059f98b0ec164b920556ec6ef778d99ed24d7325492935232f3",
+          "page": 1,
+          "start_char": 387,
+          "end_char": 406,
+          "quote": "SS/2024/01/EMP-0145"
+        }
+      ]
+    },
+    {
+      "query_id": "f0b3f6832ccf249cab69",
+      "question": "Find the salary slips document identified by SS/2024/07/EMP-0058.",
+      "category": "salary_slips",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "daddda7d257dc9fa78e7a25bcd7601373ba93aceefcf278528a367c66931b328",
+          "page": 1,
+          "start_char": 375,
+          "end_char": 394,
+          "quote": "SS/2024/07/EMP-0058"
+        }
+      ]
+    },
+    {
+      "query_id": "1546bf2316f17c2a29ed",
+      "question": "Find the salary slips document identified by SS/2025/01/EMP-0089.",
+      "category": "salary_slips",
+      "partition": "regression",
+      "intent": "identifier_lookup",
+      "review_status": "draft",
+      "reviewer": null,
+      "evidence": [
+        {
+          "document_id": "fa723beffbc3fd63618be42be385fdc00a39c3df71feef4b728531b5d83faed6",
+          "page": 1,
+          "start_char": 340,
+          "end_char": 359,
+          "quote": "SS/2025/01/EMP-0089"
+        }
+      ]
+    }
+  ],
+  "candidate_failures": [
+    {
+      "document_id": "4b6b84ec4032f17201e72d948a06bf23a7cf1d43e26966b3ffbaaaadb62d6405",
+      "reason": "PdfminerException"
+    },
+    {
+      "document_id": "8d720db221beae72fb6df66bca72ca90fdf283953bda003eca70510c292bf830",
+      "reason": "PdfminerException"
+    },
+    {
+      "document_id": "8a8446a40b6a9ce7e6e79c6a3b298748ae416b8b7d908e312c7464d5dc514297",
+      "reason": "PdfminerException"
+    },
+    {
+      "document_id": "9dfce79fec426e535abd7c55e6b9ff37e7e3b60e198960edb1f70a028074fd69",
+      "reason": "PdfminerException"
+    },
+    {
+      "document_id": "2b83b384772a277eb69602703cccf14ec76ce088e3d361e867f9266981dd7911",
+      "reason": "PdfminerException"
+    },
+    {
+      "document_id": "ec78222a84ade38fde32b8d3563ec740a491d3236f6077471ed79528044f0822",
+      "reason": "PdfminerException"
+    }
+  ]
+}

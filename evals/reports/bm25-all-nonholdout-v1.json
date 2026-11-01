@@ -1,0 +1,2210 @@
+{
+  "schema_version": "benchmark-v1",
+  "started_at": "2026-11-01T10:03:57.194173+00:00",
+  "status": "completed_with_failures",
+  "provisional": true,
+  "release_gates_applied": false,
+  "label_scope": "identifier navigation; not general QA or financial accuracy",
+  "catalog_sha256": "a3927501b1382a03a04c96388b042fc9bcd973625d59fcf9241c0e205ee98260",
+  "judgments_sha256": "1df49db8cbe56430dbc6297bffe19ffdf1b5c7f97b42f41e09acb955b45b3df1",
+  "configuration": {
+    "mode": "bm25",
+    "partition": "all_nonholdout",
+    "k": 5,
+    "chunk_size": 900,
+    "overlap": 120,
+    "dense_index": null,
+    "reranker": null,
+    "generation": false,
+    "index_scope": "all non-holdout documents"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "packages": {
+      "pdfplumber": "0.11.10",
+      "numpy": "2.4.6",
+      "sentence-transformers": null,
+      "psutil": "7.2.2",
+      "pydantic": "2.14.2"
+    },
+    "code": {
+      "commit": "fa61aa8117550842ff0a24c7f76f4112436290e4",
+      "tracked_changes": false,
+      "implementation_sha256": "44654de07c4b1708f68ad3f56dc183b1c63d701dc4f4f314048d38bc02b7aec8"
+    },
+    "hardware": {
+      "os": "Windows",
+      "architecture": "AMD64",
+      "logical_cpus": 32,
+      "nvidia_devices": [
+        {
+          "name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "total_mib": 8151,
+          "free_mib": 7899
+        }
+      ],
+      "gpu_detection": "available",
+      "note": "GPU visibility does not prove model offload; verify the inference runtime separately"
+    }
+  },
+  "embedding_artifact": null,
+  "judgment_coverage": {
+    "selected_documents": 72,
+    "candidate_failures": [
+      {
+        "document_id": "4b6b84ec4032f17201e72d948a06bf23a7cf1d43e26966b3ffbaaaadb62d6405",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "8d720db221beae72fb6df66bca72ca90fdf283953bda003eca70510c292bf830",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "8a8446a40b6a9ce7e6e79c6a3b298748ae416b8b7d908e312c7464d5dc514297",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "9dfce79fec426e535abd7c55e6b9ff37e7e3b60e198960edb1f70a028074fd69",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "2b83b384772a277eb69602703cccf14ec76ce088e3d361e867f9266981dd7911",
+        "reason": "PdfminerException"
+      },
+      {
+        "document_id": "ec78222a84ade38fde32b8d3563ec740a491d3236f6077471ed79528044f0822",
+        "reason": "PdfminerException"
+      }
+    ],
+    "scored_queries_in_partition": 66,
+    "note": "Candidate failures have no valid ground truth and are not retrieval queries; all corpus parse failures are reported separately"
+  },
+  "corpus": {
+    "documents": 819,
+    "indexed_documents": 790,
+    "chunks": 1766,
+    "failures": [
+      {
+        "document_id": "6150745f6bf7ccec60e2e34e76e93e364106b76dbe76ff432cd3fb6da298c70f",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "6a2497c1959a3cd3aab77d3b858f176e1824df37f2692173a5f0008dbfb4436c",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "0e339e0ef7295400710b457ce819f7c71700c30a666e72750cdd8dbcf2fa7577",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "8a8446a40b6a9ce7e6e79c6a3b298748ae416b8b7d908e312c7464d5dc514297",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "5878b637e7322ddb66358fb155b91225fbcb139edf9c274713b771d9b5bdaa3f",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "2e06b86a61bfb47f34540698da40a42fc69ce0aab7184d3c7c575bb6efcbf114",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "8c04fda40abcb0bd4f053b3436e161000d1440f857a1f6c1d2ed5b889f89654b",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "7f213b743aa5684da7fd4fac4c2c08195a5e4d4348c52421f4980ff2a263616d",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "efc548d4095b6d6a68e3a262c4e3c7aab283317d963e7088112c48575a104cde",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "33ca5f2e586089ff85a6121feb5610b6105f12a9963ee2587dfefd84dd33a426",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "812b46f03a20768121a725612cd8a66ad9336313bacc5766f6528a60e8d89338",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "9a870f1db0eb5bc867e99687aa4ac7b461c8a87c2f74204ea564cadcb672de18",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "09906754e3a7b9ae682a14ff2dc396d0ab893798aee027d02127682d24e1037c",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "73fcce20f8b873629fc42578411c5df0d61d6531a45ed25f25d8068904fbc471",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "4b6b84ec4032f17201e72d948a06bf23a7cf1d43e26966b3ffbaaaadb62d6405",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "6692d73d9ba1ba9c25737696c70a19677e71e5a466493495931fb6fe6a9421c5",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "e6f31cefc29d195fda1cd9e9f66a711cf27004bd03200ea95d6b1f6ee30ccf44",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "903e7f4a0e0c707b5e0fa81035be746032b765ea3d6c279f365080ee6960f1db",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "5b440b626f1e341e796166da5635cc299178e77e0acae382e1cd6206110fcec7",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "c6cc44806763468498b8d958f8fcd7da1a50cc626a2b789180728d1d117923ec",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "ec78222a84ade38fde32b8d3563ec740a491d3236f6077471ed79528044f0822",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "2b83b384772a277eb69602703cccf14ec76ce088e3d361e867f9266981dd7911",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "fc38beeea78ec8cba79b8d5d0a974ba645dd44af17691c161cdc760281d04149",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "baa057438b8e69ad148570617a8202ef008056fb0a50eb3a1d036908092e5a3a",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "9dfce79fec426e535abd7c55e6b9ff37e7e3b60e198960edb1f70a028074fd69",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "47d56a2850c2752209c701d451275e0cc3d4b831459bca473c9f183af8675aa5",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "8d720db221beae72fb6df66bca72ca90fdf283953bda003eca70510c292bf830",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "4889b46bf438eb363689a40e68b855c0f285134e2aa39adda03c3f9370cb7d46",
+        "error_type": "PdfminerException"
+      },
+      {
+        "document_id": "462893b4ddaf29ce309375ed7a8405b60e475965b3547491b3d905f5a490e802",
+        "error_type": "PdfminerException"
+      }
+    ]
+  },
+  "ingestion_seconds": 39.750231799989706,
+  "sqlite_index_seconds": 5.844525700042141,
+  "extraction_diagnostics": {
+    "documents_with_any_observed_amount": 295,
+    "documents_with_explicit_currency": 116,
+    "denominator": 819,
+    "accuracy": null,
+    "reason": "No independently reviewed financial-field labels"
+  },
+  "embedding_initialization_and_index_seconds": 1.0999938240274787e-06,
+  "isolation_canary": {
+    "lexical_leaks": 0,
+    "foreign_vector_hits_authorized": 0,
+    "scope": "SQLite lexical filtering and authoritative vector-hit reauthorization; not a full security audit"
+  },
+  "summary": {
+    "queries": 66,
+    "failed_queries": 0,
+    "metrics": {
+      "recall": 1.0,
+      "mrr": 0.9646464646464648,
+      "ndcg": 0.9736645379870139,
+      "evidence_recall": 1.0
+    },
+    "retrieval_latency_ms": {
+      "p50": 10.71119999687653,
+      "p95": 13.424399992800318
+    }
+  },
+  "by_category": {
+    "bank_statements": {
+      "queries": 11,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 9.360199997900054,
+        "p95": 12.21500000974629
+      }
+    },
+    "credit_debit_notes": {
+      "queries": 11,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 11.451499987742864,
+        "p95": 13.815400001476519
+      }
+    },
+    "gst_returns": {
+      "queries": 12,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 9.992999999667518,
+        "p95": 11.774700004025362
+      }
+    },
+    "invoices": {
+      "queries": 11,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 11.123000003863126,
+        "p95": 14.055399995413609
+      }
+    },
+    "purchase_orders": {
+      "queries": 11,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 10.564099997282028,
+        "p95": 11.637100004008971
+      }
+    },
+    "salary_slips": {
+      "queries": 10,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.7666666666666667,
+        "ndcg": 0.8261859507142916,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 10.950399999273941,
+        "p95": 13.055499992333353
+      }
+    }
+  },
+  "by_partition": {
+    "development": {
+      "queries": 34,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.980392156862745,
+        "ndcg": 0.9852941176470589,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 10.82539999333676,
+        "p95": 13.718599991989322
+      }
+    },
+    "regression": {
+      "queries": 32,
+      "failed_queries": 0,
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.9479166666666666,
+        "ndcg": 0.9613081095982161,
+        "evidence_recall": 1.0
+      },
+      "retrieval_latency_ms": {
+        "p50": 10.652199998730794,
+        "p95": 13.424399992800318
+      }
+    }
+  },
+  "queries": [
+    {
+      "query_id": "c26cfe4aa0e7a095905e",
+      "category": "bank_statements",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.570999995456077,
+      "error": null,
+      "retrieved_document_ids": [
+        "c749c809147cb0a9d47e74e210e27fa2f0c864adf78e25e6d0a0d695536fde0b",
+        "1f20fdb9a9fd4879fa6c538afb09f6d8cf2d2eabd4aa9c54974ba4e840135d87",
+        "0f895dc2a732bd6d6dac5cc1c0c060be09d37dbf448adfc3fdcc705760eaaba6",
+        "c734a397fc066224e3a9849dd91f99b63e71f52df27ef1f3f499db36b88fd04b",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed"
+      ],
+      "retrieved_chunk_ids": [
+        "ffb69b9bf31030c117677356722506070a42819f7c59b3ed7d2f9d4fbef9a594",
+        "de8a1f5ad1af8596594a49334e6d6c7b9f00e9c22fb7215a3ec229a8290d16ad",
+        "5a4bc79a20d2eef025b01a5f8a0269d7515591c132bb200ff6117c80c73964a0",
+        "e68a78c3b1e4e1be2744266498e36932815f68046cdbd88d06f847143c88420a",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0"
+      ]
+    },
+    {
+      "query_id": "fd88fe7c5ce084f1838d",
+      "category": "bank_statements",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 12.21500000974629,
+      "error": null,
+      "retrieved_document_ids": [
+        "20ac233434e34feb9171b740f553590104c642e4d5f0328b97c3579205a37dde",
+        "271889ae6818b1b0806284f5f3ec9187e71d564c31117e77b2ffd21883683a88",
+        "15b97d21fa02e9055fc97ce6d303e9a97d608a6ec6bfe9916ee52885ce6353bc",
+        "b26dfebbe6f0d9f2ee2a10b1665342919ceb61cd43518a218f07d3506902a4d4",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed"
+      ],
+      "retrieved_chunk_ids": [
+        "e784206feed1652a38fc3af5de730135a2529541b8573d78efe3c55bdbffbd0b",
+        "5ca0ad1da8ee5d29c5b596a829724a1c0cea298a1b7dbc1e65af872607f16c84",
+        "d056f458a977f6058b7b4e4f329b2586f35789d4781ccb52986dc10b2b38722e",
+        "aa7391b5bc15a88c94f3a575b61744f3a85605ad0dd775af670f3d7411af0172",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0"
+      ]
+    },
+    {
+      "query_id": "71a9e8e49326235ee09c",
+      "category": "bank_statements",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.096100009628572,
+      "error": null,
+      "retrieved_document_ids": [
+        "25be2ae6c00c37f84e1330a7f797c78c74331734441ce93c04f5ebf45da29cef",
+        "3a19cc253027e972318257a3f7439af9c39f0490e0b9e449d6e37e564389d4fd",
+        "1e771eb752dec4feee83c0ab1784eb3ce875ab7edf0245a66cfefddb372171f6",
+        "a54f26a3d9f25f42b4a3cdb346961841e95d094904d69fa0d92cd12778cc4be5",
+        "a54f26a3d9f25f42b4a3cdb346961841e95d094904d69fa0d92cd12778cc4be5"
+      ],
+      "retrieved_chunk_ids": [
+        "d0edbb2833bef1ab9e3bdd7efd0f21bae4319162a1dd0aae45112a788a0737ab",
+        "4d0f6de7bda38f07e71def9d45784284c25c8c8fb27386e75a3f0e8ce0513ad9",
+        "19260e62ba9b567197547c592f5dac2db9af73ccde64985ba746122fc44e30a9",
+        "68920d492dd7d782c09c4dc0eefb3bbe4d113baf7fa9de07a02b7e0c4e0a414b",
+        "4ae1cf1a62775df620bf37fb5a532526d207e692e437077031c88a5214e5f368"
+      ]
+    },
+    {
+      "query_id": "b8855d5ddb64c6add574",
+      "category": "bank_statements",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 8.799499992164783,
+      "error": null,
+      "retrieved_document_ids": [
+        "acb0e0e65933815b1c331e67c73c9bf20fcf97101ebb2252d11829652af94352",
+        "0fb9299690b9d4928cec38d830c3151aeea403a6ba186632719c8a54cc811ea7",
+        "7e9043da5621a06f190add264490e3e9d090c9a84960c7374b9f8b20f6adaf96",
+        "1f104a7422de72129ffd8240874a0c1c10370746cdd9315b0989ef945cddf7f2",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed"
+      ],
+      "retrieved_chunk_ids": [
+        "f247599c0a6cdbfd707ce3b435d859de19b418d2ec950c5b877df779f342958a",
+        "4eba206a69b17b8ec2fe83d5387cce4efca841a0b373ab4f742b91844e9bf07c",
+        "18f07862ae2f8930973537f991f30280552c950eee3e6af5a8ba30697f2903a8",
+        "a23876d23b63f08d3b08f9eca4f9affbc9ce02a6d7c5d1a1b9027a4b6766cd19",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0"
+      ]
+    },
+    {
+      "query_id": "819c66cbf74947701d81",
+      "category": "bank_statements",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.360199997900054,
+      "error": null,
+      "retrieved_document_ids": [
+        "2e9c1530e392b63082d93637a7b64dec2c66e316ae324c04b8f891146cca04dc",
+        "9199d5ffb6713706f9010fab60d8e1dd8088cfd9fa12095fd9cdd2281f2e50a8",
+        "89169b1f2ae618563f3100b4bf54c8a09e88e3ef2a54faa73c3f7215d0b3e164",
+        "fbb30cb08a980468611bf77867f00187d07c9ff7c665af835bd2d1a4b29b7cf9",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed"
+      ],
+      "retrieved_chunk_ids": [
+        "359dd0afc98ea18811061a3380aa34cb405169111b6dde4ad29f78098c6e7139",
+        "18bad086add178ca4d0c77f105f1f9184aaee1fc7b2dbc69ced68e9362016334",
+        "40cf373854f7cde824a578f614c03404cd92b2517553806ec33b3bd1f4a39f04",
+        "cd10f4126ffebd14df532b642fea13ee2504bad7707714512100a98013fc0083",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0"
+      ]
+    },
+    {
+      "query_id": "8685d49901996a593468",
+      "category": "bank_statements",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 8.59699999273289,
+      "error": null,
+      "retrieved_document_ids": [
+        "2f270f7e6950dfd513829eee110a010b8b19f4afb8bfc4f94238ecdfce9df395",
+        "dc3fb98dc3ded87d6e7c8c5e175a23ceb75c62f7c3af72c8343a3f6bb0d22db1",
+        "4a121cd27f108c1381f7a19e5df3271a53813bb690f22daef0625b5dd6da7786",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed",
+        "bbf095d3db6899c89d70916c9ae3f9043268e18e084cae0741de431eaebeb8ff"
+      ],
+      "retrieved_chunk_ids": [
+        "37be472c9b89577b120708c146c185ea4c090c6fb6162125b16137fa4d452be7",
+        "1a9c17ea6842c7ac88a3f394407d719206ad45980930b7ab91c475b1ec0315e4",
+        "3f91ec93faa8fd9888512d527e2e5f2816e4655900f4c6321b94cc9befb512cf",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0",
+        "82d1afead83a1593b59f51aa634ad3cb6db853b55ef1c4591e62d9643464ec63"
+      ]
+    },
+    {
+      "query_id": "cbf65de398003589ecc9",
+      "category": "bank_statements",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 8.8333000021521,
+      "error": null,
+      "retrieved_document_ids": [
+        "6b46d0a01f36508a7f13c6f96ccdef8f6bc1b36899602bde3359ce92552e7923",
+        "7269855e56af3863205ce763dd29acd1c4e951691eac6842e1cf69198343560a",
+        "9668d024cb451b5de79d1aec8f7564bc2f2e2ee77e6bf8734acf969b56396212",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed",
+        "bbf095d3db6899c89d70916c9ae3f9043268e18e084cae0741de431eaebeb8ff"
+      ],
+      "retrieved_chunk_ids": [
+        "605edd8e55e1a7b3177be724d7d1997eb691f968483d38bf1249c6843f80e783",
+        "368584ecf7bdb968e9776f359632c9a82add4428960d9dce5aba6e9a10faf023",
+        "a88dac9229cebb87fd1b144c70c560f3b7e077a2374ebbf5bb28401aa92c0aa6",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0",
+        "82d1afead83a1593b59f51aa634ad3cb6db853b55ef1c4591e62d9643464ec63"
+      ]
+    },
+    {
+      "query_id": "b63b412f688aff7a6f69",
+      "category": "bank_statements",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.349100000690669,
+      "error": null,
+      "retrieved_document_ids": [
+        "89b1516dd7c590c2fe6c626e28023c24a95b59bb04c673c0972d8698af93916e",
+        "cf5438b0627fa38663ec58137135fd27f9b9ad1de8cce4e51cc30a1a1aa3d72e",
+        "1d8db24d638e9f3b07a81f7f96181f97ec29c0a1dc5f90bbb56d76393ead67fd",
+        "bbb85664dae92d76b7190bf605e65cee01eab4bb3ffc99fe62f25af433819752",
+        "8c683d381b4592e94cd18d8e7e0db36a60e569c32225d707b13cc61a152bd424"
+      ],
+      "retrieved_chunk_ids": [
+        "8bb5dbdcd84b7fa2584c69c89c183af568e47f360df40ccc2addab1aecd330dc",
+        "f02b8363201a7549623b6f7c19d6721c8610f3f2f022b31cb4c252910fac2ff1",
+        "d893d171f1a4a66567e545108cac0a99c65e75a9fa04f6a0c66d2b3da89fc0d4",
+        "213fdb0e2fcd29ddad3eb4ec96f800e6d43cac1dbe88c59878d8512393893cb7",
+        "6c977c8d7c71db745a7769472e13ded6851989fbffe2e8bca1a0f4f5938aafa6"
+      ]
+    },
+    {
+      "query_id": "7881f7aad06089426068",
+      "category": "bank_statements",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.155699990922585,
+      "error": null,
+      "retrieved_document_ids": [
+        "fe32406f2a2d8fe5f30fb327ceac8a1ca31c81bc4b481df9629bb652219c5762",
+        "a130dd430cb805e87615b3cc99dbc3c8788eec23924aafbcf9b85bc5840c2a59",
+        "a3ea6353a51da00928e2da46d0ecc9b68e28370dafb936d0d2706d2f2a35c231",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed",
+        "bbf095d3db6899c89d70916c9ae3f9043268e18e084cae0741de431eaebeb8ff"
+      ],
+      "retrieved_chunk_ids": [
+        "1007d5514f926a7d3ff47f3e095ae9dc8c25278aa96dbe6b8fcc600a09092779",
+        "dca4bc432ee2395389c91f64092c7c784657bed22c6493849f6434146e7a0293",
+        "dd612d5fd647431ed6c1851b7ed4d008f5e04f572ca93c8ebafb6bb821a7717c",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0",
+        "82d1afead83a1593b59f51aa634ad3cb6db853b55ef1c4591e62d9643464ec63"
+      ]
+    },
+    {
+      "query_id": "82c68d66b758273bb392",
+      "category": "bank_statements",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.572900002240203,
+      "error": null,
+      "retrieved_document_ids": [
+        "443df54881fc66ec740414a55eef089d11a6541c3630550f1cdbd5b2314f24cc",
+        "3044aa32508b1249c2f48a87f41939a977d824df60bde9e3a8254cb0a4bfa811",
+        "58b79348e79650d097d896f26c7b3ad50d09e3f3a4a0841f3af5e63c33853cc9",
+        "e02bfc474906892b5df3f57a6e5d0aaa152e78b10635c7eb31d1c425d10c1684",
+        "fa8410731c09b46caecae8ed26e024b1f9dc53adee5ca990b29861be06cbaeed"
+      ],
+      "retrieved_chunk_ids": [
+        "e6acfa65254a7a4db1e9f9108cb9e169c6edf6e00d5c8b5230d03fad55010b41",
+        "91e21314e6bba64272a469be136a578b6172ede02b8bd36750d9ba25fc51337a",
+        "39f5e46be3763c2dbf2793730fe7a086efb9fc4b6b4dcb7dd4117e735705b118",
+        "934eacd46dfcaf97d6e32180f79e1c2a2c98ac5216f4596543a28511e9ec95b4",
+        "5331e05cc74f4883398a6430d18bcf1624883a92ffd82d8be81f40aaedbde5b0"
+      ]
+    },
+    {
+      "query_id": "1fa76d1a5595fea2f3d3",
+      "category": "bank_statements",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.902500009047799,
+      "error": null,
+      "retrieved_document_ids": [
+        "74a4808e16acc574c3b957b0ef6fb1d9322827dff7ad9156766791def5e1132d",
+        "bbf095d3db6899c89d70916c9ae3f9043268e18e084cae0741de431eaebeb8ff",
+        "474be494a3e447198a24fbd9ed81a76db949d9638ddf93c5d8d1f03c50e264ec",
+        "3e8003fc78d4c0c09c07d44a4e4d31aae1594d06117d85fcccc52b91a89a61b1",
+        "35904730502c49696794a41a9f41f4e547f0aba042a6f7aba200883ad9069225"
+      ],
+      "retrieved_chunk_ids": [
+        "52b4a0802f446886467668ee603717fff38d52a09c288e4737c7de7234ad5815",
+        "82d1afead83a1593b59f51aa634ad3cb6db853b55ef1c4591e62d9643464ec63",
+        "de1edfd2db3153fd4c908f12f936a23ef6845c020f89d69d96a2136bc2ec1f95",
+        "f30b8f1dc88129223ed817c025b0e431af7f4a6fbc24ff9e0526baa7034bedd4",
+        "eb92b73d3570666221084efdb1f6031419e8400c6a62285c4ba36efa328500ce"
+      ]
+    },
+    {
+      "query_id": "44e66e019d3d71bddb4e",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.539300001459196,
+      "error": null,
+      "retrieved_document_ids": [
+        "128a30ee73aa28d0e3a7235bcf1411b977cd36ddaf048ff2ca9d72447fc93906",
+        "d4c17b90ed5f01c46703e03407baa624d2a3e15f4bc194ef88730e0f6f77155d",
+        "63d6d514093ab55cd2a3423f61e51d801d8fa855a76a38b1fef891e7d4073e9f",
+        "0c063aa233ab141cb0a11654274d259b70aff4fca354e7c97ed4468bd64f6654",
+        "d7622f44c95686e0d917e04abd3de1f0c60608c79df6163115e6ca07a3280de5"
+      ],
+      "retrieved_chunk_ids": [
+        "f06ec0ef7413cb7435ec3c5c940feff2507c1e9703ab2dc565f4ee369e5037c8",
+        "19f6cdcf9744dc7e749a10cebaac20bd42963b38e368a7c07c899ee97a45ee8f",
+        "eade037fa3916a7e335298ea005496f9a49a042e4b008b584a0f8481169bf652",
+        "91fbfe2c2b3868f649a6a8a335c7bb647bd006090ad49101c05404c19fd4d752",
+        "5c792e11c7b04b0c8f49658eb4c7d9f056ccf0e2730804875b310c8c47ca3d8e"
+      ]
+    },
+    {
+      "query_id": "c784225d58ae5b658198",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 12.300799993681721,
+      "error": null,
+      "retrieved_document_ids": [
+        "3c6b6269f8ff723d52af46adcaaec2baf80978b88624343fa6cbdaf1756e0943",
+        "6779f3bcfdd82329fc8c847ecbb05450b0e2a34a2a9b168b16c58c523b14d828",
+        "6b3886d81b3bb41bbc154266af7470b8b714435a38fbcc83cfc9c058d40ccf4f",
+        "d7e4887775c0278b537e2da7c255ebc1eb378b02f97e0932206c1d8e0ca8dece",
+        "415c2d28956a40925ed7471240cb8c1c65811c73033c8abb66d3dfd4c909d6fb"
+      ],
+      "retrieved_chunk_ids": [
+        "e6becf4920a3be3394889ac383a2b2e3ae78a4f70d2ff1c812fcc5cc3bd77394",
+        "d958a48e688af3a722f7987242cb11ea6b9e9aeec0d036dfd3f64c09a61d36d6",
+        "45fb432a89d40053f5661bdee84739fc0be37a76fda10367671c0ec273ad2db7",
+        "00d29db7cfa5f3b8e075bcd4b0e7e6e0b4d9886ca4bad6479feb304f0af7f9a9",
+        "4f432003426171623d84bd8f5e023941ab6f917bc9c24a0e2cd41b920869f935"
+      ]
+    },
+    {
+      "query_id": "6f3db18eb368aca93add",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.92759999644477,
+      "error": null,
+      "retrieved_document_ids": [
+        "ede680192443af9084876a19071f7274fac7c0b19535f6b8cabf6e4666ce2728",
+        "6779f3bcfdd82329fc8c847ecbb05450b0e2a34a2a9b168b16c58c523b14d828",
+        "6b3886d81b3bb41bbc154266af7470b8b714435a38fbcc83cfc9c058d40ccf4f",
+        "d7e4887775c0278b537e2da7c255ebc1eb378b02f97e0932206c1d8e0ca8dece",
+        "415c2d28956a40925ed7471240cb8c1c65811c73033c8abb66d3dfd4c909d6fb"
+      ],
+      "retrieved_chunk_ids": [
+        "77c29178e7d00711a765ecd99324297b3b87d4afe803487725ed41fe67353d36",
+        "d958a48e688af3a722f7987242cb11ea6b9e9aeec0d036dfd3f64c09a61d36d6",
+        "45fb432a89d40053f5661bdee84739fc0be37a76fda10367671c0ec273ad2db7",
+        "00d29db7cfa5f3b8e075bcd4b0e7e6e0b4d9886ca4bad6479feb304f0af7f9a9",
+        "4f432003426171623d84bd8f5e023941ab6f917bc9c24a0e2cd41b920869f935"
+      ]
+    },
+    {
+      "query_id": "c4a6b4b2ba131e1e8509",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.34460000321269,
+      "error": null,
+      "retrieved_document_ids": [
+        "21da605eae56c8ed0bbeabff30335cc6e54818c551f550ed4558a6fb78504f01",
+        "f3adce3e2b1c44978da22c54b0ad5aac2c699115b625c7513d9c767311bfaec1",
+        "43bfe0ccb58e576011ecb69de456db89e8a5cdd48e232efccad37f14acfbf8fe",
+        "26511deab42786a586d7b1eb726b62ae11056d572d5b2ce985f86c62154dddb2",
+        "0e513570c83aa4dc040bd1e33583eb4d9d20c7b69e3193c87e30d3cd407bab01"
+      ],
+      "retrieved_chunk_ids": [
+        "dc417510ead56b8a7ad43feba943c8cd551389f14faeb9e67355dccfa7fc5267",
+        "87e4e4c6617a859be4a56106f512552cfb4b9e4c1f1bebda68ff07bbbb3b096f",
+        "e60addac51f50c25002bcf516817527b88fed6a5dfa8570a9eb2d2136cf4462a",
+        "eb3c272e9215d29dc10e8d717c2dd7f12b498b8b805d18837bd79a73a9c83b06",
+        "f1090de67a5c3eab81310d421161d9daa70e77ecfa883bbcd9067b0c3c9dd24e"
+      ]
+    },
+    {
+      "query_id": "faff60ba291fa0148552",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.351799999829382,
+      "error": null,
+      "retrieved_document_ids": [
+        "2fac63c80a4dac775b37d677b4161b6b54056981e258e6226bd9d44cbc95fde0",
+        "073d7c02cf83548504be2f22552324b741ef4d8bb9b0371c67312ee46bb7036f",
+        "4ac1187258c1c9b2dad097563460dea9e3ae968eea1db5b2f6eb794a1a3c6856",
+        "c45ebaa64a98fcdd2fd8f0cfc7f02fda3863456f65e843fa268ca869bd076dfe",
+        "d9338f1be7a2ffd16a39bb0dd0aee245019e891db8f9a59accea83b67e23bb89"
+      ],
+      "retrieved_chunk_ids": [
+        "8f46474e8151e79778e214b935cd22e3c670a330c43ccc55baa11bc2e73c1ba2",
+        "8e004c7627a611640f73d5cba112626eb5aa777884fa6e93fc95e23087f8aff8",
+        "ac85214741c19d079f2284b78a6811439a1cf98235e9c6b7850a1fba96a811b6",
+        "ae40a666e7192513709fa0c45200c46b503f3226eff3e995c59c8571cc08a1da",
+        "472b26179cf2cfabd3732ee691d77172e3ac1dff2624c443bd97bd27d12a66f8"
+      ]
+    },
+    {
+      "query_id": "a7608c142fa7da5a8160",
+      "category": "credit_debit_notes",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.451499987742864,
+      "error": null,
+      "retrieved_document_ids": [
+        "ab7fc9e3ce00baa21bd2b7e677528e95c39c94f017e7b46d1961a41abfcd157d",
+        "e996bfc95ff6099959c56958f73b3f8e522c0fde8f61868bc93a0a2e10ec95ff",
+        "a050042b08c090478e64dd350677aa483d796dc40bc72d6188ed09253cb46c0a",
+        "81196a1c2f6cc4c2bbd67da6d12617dec2bfee9089e2674340d11d455900ff38",
+        "6129ff27e26e98c6aea0c48aa907db39e8bb9d146ef5550593087da8be2cbb48"
+      ],
+      "retrieved_chunk_ids": [
+        "d5b0e9495bc8180f28408052b8b29e6a0d8678042a6b5c0893d043924b729381",
+        "b66314a5901f0a0eaa626f11e1bcebd6b47eaea750d84e06b7c1144309b5cda2",
+        "dfdd9f39c8eda7d2d5584a66666850b6ace9f9d09580d7a41ede6f3e8153a9b0",
+        "930fc68215cd39b32c50883f5e81ece771e37bf693293b572ca699c7658c300e",
+        "e70ada9d599a782402cd528ebbf4d170acf00ea41294972b6eb1643e5309aedd"
+      ]
+    },
+    {
+      "query_id": "d71bcd37704e0765665d",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.364999998477288,
+      "error": null,
+      "retrieved_document_ids": [
+        "cce32bdbc09f00ea0448f7c32b45c1f257893f5bb0ba3b2a7ceb142e0e671681",
+        "63d6d514093ab55cd2a3423f61e51d801d8fa855a76a38b1fef891e7d4073e9f",
+        "0c063aa233ab141cb0a11654274d259b70aff4fca354e7c97ed4468bd64f6654",
+        "d7622f44c95686e0d917e04abd3de1f0c60608c79df6163115e6ca07a3280de5",
+        "a5beacdcdee712e98023665b4c91da32423b3092b090dbfba85a546e85fdd197"
+      ],
+      "retrieved_chunk_ids": [
+        "ce3b564c420eff930ab0e2930bbd5025dcde442f1f3538aa46610caec13a8e0b",
+        "eade037fa3916a7e335298ea005496f9a49a042e4b008b584a0f8481169bf652",
+        "91fbfe2c2b3868f649a6a8a335c7bb647bd006090ad49101c05404c19fd4d752",
+        "5c792e11c7b04b0c8f49658eb4c7d9f056ccf0e2730804875b310c8c47ca3d8e",
+        "a7f406a71d499f0c05e295dc877f609e7ad971bd1170fc67a8e2e82426fab834"
+      ]
+    },
+    {
+      "query_id": "87da3e22e2bb07b02fe7",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.116099994978867,
+      "error": null,
+      "retrieved_document_ids": [
+        "0e513570c83aa4dc040bd1e33583eb4d9d20c7b69e3193c87e30d3cd407bab01",
+        "f3adce3e2b1c44978da22c54b0ad5aac2c699115b625c7513d9c767311bfaec1",
+        "43bfe0ccb58e576011ecb69de456db89e8a5cdd48e232efccad37f14acfbf8fe",
+        "26511deab42786a586d7b1eb726b62ae11056d572d5b2ce985f86c62154dddb2",
+        "2fd0b265348b180eccb69212cc95612219c9e533e6047c90114be40a4716db53"
+      ],
+      "retrieved_chunk_ids": [
+        "f1090de67a5c3eab81310d421161d9daa70e77ecfa883bbcd9067b0c3c9dd24e",
+        "87e4e4c6617a859be4a56106f512552cfb4b9e4c1f1bebda68ff07bbbb3b096f",
+        "e60addac51f50c25002bcf516817527b88fed6a5dfa8570a9eb2d2136cf4462a",
+        "eb3c272e9215d29dc10e8d717c2dd7f12b498b8b805d18837bd79a73a9c83b06",
+        "c0cf7cda29936d0d2f912e3c50017c70fd6184bb8f2e4ab5aee893482032da63"
+      ]
+    },
+    {
+      "query_id": "e809a1f0cceb0aa669f9",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 13.815400001476519,
+      "error": null,
+      "retrieved_document_ids": [
+        "ec7f0cb4d89aa37b3f7d1005f96b4fe533679b723309e7f27b1a1684f9fa2ac7",
+        "073d7c02cf83548504be2f22552324b741ef4d8bb9b0371c67312ee46bb7036f",
+        "4ac1187258c1c9b2dad097563460dea9e3ae968eea1db5b2f6eb794a1a3c6856",
+        "2fac63c80a4dac775b37d677b4161b6b54056981e258e6226bd9d44cbc95fde0",
+        "c45ebaa64a98fcdd2fd8f0cfc7f02fda3863456f65e843fa268ca869bd076dfe"
+      ],
+      "retrieved_chunk_ids": [
+        "6b34c295c10794f30652c7ceebba9ef90c1fc21cd9cc920f3669945c324705de",
+        "8e004c7627a611640f73d5cba112626eb5aa777884fa6e93fc95e23087f8aff8",
+        "ac85214741c19d079f2284b78a6811439a1cf98235e9c6b7850a1fba96a811b6",
+        "8f46474e8151e79778e214b935cd22e3c670a330c43ccc55baa11bc2e73c1ba2",
+        "ae40a666e7192513709fa0c45200c46b503f3226eff3e995c59c8571cc08a1da"
+      ]
+    },
+    {
+      "query_id": "ebaa64e58edfa7ecad9b",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 13.424399992800318,
+      "error": null,
+      "retrieved_document_ids": [
+        "72fc074b79a27d7b5213619dc11efd7cb025572721a3fe94590f8b28e8bc5d4d",
+        "96a90c8b3fb321b17ca987c7cb851555a0c46d0bf34cbff4013f231d91900173",
+        "740df9a14777e5b8651c215f707c309bee0356a52f2b3876d6bf0c3f1c744988",
+        "af3ea402b2acdc35ec01f52020cc09e5b81035ca52e496d136bcb8dae16f5ef4",
+        "81196a1c2f6cc4c2bbd67da6d12617dec2bfee9089e2674340d11d455900ff38"
+      ],
+      "retrieved_chunk_ids": [
+        "b1ddf209eee0893d0e12f25a3a2aca61af4757523c23e131909d4575ef3cfe47",
+        "9a83539b663c0d13da790051062216706c9fcf60ebd0991af2424d661b8f7a75",
+        "3f35e186261f0f625b302a941a37912b765e0806cba8fa2a4995a3ee82111759",
+        "6faec386e6e5255d943db6a20003e1cf33e38bdade902dcbc914623d263120a6",
+        "930fc68215cd39b32c50883f5e81ece771e37bf693293b572ca699c7658c300e"
+      ]
+    },
+    {
+      "query_id": "5d0597c5d29b1018e13b",
+      "category": "credit_debit_notes",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.998500005574897,
+      "error": null,
+      "retrieved_document_ids": [
+        "d9c113b3b20a70c41f21ab3edd49ec096763781bf14f832d819c073f95b0443c",
+        "96a90c8b3fb321b17ca987c7cb851555a0c46d0bf34cbff4013f231d91900173",
+        "740df9a14777e5b8651c215f707c309bee0356a52f2b3876d6bf0c3f1c744988",
+        "af3ea402b2acdc35ec01f52020cc09e5b81035ca52e496d136bcb8dae16f5ef4",
+        "81196a1c2f6cc4c2bbd67da6d12617dec2bfee9089e2674340d11d455900ff38"
+      ],
+      "retrieved_chunk_ids": [
+        "74255363ceb149e2a6aa863b5f734b634d83680fc37dc1ff3b1664a4307af821",
+        "9a83539b663c0d13da790051062216706c9fcf60ebd0991af2424d661b8f7a75",
+        "3f35e186261f0f625b302a941a37912b765e0806cba8fa2a4995a3ee82111759",
+        "6faec386e6e5255d943db6a20003e1cf33e38bdade902dcbc914623d263120a6",
+        "930fc68215cd39b32c50883f5e81ece771e37bf693293b572ca699c7658c300e"
+      ]
+    },
+    {
+      "query_id": "970170bef29b63c0d86f",
+      "category": "gst_returns",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.41789999383036,
+      "error": null,
+      "retrieved_document_ids": [
+        "4e0cef3aafb9f23ce56a7814c621b8cac15dacd44332d563addcde8bd8be5114",
+        "4e0cef3aafb9f23ce56a7814c621b8cac15dacd44332d563addcde8bd8be5114",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "9b97b54ddf513d2f9df65ba120ca7daeb2c7d4dd6df358d8b2244d71d47b4081",
+        "c2ff7efb1d5201b671bf7d1f89a07cd230dd24a2026f769f4c8f48ea627f5f02",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "e6acb1015c04fd75a9c6",
+      "category": "gst_returns",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.774700004025362,
+      "error": null,
+      "retrieved_document_ids": [
+        "da3acbb90dcdcb1e98ae325500042f60b6cdc2929c722464f4fac85500011df4",
+        "da3acbb90dcdcb1e98ae325500042f60b6cdc2929c722464f4fac85500011df4",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "560fbffad6b36a7eaeda9dd253de5ebfff1a8f005d056df21f39647bf01d367c",
+        "36c33d415a8321b3ef7c76716be9e3e3d64a571a2ff38523fd35047513ba4eab",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "58f4004e76c4b4854ee3",
+      "category": "gst_returns",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.303000002750196,
+      "error": null,
+      "retrieved_document_ids": [
+        "01c4140e4a6f5a528e1eae06ab35cf2298e5b529bbd66ccfecc871e3887a73a8",
+        "01c4140e4a6f5a528e1eae06ab35cf2298e5b529bbd66ccfecc871e3887a73a8",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "cb665dccb9fd82e36659d1d9e3c7ae43ee1a0e529593addfd01184bb60b8eabf",
+        "a035a175549813091bfbb1442fc52b3d7f8007c64c5769e99111768a8ffb3503",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "197a185a9ca41954f0dd",
+      "category": "gst_returns",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.034999999334104,
+      "error": null,
+      "retrieved_document_ids": [
+        "a47f1ab72bfb0bd92fa4b74349a78cac34dcebe5c53e088bd055c1efa5ee07e8",
+        "a47f1ab72bfb0bd92fa4b74349a78cac34dcebe5c53e088bd055c1efa5ee07e8",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "5018387ffce49eedcb979f1fa1ae296dc827839ecee871dfb6f2890b539cc210",
+        "ea71f983aabd63279943be6804ae3cd0a62dfad1b2546066847b3f3c130e46d0",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "9bc9536ad5af60ba1c17",
+      "category": "gst_returns",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.62900000740774,
+      "error": null,
+      "retrieved_document_ids": [
+        "ac437b69a344300871778cceac863a7d139cefd92adeb29a3b0f7b6361fb01e5",
+        "ac437b69a344300871778cceac863a7d139cefd92adeb29a3b0f7b6361fb01e5",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "73c21bdac937a7416185cdfa4547706df92c09ef8588a321325dcfa2f74edfd3",
+        "bb162975d62a1641a4118c6703c2d04075ec1fc020e4d333a008a1596c1b92e5",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "affdef216cdc17484cbb",
+      "category": "gst_returns",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.301600002800114,
+      "error": null,
+      "retrieved_document_ids": [
+        "c844ce956ff72a56ac2d01413031f9678c5a4a37fcd232f290503bca1bcb4793",
+        "c844ce956ff72a56ac2d01413031f9678c5a4a37fcd232f290503bca1bcb4793",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "a614021fe8766b851e500476c1bcd9262ed41d15de0b7af37b2ae373b8b39439",
+        "92f16a13ac0f8853292b053f28b2c9c9004c560a882cae2f238ac53f30ac8193",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "45d36a3f929bd84938f5",
+      "category": "gst_returns",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.992999999667518,
+      "error": null,
+      "retrieved_document_ids": [
+        "a6146d7416c402e22fc800105c01b381f1aa05453d61fb0aa929ce19002f16d8",
+        "a6146d7416c402e22fc800105c01b381f1aa05453d61fb0aa929ce19002f16d8",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "e54d3406d506396226bb403a62d8ccb0516d39f47f8dad6ec5739d3692f1436b",
+        "333eca8e0ce91be2ad7f4697062bf083474f8f7e7ac5bc84d283712c84906801",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "7f5abb018489a6766813",
+      "category": "gst_returns",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.936799993738532,
+      "error": null,
+      "retrieved_document_ids": [
+        "dbc1c2b7e34b29e403904ba11c1c10a3cab0cbe8bc3e7dd1687a902ca10e2047",
+        "dbc1c2b7e34b29e403904ba11c1c10a3cab0cbe8bc3e7dd1687a902ca10e2047",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "c63d3e7d81b5e6209a3270e0d7aa13e221eabffbcc19a0c7b525399973ad013a",
+        "dc91190abcf782f0bbade0fddf30eedf7c8b94f5f78ecec31a1eb79e531a4d84",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "09c074f29d52aa520c4c",
+      "category": "gst_returns",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.65120000182651,
+      "error": null,
+      "retrieved_document_ids": [
+        "e860d4240e9ba0ca6600214b6b81f5b2227ec6735f5fba43b6bd2ae8b680b46a",
+        "e860d4240e9ba0ca6600214b6b81f5b2227ec6735f5fba43b6bd2ae8b680b46a",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "cec8fb29368c0b28af2e6ae47808ad74d9d14580576db20351ee591976de727a",
+        "e0c05110f0238bcdc59d9469c4edee23f1ef97341aa3abace57edbdc8cc4acd1",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "b00ac094622042bf2abc",
+      "category": "gst_returns",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.94819999707397,
+      "error": null,
+      "retrieved_document_ids": [
+        "e79963706de83df8ba39a1d7959b09208351fef4500b169fdd6b3d13853f2518",
+        "e79963706de83df8ba39a1d7959b09208351fef4500b169fdd6b3d13853f2518",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "854e70bff39eb338a6d2e6ba91e09d523c301999ec98229ed6299d380f63f90a",
+        "c7f509a94e12de804aba3922a28402705b37525c0824ddce1025e79c2453c05e",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "fa6741a3562c1f8580f1",
+      "category": "gst_returns",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.176700005307794,
+      "error": null,
+      "retrieved_document_ids": [
+        "3986365b5247023ed64ab6b7b6dfb340dfe8e910ec89b824edb63ee1415f14cd",
+        "3986365b5247023ed64ab6b7b6dfb340dfe8e910ec89b824edb63ee1415f14cd",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "023ef238e3423b7a621c5d333c027278bd1a1d50b882ec57c1a5226b916d3d51",
+        "bba677b5d3b4afb8ddddf417b6860c55021151456daef9c90512d831f4cb8cf0",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "39eaeba5fbe349a2d514",
+      "category": "gst_returns",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.51629999326542,
+      "error": null,
+      "retrieved_document_ids": [
+        "1b8f8464a8e1dba080ce6dda5e8e27cb77492f7e1ccf87c2836e2d9634068e92",
+        "1b8f8464a8e1dba080ce6dda5e8e27cb77492f7e1ccf87c2836e2d9634068e92",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d"
+      ],
+      "retrieved_chunk_ids": [
+        "7b93b6fb7f79898c57474d36ea0667f453cb87ce0e80a952a82985fa8b1a5732",
+        "0dd55d820fe520861995176e50effa798dc5df1c753933a1b7cab4c571570e82",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10"
+      ]
+    },
+    {
+      "query_id": "fbf699d9330e48a7a5bd",
+      "category": "invoices",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.086599999340251,
+      "error": null,
+      "retrieved_document_ids": [
+        "35e3d086099825212366718ef1f4643117111bd88fbe8281fd11442d47b4fc7b",
+        "f2fc839988dcc8a1f52a6ebf80e50842900532914f40636b094a346f8a138ccb",
+        "2d3537b4be5d01719f03098eaaf3667ff2b4eb2a0e4dd5da78031d141a24e447",
+        "26f851926335f67a3b2b4e03a287c48a94163a8aa37df44885fb20ae8bcdd271",
+        "dcb5ad1de611c84be679173d9895dfb0225c77b243908efe572b0cd9efff1af3"
+      ],
+      "retrieved_chunk_ids": [
+        "0cd17872b6c6d4cfe0347d90b41fe69379d88a248ffa4915236f9e5a894792af",
+        "ba5d26832c0f34927177e50cea0245d7011d96208e4199fd453e11b47c95a311",
+        "18f2435b5158e7a61bbb33af39c417f4bf4e0717be6663eb1a5c58f25d55a76f",
+        "87b3c65a8e050f145f15cc314faee8c5e196281afb2072561dd17676ce7301aa",
+        "bd24b0d72a781480cd4280e5eb1961e67037eca4c0d863d98256ba5711e1c3e2"
+      ]
+    },
+    {
+      "query_id": "ddb97e95781b33191327",
+      "category": "invoices",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 14.055399995413609,
+      "error": null,
+      "retrieved_document_ids": [
+        "802e72d1823e05c5cf45362e7a3792539b2053b6274c8732266710bc78bc1641",
+        "f2fc839988dcc8a1f52a6ebf80e50842900532914f40636b094a346f8a138ccb",
+        "2d3537b4be5d01719f03098eaaf3667ff2b4eb2a0e4dd5da78031d141a24e447",
+        "26f851926335f67a3b2b4e03a287c48a94163a8aa37df44885fb20ae8bcdd271",
+        "d1aa2be9e389f9816a89e631f20fa814d21aa4be7dc48f41a0a2cdef5c55ad1b"
+      ],
+      "retrieved_chunk_ids": [
+        "55ef038d4e993d46132d71819869aa7bd6a410e982cb5e86b82980e8c8891f2b",
+        "ba5d26832c0f34927177e50cea0245d7011d96208e4199fd453e11b47c95a311",
+        "18f2435b5158e7a61bbb33af39c417f4bf4e0717be6663eb1a5c58f25d55a76f",
+        "87b3c65a8e050f145f15cc314faee8c5e196281afb2072561dd17676ce7301aa",
+        "95de1b87f342bb3a0841690c28f552de6338deb7d239ba3b9f74d6a9568ceef2"
+      ]
+    },
+    {
+      "query_id": "d572f15db4fde5a41bc4",
+      "category": "invoices",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 13.718599991989322,
+      "error": null,
+      "retrieved_document_ids": [
+        "f29a59ee9746e4a1e3fc30c87123667324009b0bed540e72db3616e4640fdc40",
+        "f2fc839988dcc8a1f52a6ebf80e50842900532914f40636b094a346f8a138ccb",
+        "2d3537b4be5d01719f03098eaaf3667ff2b4eb2a0e4dd5da78031d141a24e447",
+        "26f851926335f67a3b2b4e03a287c48a94163a8aa37df44885fb20ae8bcdd271",
+        "d1aa2be9e389f9816a89e631f20fa814d21aa4be7dc48f41a0a2cdef5c55ad1b"
+      ],
+      "retrieved_chunk_ids": [
+        "efffeeb9cf5c16f02aec1cbd7234bab53fc7affa8ddc52b25cb9e89df34f8a9d",
+        "ba5d26832c0f34927177e50cea0245d7011d96208e4199fd453e11b47c95a311",
+        "18f2435b5158e7a61bbb33af39c417f4bf4e0717be6663eb1a5c58f25d55a76f",
+        "87b3c65a8e050f145f15cc314faee8c5e196281afb2072561dd17676ce7301aa",
+        "95de1b87f342bb3a0841690c28f552de6338deb7d239ba3b9f74d6a9568ceef2"
+      ]
+    },
+    {
+      "query_id": "a2ab649747899af70ef7",
+      "category": "invoices",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.204299997189082,
+      "error": null,
+      "retrieved_document_ids": [
+        "27b0138748f850aac095530635481fd5464773ac8e696dc0c0906b2525675158",
+        "f2fc839988dcc8a1f52a6ebf80e50842900532914f40636b094a346f8a138ccb",
+        "2d3537b4be5d01719f03098eaaf3667ff2b4eb2a0e4dd5da78031d141a24e447",
+        "26f851926335f67a3b2b4e03a287c48a94163a8aa37df44885fb20ae8bcdd271",
+        "d1aa2be9e389f9816a89e631f20fa814d21aa4be7dc48f41a0a2cdef5c55ad1b"
+      ],
+      "retrieved_chunk_ids": [
+        "dbbf96ff11e05153642d356e5ebef47543d477d2b8362da3c4dbb9d6c35ed033",
+        "ba5d26832c0f34927177e50cea0245d7011d96208e4199fd453e11b47c95a311",
+        "18f2435b5158e7a61bbb33af39c417f4bf4e0717be6663eb1a5c58f25d55a76f",
+        "87b3c65a8e050f145f15cc314faee8c5e196281afb2072561dd17676ce7301aa",
+        "95de1b87f342bb3a0841690c28f552de6338deb7d239ba3b9f74d6a9568ceef2"
+      ]
+    },
+    {
+      "query_id": "6aa70bd7beb68b53af84",
+      "category": "invoices",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.83419999142643,
+      "error": null,
+      "retrieved_document_ids": [
+        "9b911e4ebf42e400dcb625ed802c0ed4990d3a31fa1320ef1b7c5e8adc246c37",
+        "d4d4edc150351eacfccd5142c8f2b7b40de9d6ed8fb1bfe9b23c9fb4e027c5ad",
+        "74602684b7fb8b42e69d5147538e05398d26e8bd8ea0733605a9ec5948525275",
+        "fb78a56e987551e26a05e9674933aeb70792af5c6cadd550c20211af93850d56",
+        "667df4ba7443456a227345ddfa817d50389e2385f23a5d93014460a8809119cb"
+      ],
+      "retrieved_chunk_ids": [
+        "82be3a91e33323aaafde5ebabf9ab19ef890f097b3826c5aa2bd5b39d2f4f4e8",
+        "984bc7685a0521ca7c574604d699c9ddcbc4094ce067ce169ed82dd44d0a0948",
+        "e0fde747ad43fb8219df977351e049683ebe64d094c35f0a8434a8c67fa52310",
+        "abbfe6aa102916bddd11674d09752d093fa298c486bb5b1b12cc2e4a381cd118",
+        "06e2ec794ef32fed4447e56e009a691f45d360a9703c549e65f3bc658f1e2eb1"
+      ]
+    },
+    {
+      "query_id": "4abae9dfe23c456f2b26",
+      "category": "invoices",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.023099996033125,
+      "error": null,
+      "retrieved_document_ids": [
+        "e9fefb8613ca6c61a64c5b991cd7600d0f4f96066c6cb9bc0af1d5bd94f30e6d",
+        "d4d4edc150351eacfccd5142c8f2b7b40de9d6ed8fb1bfe9b23c9fb4e027c5ad",
+        "74602684b7fb8b42e69d5147538e05398d26e8bd8ea0733605a9ec5948525275",
+        "fb78a56e987551e26a05e9674933aeb70792af5c6cadd550c20211af93850d56",
+        "667df4ba7443456a227345ddfa817d50389e2385f23a5d93014460a8809119cb"
+      ],
+      "retrieved_chunk_ids": [
+        "31861985d2c565dbf1be83b7511b0e7593776951f5418db1993ccf6f73ba0577",
+        "984bc7685a0521ca7c574604d699c9ddcbc4094ce067ce169ed82dd44d0a0948",
+        "e0fde747ad43fb8219df977351e049683ebe64d094c35f0a8434a8c67fa52310",
+        "abbfe6aa102916bddd11674d09752d093fa298c486bb5b1b12cc2e4a381cd118",
+        "06e2ec794ef32fed4447e56e009a691f45d360a9703c549e65f3bc658f1e2eb1"
+      ]
+    },
+    {
+      "query_id": "472531ebbcf40f653d0d",
+      "category": "invoices",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.123000003863126,
+      "error": null,
+      "retrieved_document_ids": [
+        "0558a2a6446cd9bf5d227891d27fe415329a04f8dde07a423cb1d747d37612a2",
+        "48298bb83de3981e180276172365d1a636d2da06e937fdcb8e9363cb3d4de792",
+        "f2fc839988dcc8a1f52a6ebf80e50842900532914f40636b094a346f8a138ccb",
+        "2d3537b4be5d01719f03098eaaf3667ff2b4eb2a0e4dd5da78031d141a24e447",
+        "26f851926335f67a3b2b4e03a287c48a94163a8aa37df44885fb20ae8bcdd271"
+      ],
+      "retrieved_chunk_ids": [
+        "2090960a1dbd0ed7342d5ab31acae0eea1655fe477ba19b7688c9663a1c6a155",
+        "e5462e185e32db3db8c54c653d30e8e3407c9b839723b6309232be877ce95c18",
+        "ba5d26832c0f34927177e50cea0245d7011d96208e4199fd453e11b47c95a311",
+        "18f2435b5158e7a61bbb33af39c417f4bf4e0717be6663eb1a5c58f25d55a76f",
+        "87b3c65a8e050f145f15cc314faee8c5e196281afb2072561dd17676ce7301aa"
+      ]
+    },
+    {
+      "query_id": "fdd8c1a60afd449c7e6b",
+      "category": "invoices",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.194899994530715,
+      "error": null,
+      "retrieved_document_ids": [
+        "004f6d8d63a208712f7afc58f63b5ce54b4a2652302aaa076ebd28d718efa8e1",
+        "a4d53bb41ecbaa70cd91b184adab6f97ba0554bd643037e26981acfa494d14f5",
+        "a4d53bb41ecbaa70cd91b184adab6f97ba0554bd643037e26981acfa494d14f5",
+        "053931a3a35b64eae9a7e75d4cf3cb019d9e7cd9826c436233a004ca106e455d",
+        "ede680192443af9084876a19071f7274fac7c0b19535f6b8cabf6e4666ce2728"
+      ],
+      "retrieved_chunk_ids": [
+        "a417ed54ab107477497dba076ead9b3739286ad482d3ba43be14facf488664b5",
+        "4d282f53718fca7f4d81aaee1ebde4d9e59b3b20f4433e53307023f739592a8f",
+        "016ee05bcb8f9c80a5712a9813c4ecf36798b8f98ad14d42e712e0ec23e4e87f",
+        "14f86adc0ee02916022f9a5b3c9e6f862a84e337a442e73f5f15f1be40db6e3e",
+        "b0c1762a9790afa99e699156e7b2c92bc3e8c1f8ec138ea8c34e093f6ee7b56a"
+      ]
+    },
+    {
+      "query_id": "4bc1a6f5384fbe0462c5",
+      "category": "invoices",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.263299991493113,
+      "error": null,
+      "retrieved_document_ids": [
+        "a090f0d51ba2223dde0257234bf05a49715cc54cb2d76dacd51c9bfaa93dda8f",
+        "053931a3a35b64eae9a7e75d4cf3cb019d9e7cd9826c436233a004ca106e455d",
+        "ede680192443af9084876a19071f7274fac7c0b19535f6b8cabf6e4666ce2728",
+        "02c434369e3c2fb4711d9f4ff9a8ccb103e18309a5026675ec6d9ddebe747ed6",
+        "e4ead3719de52e29693334b1c6f9221bd2aafb0b2ea03dd98955526bd7a9d59d"
+      ],
+      "retrieved_chunk_ids": [
+        "8eabe28428fe5261ce1ef9a71eab40751eeefbf98706c63825e3727af57b2ab4",
+        "14f86adc0ee02916022f9a5b3c9e6f862a84e337a442e73f5f15f1be40db6e3e",
+        "b0c1762a9790afa99e699156e7b2c92bc3e8c1f8ec138ea8c34e093f6ee7b56a",
+        "3f5c7a61ebdff09b8c201eb05015796422aae4a92cb43660353daaa5270a6992",
+        "e48ab14ba7fcfe0a47aa0b8edb72f89ae870fca917f28eae510ef94267aabe08"
+      ]
+    },
+    {
+      "query_id": "d11404c07f37b98796e3",
+      "category": "invoices",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.54669999575708,
+      "error": null,
+      "retrieved_document_ids": [
+        "c0fbe681aa499b5aa734d0d3331b0ee9f83ea02837fcf870a8acccad05b50fe9",
+        "d4d4edc150351eacfccd5142c8f2b7b40de9d6ed8fb1bfe9b23c9fb4e027c5ad",
+        "74602684b7fb8b42e69d5147538e05398d26e8bd8ea0733605a9ec5948525275",
+        "fb78a56e987551e26a05e9674933aeb70792af5c6cadd550c20211af93850d56",
+        "667df4ba7443456a227345ddfa817d50389e2385f23a5d93014460a8809119cb"
+      ],
+      "retrieved_chunk_ids": [
+        "3688c91668c87af8444787e03df4b97bbf952066287a8581aa93615f0d7c0304",
+        "984bc7685a0521ca7c574604d699c9ddcbc4094ce067ce169ed82dd44d0a0948",
+        "e0fde747ad43fb8219df977351e049683ebe64d094c35f0a8434a8c67fa52310",
+        "abbfe6aa102916bddd11674d09752d093fa298c486bb5b1b12cc2e4a381cd118",
+        "06e2ec794ef32fed4447e56e009a691f45d360a9703c549e65f3bc658f1e2eb1"
+      ]
+    },
+    {
+      "query_id": "6270b340771acf92a057",
+      "category": "invoices",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.150699996505864,
+      "error": null,
+      "retrieved_document_ids": [
+        "f2d25f508e1caa9be5e335390dfadb3a64d0e79fa46b8c0729a585fef41c170c",
+        "d4d4edc150351eacfccd5142c8f2b7b40de9d6ed8fb1bfe9b23c9fb4e027c5ad",
+        "74602684b7fb8b42e69d5147538e05398d26e8bd8ea0733605a9ec5948525275",
+        "fb78a56e987551e26a05e9674933aeb70792af5c6cadd550c20211af93850d56",
+        "667df4ba7443456a227345ddfa817d50389e2385f23a5d93014460a8809119cb"
+      ],
+      "retrieved_chunk_ids": [
+        "91238545c6c97d570d26f4efff3a9f419ff7892ba0ca69b188e53e2e4ec123d6",
+        "984bc7685a0521ca7c574604d699c9ddcbc4094ce067ce169ed82dd44d0a0948",
+        "e0fde747ad43fb8219df977351e049683ebe64d094c35f0a8434a8c67fa52310",
+        "abbfe6aa102916bddd11674d09752d093fa298c486bb5b1b12cc2e4a381cd118",
+        "06e2ec794ef32fed4447e56e009a691f45d360a9703c549e65f3bc658f1e2eb1"
+      ]
+    },
+    {
+      "query_id": "ad68bea554633ec98f58",
+      "category": "purchase_orders",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.676000005332753,
+      "error": null,
+      "retrieved_document_ids": [
+        "32347f9c8198ab129b0a01a0411cad3752b8867330e0191fb01983b4d72f8ea1",
+        "7371cfad47b3c3c15f586f630498ec77462fdba62832c15f4577353d3a42edac",
+        "9cf821b47d4acbc68c9a623c7916113377a29b82385617ad975d2c066ef90f5f",
+        "54b42cec01e5541068e74e6be68001257db02e69d89c9f347c3489bdb9187a78",
+        "453d6ae37f6adc7bb06b39d49b6ce4cf7d01428bdae944fbed5c73ccd32e4fce"
+      ],
+      "retrieved_chunk_ids": [
+        "90c8842e32dfc2ed71f7a7155ff71b2f76478980f9abcc7efedee540961cf60e",
+        "7be98d157d05ac0b31e7af994e832da9d241c5457251740938e98462ce5a6b1d",
+        "6e50b32398ccd66cf59b42d4203ae7485e5a695e11b9dafa64b55b6b2b9def11",
+        "8cc920a784850e0b2e027548f45b8e6013e67dd24be2eb05f3988cd44a3fd2e8",
+        "2684e9385331da98a50e31339a1c7e58aa8abbb74ccbf49a69cf9ca8cdb3a78e"
+      ]
+    },
+    {
+      "query_id": "83f8b922d340ddf2b5fe",
+      "category": "purchase_orders",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.637100004008971,
+      "error": null,
+      "retrieved_document_ids": [
+        "61948a4381d8275a0e670b6a7faaecb6a6d23665840824665cbf979c43184155",
+        "7371cfad47b3c3c15f586f630498ec77462fdba62832c15f4577353d3a42edac",
+        "9cf821b47d4acbc68c9a623c7916113377a29b82385617ad975d2c066ef90f5f",
+        "54b42cec01e5541068e74e6be68001257db02e69d89c9f347c3489bdb9187a78",
+        "453d6ae37f6adc7bb06b39d49b6ce4cf7d01428bdae944fbed5c73ccd32e4fce"
+      ],
+      "retrieved_chunk_ids": [
+        "5e68a942254e93b1dc4b838e564b7d360d6e7f4f9742a462748ab7793569b67c",
+        "7be98d157d05ac0b31e7af994e832da9d241c5457251740938e98462ce5a6b1d",
+        "6e50b32398ccd66cf59b42d4203ae7485e5a695e11b9dafa64b55b6b2b9def11",
+        "8cc920a784850e0b2e027548f45b8e6013e67dd24be2eb05f3988cd44a3fd2e8",
+        "2684e9385331da98a50e31339a1c7e58aa8abbb74ccbf49a69cf9ca8cdb3a78e"
+      ]
+    },
+    {
+      "query_id": "2680c396257c7ea0dd88",
+      "category": "purchase_orders",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.82539999333676,
+      "error": null,
+      "retrieved_document_ids": [
+        "7835fdb65c6ff28e217768660376128a2d70c5f8e632921a0922f1587b376c8c",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d",
+        "ad3c98b099d93f42ab47eeccfe94833fbd0003ebc5e215667bb5812892690f00",
+        "c2575b2ed75d4e10b53ff0c6f30136e2bba83869029df58953b865329a4e2a82"
+      ],
+      "retrieved_chunk_ids": [
+        "dfc98608b283b27ea55ad5dffa1af9aa575f52b92191d069ce2563bcb6f08adb",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10",
+        "1e93e146a1ee3f5524786321a7b66803bfa59f2a3ce6fa22d8d431004a3ad92f",
+        "25a07a09ff7598cc257bfee48a7cec7e7c8c442185103049d7e901a63c51da28"
+      ]
+    },
+    {
+      "query_id": "0a4e4358e45f3a830eb7",
+      "category": "purchase_orders",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.856600008788519,
+      "error": null,
+      "retrieved_document_ids": [
+        "ea04106f986191842124aefe30001be4f67beed22dbae29d82c7a79fb329fb32",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "9f6209466aadcbd676ef3409943e10c1a2e86fc8a5df094acd6567ac74197d56",
+        "bd5b7a7c68409c0348ae3ca49660b70e2bf41046a63a65d8b1cc1a7338e788d7",
+        "93e4695ca1bf7fa052edbf2c76b77810755a1bd02c1cfce48eaefccaef80a226"
+      ],
+      "retrieved_chunk_ids": [
+        "1967a2840e55383683e89bfcb0192d6b6aa2af611acad6f39680fa4f10acb831",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "b6dcdbbd023dc04f574773184d08a6b8b0fc8d51c5b6ca2fbafc9810429fc413",
+        "24f7cb59557eba55bff0ac514f467227ae4d1f66b20d720c711218c1a940cb9b",
+        "84614c31266856960f2b2c4176031911748d1fac8515267b7292805d36e935ea"
+      ]
+    },
+    {
+      "query_id": "e501914c81efbc3c3f74",
+      "category": "purchase_orders",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.505099999136291,
+      "error": null,
+      "retrieved_document_ids": [
+        "93be4055d3c96278f90c4e5097f6b6909d0e1b6c12b9fb6f1013acd2722d78ef",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "bd5b7a7c68409c0348ae3ca49660b70e2bf41046a63a65d8b1cc1a7338e788d7",
+        "93e4695ca1bf7fa052edbf2c76b77810755a1bd02c1cfce48eaefccaef80a226",
+        "01262287b3b09dc0d4b2d5a5a7f54ec9198b736390a779b786cf0b2173bb2c48"
+      ],
+      "retrieved_chunk_ids": [
+        "91d37199b77f2d0a90b0a518fee3589b2fc7b3254de681f824c9df705bee093f",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "24f7cb59557eba55bff0ac514f467227ae4d1f66b20d720c711218c1a940cb9b",
+        "84614c31266856960f2b2c4176031911748d1fac8515267b7292805d36e935ea",
+        "d2f58e7d71820160f472f105ecbebc47f9faeead14ee53ae6bab038d3b6256ea"
+      ]
+    },
+    {
+      "query_id": "cffa62d59cf5dd80d59f",
+      "category": "purchase_orders",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.724300005473197,
+      "error": null,
+      "retrieved_document_ids": [
+        "3729410bdd458bb725501e8543f72a13e8748586a80b766a3161255127db025e",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "bd5b7a7c68409c0348ae3ca49660b70e2bf41046a63a65d8b1cc1a7338e788d7",
+        "93e4695ca1bf7fa052edbf2c76b77810755a1bd02c1cfce48eaefccaef80a226",
+        "01262287b3b09dc0d4b2d5a5a7f54ec9198b736390a779b786cf0b2173bb2c48"
+      ],
+      "retrieved_chunk_ids": [
+        "3d9d36cb9417998b34064f1176dd946ef39629228fd6a291e4e99a8f6aa555a9",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "24f7cb59557eba55bff0ac514f467227ae4d1f66b20d720c711218c1a940cb9b",
+        "84614c31266856960f2b2c4176031911748d1fac8515267b7292805d36e935ea",
+        "d2f58e7d71820160f472f105ecbebc47f9faeead14ee53ae6bab038d3b6256ea"
+      ]
+    },
+    {
+      "query_id": "78a475d9f4cdb873df5e",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.564099997282028,
+      "error": null,
+      "retrieved_document_ids": [
+        "7371cfad47b3c3c15f586f630498ec77462fdba62832c15f4577353d3a42edac",
+        "2ee1781c8c72e7178a2573ea2a1a008b8c66cdcb782a831301d3bfa487156953",
+        "9cf821b47d4acbc68c9a623c7916113377a29b82385617ad975d2c066ef90f5f",
+        "54b42cec01e5541068e74e6be68001257db02e69d89c9f347c3489bdb9187a78",
+        "453d6ae37f6adc7bb06b39d49b6ce4cf7d01428bdae944fbed5c73ccd32e4fce"
+      ],
+      "retrieved_chunk_ids": [
+        "7be98d157d05ac0b31e7af994e832da9d241c5457251740938e98462ce5a6b1d",
+        "29d6f1dcbe3115b1f6a3506fa70b15432bbd19f63865e9fd1b613ce1579ffffd",
+        "6e50b32398ccd66cf59b42d4203ae7485e5a695e11b9dafa64b55b6b2b9def11",
+        "8cc920a784850e0b2e027548f45b8e6013e67dd24be2eb05f3988cd44a3fd2e8",
+        "2684e9385331da98a50e31339a1c7e58aa8abbb74ccbf49a69cf9ca8cdb3a78e"
+      ]
+    },
+    {
+      "query_id": "703bd236fe4bf97527d5",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.71119999687653,
+      "error": null,
+      "retrieved_document_ids": [
+        "e0584a92fec5a2325f246bf8442cf870e8897e5722ce4a5e37732421b36abb56",
+        "ef65f013e915226af3853cbf228a8ab867a647c0e4e6179e9921f3a382d7a01f",
+        "98f32f08bdcf1d6f953b265f3efad91a00a1fc9a3639499fbaff5d9b6c40b37d",
+        "ad3c98b099d93f42ab47eeccfe94833fbd0003ebc5e215667bb5812892690f00",
+        "c2575b2ed75d4e10b53ff0c6f30136e2bba83869029df58953b865329a4e2a82"
+      ],
+      "retrieved_chunk_ids": [
+        "7b989af9edb69ba777b916560851b027baf5b518930c848c028eb5e70427e7f5",
+        "e32b8e70d83d112b6a80af2505e449530f8d60b0eb1b94405b0fe0dbed52ff8e",
+        "a5403ad40159b04e331772a871506c07ad50c6629b7a5347cd17ae21914a1c10",
+        "1e93e146a1ee3f5524786321a7b66803bfa59f2a3ce6fa22d8d431004a3ad92f",
+        "25a07a09ff7598cc257bfee48a7cec7e7c8c442185103049d7e901a63c51da28"
+      ]
+    },
+    {
+      "query_id": "5048ef7389c08469978c",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.016100004781038,
+      "error": null,
+      "retrieved_document_ids": [
+        "e44117f060799e9a765940d3cc566a89782f1a9d232c4b6674e292f7674b0eae",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "bd5b7a7c68409c0348ae3ca49660b70e2bf41046a63a65d8b1cc1a7338e788d7",
+        "93e4695ca1bf7fa052edbf2c76b77810755a1bd02c1cfce48eaefccaef80a226",
+        "01262287b3b09dc0d4b2d5a5a7f54ec9198b736390a779b786cf0b2173bb2c48"
+      ],
+      "retrieved_chunk_ids": [
+        "6be13b31fbbea8ac7c6622535d4920549a551c73c83617a633021bf04e868b4c",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "24f7cb59557eba55bff0ac514f467227ae4d1f66b20d720c711218c1a940cb9b",
+        "84614c31266856960f2b2c4176031911748d1fac8515267b7292805d36e935ea",
+        "d2f58e7d71820160f472f105ecbebc47f9faeead14ee53ae6bab038d3b6256ea"
+      ]
+    },
+    {
+      "query_id": "eb04146f4e9e63054868",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 9.66609999886714,
+      "error": null,
+      "retrieved_document_ids": [
+        "ff32bfc558173df104e4ff0b5819a7bbe495ddf6c7dc10df8907aca65e2ba5b8",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "bd5b7a7c68409c0348ae3ca49660b70e2bf41046a63a65d8b1cc1a7338e788d7",
+        "93e4695ca1bf7fa052edbf2c76b77810755a1bd02c1cfce48eaefccaef80a226",
+        "01262287b3b09dc0d4b2d5a5a7f54ec9198b736390a779b786cf0b2173bb2c48"
+      ],
+      "retrieved_chunk_ids": [
+        "a046456e7fc0a40b937ee123971f11cf2d15c07e53d9833b9516d41dd323e37f",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "24f7cb59557eba55bff0ac514f467227ae4d1f66b20d720c711218c1a940cb9b",
+        "84614c31266856960f2b2c4176031911748d1fac8515267b7292805d36e935ea",
+        "d2f58e7d71820160f472f105ecbebc47f9faeead14ee53ae6bab038d3b6256ea"
+      ]
+    },
+    {
+      "query_id": "a0d4c3a8b5004b562243",
+      "category": "purchase_orders",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.242300006211735,
+      "error": null,
+      "retrieved_document_ids": [
+        "e64662591e8d452900e557cf660cae8f2eac992b40197bcc3d6796b040cefde2",
+        "2e12d1f54f45d4af2040122b13cda9aa7c9eb54dfd87c3e6c663e69e2df3f99b",
+        "bd5b7a7c68409c0348ae3ca49660b70e2bf41046a63a65d8b1cc1a7338e788d7",
+        "93e4695ca1bf7fa052edbf2c76b77810755a1bd02c1cfce48eaefccaef80a226",
+        "01262287b3b09dc0d4b2d5a5a7f54ec9198b736390a779b786cf0b2173bb2c48"
+      ],
+      "retrieved_chunk_ids": [
+        "5fe74d74f8406ce960ee5f904399a6c146eb2ecd212b2c9f6a989a8be3b4d62b",
+        "ba698d43e896cc8f707a4afbc127e14c7793555cb17fd228b57fd2395e6e34d5",
+        "24f7cb59557eba55bff0ac514f467227ae4d1f66b20d720c711218c1a940cb9b",
+        "84614c31266856960f2b2c4176031911748d1fac8515267b7292805d36e935ea",
+        "d2f58e7d71820160f472f105ecbebc47f9faeead14ee53ae6bab038d3b6256ea"
+      ]
+    },
+    {
+      "query_id": "00f5441dc621b95c29cf",
+      "category": "salary_slips",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.663499997463077,
+      "error": null,
+      "retrieved_document_ids": [
+        "b07d53f8f4157c45295708c5c57508d66519dacefb4ff09e9abbb23842cf2196",
+        "d5268cf7eaaf04b3c7fb5aadc46dd8f5bc2f18d054dd61f6b1b22c405f0b4024",
+        "f907ffc4464db30c4ea6eb1ad74fa331487ad79f08c996f9c883305617c8fa84",
+        "4ae3e4b8bf64acbde51fcc1adc64319cd32b92b834afc4c18b2d12178651dedc",
+        "7b214e6e9f863a839a7250c082b681f7a4b9bdfcfb4de848d4809894f365871a"
+      ],
+      "retrieved_chunk_ids": [
+        "62495191704e4435b5a105474e906893355f1fd895a0163c3a488734fcf39525",
+        "f1f2fb5cbac275cb3db8a719f46923c90e939d3e6a17477fdcac3fe2a730e091",
+        "97ced597525666d8daab90894a48d5973448a7751438aef9598a9650e727ce3d",
+        "eff37fb42561d1fde9d679b2d59377fb6c9c3a4523715fd6761333295127af7a",
+        "bd43d904cfa0b44c8a5e3cbfcfb80bae18bb464134f18652e748d97fc182dd4f"
+      ]
+    },
+    {
+      "query_id": "451f434393df131a4c9c",
+      "category": "salary_slips",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.428899990278296,
+      "error": null,
+      "retrieved_document_ids": [
+        "e70f372a7cce07179679bd97e114ae62b8256d0ff7235697375a8c872aac4d54",
+        "9958fde1b9e26f89b8531dda299f2e2d1ec697137ff8b6e41c979f0d6ffd0941",
+        "ea344e82ec92d49182f3ebcc9966ed50babaa0f6d28010cb48808fa5e141e4e7",
+        "c790c3bed6f6c8439cbfc014344e3136ea3e4c833f43811cbb8e7ba0f5b5b3b8",
+        "5c5c9429292021fdef0f01e0e5fe47b4c011ef542b6a9d3e5f64e85a6b88df88"
+      ],
+      "retrieved_chunk_ids": [
+        "99654dc5280dc5d15a9d62234b5a1aea8dc1816d9ddf68b0291a363a576b0643",
+        "da48c0274b4a17af4489095ad97a8e6f78c10822db16b30ddc20604525d970f9",
+        "fb3fd9511858cfbb08be8f64566d97a136fcd4cc230eb9aea5ae3ab92932c2d9",
+        "bd720bacbb17d21e58a502e46e26e6f1c9f264faa5fb01ba8cda56bb9c8cb8fb",
+        "1aaa66c5f612a65359eb6c97dccf96b6086d530ffa0e40caa42a0f8eec038f65"
+      ]
+    },
+    {
+      "query_id": "df316a380b1f85a8de45",
+      "category": "salary_slips",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.3333333333333333,
+        "ndcg": 0.5,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.948499999358319,
+      "error": null,
+      "retrieved_document_ids": [
+        "e77322193282f9083d78f89f039da7e31c95871ddedd119f5ffc0c9b7920db84",
+        "19ad566dcd2c4c5ed757782c3d9d5d15b5de9ce449bf478f43b8c8323a14122d",
+        "57982e7a90334d517f01f7913d65370204379cb2b51c4de6ec8ea6818347d0e9",
+        "a69430d9b5622476af9864cacc5a775dead151b9d8b39c0fe994bd7f90ec6749",
+        "2db76e4976bf73d3b24ba84e2163c58793c30239b027290100775f907dfc11c7"
+      ],
+      "retrieved_chunk_ids": [
+        "2b273c74066cc584f9d0a74a18c954b7cca974e8212cdc77c78b522fd0d7c003",
+        "a9ccffa09c1203fc20c27931f27c04ad2e092eb053af98940df3959bdc24d9b1",
+        "95da5ecf979e894d2030bdc96e08a321923c087121e43c7f86344c95794d6727",
+        "626e2de9057d4f8cf8bb9dd52d5b0a77b5dcf0497e589c697aca0788fd4146cd",
+        "0286deb9ba78c62e775e775972743328b3340b963bb948a916ddfdc45d24304f"
+      ]
+    },
+    {
+      "query_id": "cbde867e03682b451942",
+      "category": "salary_slips",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.708699992392212,
+      "error": null,
+      "retrieved_document_ids": [
+        "2676cdb8b756ba72afabedea174a9c2b8637aef67a64a7afd23028c52e093fcb",
+        "ea344e82ec92d49182f3ebcc9966ed50babaa0f6d28010cb48808fa5e141e4e7",
+        "83d10ce3d423eacc8aa3457c83136659a23bb757e81be38f1be735c4db7a9203",
+        "d2bb66c94ce9979b9ccdb87f757e4cf6234ed1e43ecba0be2152f7b821957d74",
+        "c790c3bed6f6c8439cbfc014344e3136ea3e4c833f43811cbb8e7ba0f5b5b3b8"
+      ],
+      "retrieved_chunk_ids": [
+        "1c6c530bbea9f73d3123aef3a0e957677a41e671bde0be08d0341b7aa7f0c9f5",
+        "fb3fd9511858cfbb08be8f64566d97a136fcd4cc230eb9aea5ae3ab92932c2d9",
+        "9903a6479636554ecd5a109a8701c95743af47dc1792c73a04871077c0b252ea",
+        "0a6ba35038d2a0078bc3da238378ddce96cdb31be5d3d0e2eb61ecdcb891e275",
+        "bd720bacbb17d21e58a502e46e26e6f1c9f264faa5fb01ba8cda56bb9c8cb8fb"
+      ]
+    },
+    {
+      "query_id": "64e5a5197a3beef7a9dc",
+      "category": "salary_slips",
+      "partition": "development",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.184000002685934,
+      "error": null,
+      "retrieved_document_ids": [
+        "a9a323151de5dcc9a5fb88516e0718e7825e882229a7225550c00f837110bf8a",
+        "9d24c8e440fd05ee6bcc0e0a31dc82d9b1c7fc215264c58a2479b9a21f4a98a9",
+        "59ef0c3a02d3c51de5889481f2460916657e5e56cc3b58457f18b5dea98fc986",
+        "9a0aa08fd5df5d7941b4775a3678bcbc6571fe21f8ed434d0e30ffbbcc5892eb",
+        "31d31612538a1d61aa1bccbe7387305e11a5aa5ce6e8ed0c9662290fa16bc887"
+      ],
+      "retrieved_chunk_ids": [
+        "fbef810c1d7b8a29f8ae4dd2ecf72d26bcb3c6be2c2ac9cc7fc8b93223eec9f2",
+        "ddfed45037935aa67d55021184a4d1d2219ad6e1c6f5ac75577223f8a7bf4bb8",
+        "b5f74d51446f5df2932efa99f8ae6219e29cc20447baa22aa72f30bc90a5a028",
+        "15eb133edb92ed394db752099924a51ee62bec60305ed37f062f60fe7c593d5a",
+        "22c941f9a6fbe8d8832a46bf17c4cd19c33f19e3efdd2492ffd4ddb5670ed140"
+      ]
+    },
+    {
+      "query_id": "06728c4e5c83ed7bdb0d",
+      "category": "salary_slips",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.652199998730794,
+      "error": null,
+      "retrieved_document_ids": [
+        "6b2a03cbbd9001bbcc9ab51d8917d45b0d90aee0a202d9eba90a499f3dc18d08",
+        "4fd6b3dddd2ee47f384b1f8c45905f71a3d4de34a4e7f855b892421f3f7b4cd5",
+        "61838de0aaaea2b2bbfb0b2efac9a97bf67f3ef3a2ad5ef6189718191d2dd69a",
+        "bc85499f2d53eaa205000d275146d78cfca2ec1ebc82c0eb91db48579ccbfa16",
+        "2acf1490dbc946d5239223c28e8e0b7e55209101ddd406bba0480f580a745f75"
+      ],
+      "retrieved_chunk_ids": [
+        "a16e072973bba51a6fb3336e0946574d2216b32861795f2ca345324ea3ec045f",
+        "139ec3e179c64b34d7f96a1912a67bf4614f320636c78fa0f0be725475157d8e",
+        "4a514b99f58db24c9752abc3c46552ad232fcdf2c5688af2308005eb584bc14b",
+        "33232ff0cabf621b5eebfbffb6b589a539cd5eeba2719c90bef4e4c76e6c56c3",
+        "66d83813abdef6fb7122a89d8b2234dddc079977f724705fb01479f4af5e892d"
+      ]
+    },
+    {
+      "query_id": "b4c944ae35ef2f39642b",
+      "category": "salary_slips",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309297535714575,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 11.048700005630963,
+      "error": null,
+      "retrieved_document_ids": [
+        "9e72853a926a77ff47537624e1309883060e129554a0b451c91cd53d9dbd9013",
+        "f26bb49da63ef22555576b353b489c290a9fe5811a46f235cce3cb458d7de43d",
+        "be47a528ebdf0d30fb423c0b95c80a28a0b42c7442d3abea231313e485af6e20",
+        "463a152833de25b6ac50c55b4d3e358b891d278648c7bc22ce2af410eb2eb4b2",
+        "7761e235a7c1ea328eae5b93e6a1037e533582613fb53affbd4656b777eb836a"
+      ],
+      "retrieved_chunk_ids": [
+        "fa79514f78274c643ae22da121041aa81cae4f3420c3f17c3d09af8ad91161a0",
+        "a2dc9b3d8088bba32c1944dbb00b720301872c8d83a9c58c8bafbf06ed147b49",
+        "e49551e5626d15e690949b8c3836e3fe6dee917a306f22272774eacc15f96016",
+        "5fc9cb9ea99392babc6c409dd1c561c37dae9e2a6230280992e321b4cc83e60d",
+        "bec44653f40463d86f7064bd36d176200a4a91d4efbb150c854b699d6801f893"
+      ]
+    },
+    {
+      "query_id": "f4ffa6fab8f89f19b588",
+      "category": "salary_slips",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.3333333333333333,
+        "ndcg": 0.5,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 13.055499992333353,
+      "error": null,
+      "retrieved_document_ids": [
+        "ffcb244fd8c77d8903d213d6417de972bfdc9bd6d0723ab850388accf8ee73e8",
+        "f673b55497ed1d25409356293e0d70bd42ab9b936cabcb495c70159ac230cf87",
+        "8879a294bf4fa059f98b0ec164b920556ec6ef778d99ed24d7325492935232f3",
+        "54a60cb41988f236064423a7104851cc7a0d4b1b275def7045eefaf1ea87f5a4",
+        "4a02001d4a25326687cda65f980aeb60befef920e071bf72fd6e9a64ef1ec11e"
+      ],
+      "retrieved_chunk_ids": [
+        "3ccc3789ea1ca0e605c07d763c77e91f71aa0bf1f8905424cd4bf533472e72db",
+        "23d304b73e1f47fcebbda6ead1c30b28accfb4f62ec8937a0b8f51a2712ab7de",
+        "c2752d1c4820752c4efcf63e3a562bf4aca19727b4f70e97d4ca42bd7fe707df",
+        "d92a3dcd01f38d7e4859f76f2d4946907886e480ea52310d2fff6c63cd0e1997",
+        "a07888ca5bda6617b31ea5e5612a9c67dc65f83414ffd99ca3df77956a6da0ca"
+      ]
+    },
+    {
+      "query_id": "f0b3f6832ccf249cab69",
+      "category": "salary_slips",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 0.5,
+        "ndcg": 0.6309297535714575,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 12.756099997204728,
+      "error": null,
+      "retrieved_document_ids": [
+        "b30f746e42640146b207e454e3c76f8700f0f52c9bcf69e0175aaa87a5173d2c",
+        "daddda7d257dc9fa78e7a25bcd7601373ba93aceefcf278528a367c66931b328",
+        "b0c5022fc34dd1b79339905031c6be772c61a2829b284d1d8ea6bdfa2c31415d",
+        "07956d22d6763953f768cf1da0bdcf31b787bcb22af4e1421670d6bf686e355c",
+        "c9d92a5cc6f3d3f14340bbaf7f49ddd3b61a11aab40daf55565f977c8d9a2a61"
+      ],
+      "retrieved_chunk_ids": [
+        "c4854b0cac11e68d43e044be7a8de54f51eb5af76726144f623e396a30043eb4",
+        "b0572914e259971a3318f0c724e28375175b7e9c4feca7206a29a3deef5091b2",
+        "dc800600746a1a2b97d34497b062079bc6698d8888394fd2567475aff118b2bb",
+        "1c721da7f684757b8d269a68c71d9de4dbdcd67c0b31e407f3791060d7483b92",
+        "b1478822b46c6114c464a680d1ab6628620471c400d29df389f18d5aef640dc3"
+      ]
+    },
+    {
+      "query_id": "1546bf2316f17c2a29ed",
+      "category": "salary_slips",
+      "partition": "regression",
+      "review_status": "draft",
+      "metrics": {
+        "recall": 1.0,
+        "mrr": 1.0,
+        "ndcg": 1.0,
+        "evidence_recall": 1.0
+      },
+      "latency_ms": 10.950399999273941,
+      "error": null,
+      "retrieved_document_ids": [
+        "fa723beffbc3fd63618be42be385fdc00a39c3df71feef4b728531b5d83faed6",
+        "a3de40b74c7d65253a1e8be5d024775e41a117705ddb0444f4badbe3c277cdf2",
+        "4f2bf2e15d846f0678da6edae6be569c429510b5acbdf895ecef3b44928ccee4",
+        "58e431d8e38b42d96607f8156a405ac1dec6295c08a0127f9a599d703b6afe40",
+        "19380bc274025f313b1e9a9bb44ac3120729e73d391e2a4ec93a7c97636506aa"
+      ],
+      "retrieved_chunk_ids": [
+        "6883e5915b2619aee4aafb41bcde3e63f4d4248872191597be435a758c7668cb",
+        "c615d41fba22d53a44ab315dbeb516a16f79ca004843cd42511d96ace7bbdc91",
+        "5385182de200ebd46b3a86a92c56694aeb5cab0a00152c3a1593e10160befc82",
+        "bc913956056fe65eeb6b562aa9f51aece3ffa182b821b33f4317c8af8378fffe",
+        "8ed9790378a5cb7db95e47d13d60ea67083fde37e4ff87260f4c41d09147e42b"
+      ]
+    }
+  ],
+  "resources": {
+    "wall_seconds": 40.49053840000124,
+    "process_cpu_seconds": 39.25,
+    "sampled_peak_rss_bytes": 80666624,
+    "rss_sample_interval_ms": 50,
+    "python_heap_peak_bytes": null,
+    "scope": "this process only; RSS is sampled, GPU peak is not measured",
+    "instrumentation": "periodic RSS sampling",
+    "python_heap_tracing": false
+  }
+}
