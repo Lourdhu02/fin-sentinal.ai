@@ -14,3 +14,8 @@ def test_perfect_retrieval():
     assert retrieval_metrics(["a"], ["a"]) == {"recall": 1, "mrr": 1, "ndcg": 1}
     with pytest.raises(ValueError):
         retrieval_metrics([], [])
+
+
+def test_duplicate_results_consume_rank_slots():
+    assert retrieval_metrics(["a"], ["x", "x", "a"], k=2)["recall"] == 0
+    assert retrieval_metrics(["a"], ["x", "x", "a"], k=3)["mrr"] == pytest.approx(1 / 3)

@@ -10,8 +10,12 @@ def retrieval_metrics(expected, retrieved, k=5):
     if not relevant or k <= 0:
         raise ValueError("Expected evidence and positive k are required")
     # Repeated predictions must never improve a score.
-    ranked = list(dict.fromkeys(retrieved))[:k]
-    hits = [int(key in relevant) for key in ranked]
+    ranked = retrieved[:k]
+    seen = set()
+    hits = []
+    for key in ranked:
+        hits.append(int(key in relevant and key not in seen))
+        seen.add(key)
     recall = sum(hits) / len(relevant)
     reciprocal_rank = next((1 / (i + 1) for i, hit in enumerate(hits) if hit), 0.0)
     dcg = sum(hit / math.log2(i + 2) for i, hit in enumerate(hits))
